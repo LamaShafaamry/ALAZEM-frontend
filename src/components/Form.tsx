@@ -3,57 +3,66 @@ import InputField from "./InputField";
 import SelectField from "./SelectField";
 import DateField from "./DateField";
 import FileField from "./fileField";
+import { baseUrl } from "../config";
+import axios from "axios";
 
 const Form = () => {
   const [value, setValue] = useState({
-    mother: "",
-    father: "",
+    username: "emadsdvsdv",
+    password: "1234!@#$",
+    email: "11@example.com",
+    phone: "1234567890",
+    first_name: "",
+    last_name: "",
+    father_name: "",
+    mother_name: "",
+    date_of_birth: "",
+    place_of_birth: "",
     nationality: "",
-    displayName: "",
-    identyNumber: "",
-    numberPhone: "",
-    address: "",
-    locationType: "",
-    status: "",
-    birthDate: "",
-    familyNote: "",
-    disabilityCard: "",
-    licence: "",
-    housingParticipants: "",
-    healthStatus: "",
-    husbandName: "",
+    nationality_ID: "",
+    family_book_number: "",
+    disability_card_number: "",
+    certificate: "",
+    other_disability: "",
+    cause: "",
+    chronic_illness: "",
+    requirement_of_ongoing_medication: "",
+    requirement_of_special_care: "",
+    history_of_blindness: "",
   });
 
-   const handleFileChange = (e) => {
-    setValue((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.files[0],
-    }));
+  const statusOptions = [
+    { value: "yes", label: "نعم" },
+    { value: "No", label: "لا" },
+  ];
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+    axios
+      .post(`${baseUrl}volunteer/create/`, value)
+      .then((res) => {
+        console.log("first");
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log("first");
+        setIsLoading(false);
+      });
   };
 
-  const locationOptions = [
-    { value: "ownerShip", label: "ملكية" },
-    { value: "rent", label: "اجار" },
-  ];
-  const statusOptions = [
-    { value: "single", label: "عزباء" },
-    { value: "marrid", label: "متزوجة" },
-    { value: "divorced", label: "مطلقة" },
-    { value: "widow", label: "ارملة" },
-  ];
-  const cardOptions = [
-    { value: "yes", label: "لا" },
-    { value: "no", label: "نعم" },
-  ];
   console.log(value);
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-4 gap-4">
           <InputField
             label="الأم"
-            name="mother"
-            value={value.mother}
+            name="mother_name"
+            value={value.mother_name}
             onChange={(e) =>
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
@@ -61,8 +70,8 @@ const Form = () => {
           />
           <InputField
             label="الأب"
-            name="father"
-            value={value.father}
+            name="father_name"
+            value={value.father_name}
             onChange={(e) =>
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
@@ -79,8 +88,17 @@ const Form = () => {
           />
           <InputField
             label="الاسم والشهرة"
-            name="displayName"
-            value={value.displayName}
+            name="first_name"
+            value={value.first_name}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+            }
+            placeholder="ادخل الاسم الكامل"
+          />
+          <InputField
+            label="الاسم والشهرة"
+            name="last_name"
+            value={value.last_name}
             onChange={(e) =>
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
@@ -88,68 +106,17 @@ const Form = () => {
           />
           <InputField
             label="رقم الهوية الوطنية"
-            name="identyNumber"
-            value={value.identyNumber}
+            name="nationality_ID"
+            value={value.nationality_ID}
             onChange={(e) =>
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
             placeholder="ادخل الرقم الوطني"
           />
-          <InputField
-            label="رقم الهاتف"
-            name="numberPhone"
-            value={value.numberPhone}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل رقم الهاتف"
-          />
-          <InputField
-            label="العنوان"
-            name="address"
-            value={value.address}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل العنوان "
-          />
-          <SelectField
-            label="نوع السكن"
-            name="locationType"
-            value={value.locationType}
-            onChange={(e) =>
-              setValue((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-            options={locationOptions}
-          />
-          <InputField
-            label="الحالة الاجتماعية"
-            name="address"
-            value={value.address}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل العنوان "
-          />
-          <SelectField
-            label="الحالة الاجتماعية"
-            name="locationType"
-            value={value.locationType}
-            onChange={(e) =>
-              setValue((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-            options={statusOptions}
-          />
           <DateField
             label="تاريخ الميلاد"
-            name="birthDate"
-            value={value.birthDate}
+            name="date_of_birth"
+            value={value.date_of_birth}
             onChange={(e) =>
               setValue((prev) => ({
                 ...prev,
@@ -159,59 +126,129 @@ const Form = () => {
             placeholder="mm/dd/yy"
           />
           <InputField
-            label="دفتر العائلة"
-            name="familyNote"
-            value={value.familyNote}
+            label="مكان الولادة"
+            name="place_of_birth"
+            value={value.place_of_birth}
             onChange={(e) =>
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
-            placeholder="ادخل رقم دفتر العائلة "
+            placeholder="ادخل الرقم الوطني"
           />
-          <SelectField
-            label="بطاقة الاعاقة"
-            name="locationType"
-            value={value.locationType}
+
+          {/* <InputField
+            label="مكان الولادة"
+            name="place_of_birth"
+            value={value.place_of_birth}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+            }
+            placeholder="ادخل الرقم الوطني"
+          /> */}
+
+          <InputField
+            label="دفتر العائلة"
+            name="family_book_number"
+            value={value.family_book_number}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+            }
+            placeholder="ادخل الرقم الوطني"
+          />
+
+          <InputField
+            label="رقم بطاقة الاعاقة"
+            name="disability_card_number"
+            value={value.disability_card_number}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+            }
+            placeholder="ادخل الرقم الوطني"
+          />
+          <InputField
+            label="الشهادة"
+            name="certificate"
+            value={value.certificate}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+            }
+            placeholder="الشهادة"
+          />
+          <InputField
+            label="اعاقات اخرى"
+            name="other_disability"
+            value={value.other_disability}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+            }
+            placeholder="اعاقات اخرى"
+          />
+
+          <DateField
+            label="تاريح كف البصر"
+            name="history_of_blindness"
+            value={value.history_of_blindness}
             onChange={(e) =>
               setValue((prev) => ({
                 ...prev,
                 [e.target.name]: e.target.value,
               }))
             }
-            options={cardOptions}
+            placeholder="تاريخ كف البصر"
           />
-          <FileField
-            label="الشهادة"
-            name="file"
-            onChange={handleFileChange}
-          />
-            <InputField
-            label="المشاركون في السكن"
-            name="familyNote"
-            value={value.familyNote}
+
+          <InputField
+            label="السبب"
+            name="cause"
+            value={value.cause}
             onChange={(e) =>
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
-            placeholder="ادخل رقم دفتر العائلة "
+            placeholder="السبب"
           />
-            <InputField
-            label="وضعه الصحي"
-            name="healthStatus"
-            value={value.healthStatus}
+
+          <InputField
+            label="امراض مزمنة"
+            name="chronic_illness"
+            value={value.chronic_illness}
             onChange={(e) =>
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
-            placeholder="ادخل الوضع الصحي "
+            placeholder="امراض مزمنة"
           />
-            <InputField
-            label="اسم الزوج"
-            name="husbandName"
-            value={value.husbandName}
+
+          <SelectField
+            label="هل تحتاج الى ادوية مستمرة"
+            name="requirement_of_ongoing_medication"
+            value={value.requirement_of_ongoing_medication}
             onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+              setValue((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
             }
-            placeholder="ادخل سم الزوج "
+            options={statusOptions}
+          />
+
+          <SelectField
+            label="هل تحتاج الى عناية خاصة"
+            name="requirement_of_special_care"
+            value={value.requirement_of_special_care}
+            onChange={(e) =>
+              setValue((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
+            options={statusOptions}
           />
         </div>
+        <button
+          className="px-6 py-3 bg-red-500"
+          type="submit"
+          disabled={isLoading}
+        >
+          {isLoading ? "Loaing..." : "Submit"}
+        </button>
       </form>
     </div>
   );

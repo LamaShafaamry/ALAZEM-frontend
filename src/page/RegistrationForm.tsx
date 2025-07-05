@@ -1,6 +1,8 @@
 import React from "react";
 import Form from "../components/Form";
 const RegistrationForm = () => {
+
+  
   return (
     <div
       style={{ minHeight: "calc(100vh - 64px)" }}
