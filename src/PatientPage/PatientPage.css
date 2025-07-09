@@ -1,0 +1,64 @@
+.patient-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  direction: rtl;
+}
+
+.patient-header {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.patient-tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-weight: bold;
+  color: #555;
+}
+
+.tab-btn.active {
+  border-bottom-color: #28a745;
+  color: #28a745;
+}
+
+.appointments-list {
+  margin-top: 20px;
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.approved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.completed {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.no-appointments {
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+}

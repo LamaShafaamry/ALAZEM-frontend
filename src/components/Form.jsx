@@ -5,10 +5,11 @@ import DateField from "./DateField";
 import FileField from "./fileField";
 import { baseUrl } from "../config";
 import axios from "axios";
+import "/src/components/Form.css"
 
 const Form = () => {
   const [value, setValue] = useState({
-    username: "emadsdvsdv",
+    username: "emadsdvsd",
     password: "1234!@#$",
     email: "11@example.com",
     phone: "1234567890",
@@ -43,7 +44,7 @@ const Form = () => {
 
     setIsLoading(true);
     axios
-      .post(`${baseUrl}volunteer/create/`, value)
+      .post(`${baseUrl}services/patients/create/`, value)
       .then((res) => {
         console.log("first");
         setIsLoading(false);
@@ -56,9 +57,46 @@ const Form = () => {
 
   console.log(value);
   return (
-    <div>
+    <div className="request-wrapper">
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="container-wrapper">
+        <h2 className="display-6">استمارة تسجيل كفيفة</h2>
+        <div className="d-flex gap-4 mt-3">
+        <div className="flex-fill">
+        <InputField
+            label="الاسم "
+            name="first_name"
+            value={value.first_name}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+            }
+            placeholder="ادخل الاسم "
+          />
+          </div>
+          <div className="flex-fill">
+        <InputField
+            label=" الاسم الأخير"
+            name="last_name"
+            value={value.last_name}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+            }
+            placeholder="ادخل الاسم الأخير"
+          />
+          </div>
+          <div className="flex-fill">
+       <InputField
+            label="الأب"
+            name="father_name"
+            value={value.father_name}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+            }
+            placeholder="ادخل اسم الأب"
+          />
+          </div>
+          <div className="flex-fill">
+
           <InputField
             label="الأم"
             name="mother_name"
@@ -68,51 +106,11 @@ const Form = () => {
             }
             placeholder="ادخل اسم الأم"
           />
-          <InputField
-            label="الأب"
-            name="father_name"
-            value={value.father_name}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل اسم الأب"
-          />
-          <InputField
-            label="الجنسية"
-            name="nationality"
-            value={value.nationality}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل الجنسية"
-          />
-          <InputField
-            label="الاسم والشهرة"
-            name="first_name"
-            value={value.first_name}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل الاسم الكامل"
-          />
-          <InputField
-            label="الاسم والشهرة"
-            name="last_name"
-            value={value.last_name}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل الاسم الكامل"
-          />
-          <InputField
-            label="رقم الهوية الوطنية"
-            name="nationality_ID"
-            value={value.nationality_ID}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل الرقم الوطني"
-          />
+          </div>
+
+          </div>
+          <div className="d-flex gap-4 mt-3">
+          <div className="flex-fill">
           <DateField
             label="تاريخ الميلاد"
             name="date_of_birth"
@@ -125,6 +123,8 @@ const Form = () => {
             }
             placeholder="mm/dd/yy"
           />
+          </div>
+          <div className="flex-fill">
           <InputField
             label="مكان الولادة"
             name="place_of_birth"
@@ -132,19 +132,33 @@ const Form = () => {
             onChange={(e) =>
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
-            placeholder="ادخل الرقم الوطني"
+            placeholder="ادخل مكان الولادة "
+          /></div>
+          <div className="flex-fill">
+          <InputField
+            label="الجنسية"
+            name="nationality"
+            value={value.nationality}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+            }
+            placeholder="ادخل الجنسية"
           />
+          </div>
+          <div className="flex-fill">
 
-          {/* <InputField
-            label="مكان الولادة"
-            name="place_of_birth"
-            value={value.place_of_birth}
+          <InputField
+            label="رقم الهوية الوطنية"
+            name="nationality_ID"
+            value={value.nationality_ID}
             onChange={(e) =>
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
             placeholder="ادخل الرقم الوطني"
-          /> */}
-
+          /></div>
+          </div>
+          <div className="d-flex gap-4 mt-3">
+          <div className="flex-fill">
           <InputField
             label="دفتر العائلة"
             name="family_book_number"
@@ -152,8 +166,9 @@ const Form = () => {
             onChange={(e) =>
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
-            placeholder="ادخل الرقم الوطني"
-          />
+            placeholder="ادخل رقم دفتر العائلة "
+          /></div>
+          <div className="flex-fill">
 
           <InputField
             label="رقم بطاقة الاعاقة"
@@ -162,8 +177,9 @@ const Form = () => {
             onChange={(e) =>
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
-            placeholder="ادخل الرقم الوطني"
-          />
+            placeholder="ادخل رقم البطاقة "
+          /></div>
+          <div className="flex-fill">
           <InputField
             label="الشهادة"
             name="certificate"
@@ -172,7 +188,8 @@ const Form = () => {
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
             placeholder="الشهادة"
-          />
+          /></div>
+          <div className="flex-fill">
           <InputField
             label="اعاقات اخرى"
             name="other_disability"
@@ -181,21 +198,10 @@ const Form = () => {
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
             placeholder="اعاقات اخرى"
-          />
-
-          <DateField
-            label="تاريح كف البصر"
-            name="history_of_blindness"
-            value={value.history_of_blindness}
-            onChange={(e) =>
-              setValue((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-            placeholder="تاريخ كف البصر"
-          />
-
+          /></div>
+          </div>
+          <div className="d-flex gap-4 mt-3">
+          <div className="flex-fill">
           <InputField
             label="السبب"
             name="cause"
@@ -204,7 +210,8 @@ const Form = () => {
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
             placeholder="السبب"
-          />
+          /></div>
+          <div className="flex-fill">
 
           <InputField
             label="امراض مزمنة"
@@ -214,7 +221,8 @@ const Form = () => {
               setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             }
             placeholder="امراض مزمنة"
-          />
+          /></div>
+          <div className="flex-fill">
 
           <SelectField
             label="هل تحتاج الى ادوية مستمرة"
@@ -227,7 +235,8 @@ const Form = () => {
               }))
             }
             options={statusOptions}
-          />
+          /></div>
+          <div className="flex-fill">
 
           <SelectField
             label="هل تحتاج الى عناية خاصة"
@@ -240,10 +249,27 @@ const Form = () => {
               }))
             }
             options={statusOptions}
-          />
+          /></div>
+          </div>
+          <div className="d-flex gap-4 mt-3">
+          <div className="flex-fill">
+           <DateField
+            label="تاريح كف البصر"
+            name="history_of_blindness"
+            value={value.history_of_blindness}
+            onChange={(e) =>
+              setValue((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
+            placeholder="تاريخ كف البصر"
+          /></div>
+          </div>
+
         </div>
         <button
-          className="px-6 py-3 bg-red-500"
+          className="btn request-submit-btn w-100 mt-4"
           type="submit"
           disabled={isLoading}
         >
@@ -251,6 +277,7 @@ const Form = () => {
         </button>
       </form>
     </div>
+  
   );
 };
 

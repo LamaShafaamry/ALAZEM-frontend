@@ -1,17 +1,404 @@
-@import "tailwindcss";
+/* أنماط أساسية محسنة */
+:root {
+  --primary: #ffd28e;
+  --secondary: #ffd28e;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --text-dark: #2c3e50;
+  --text-light: #ffffff;
+  --overlay: rgba(255, 255, 255, 0.85);
+}
 
-body,
-html {
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
   min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* توسيط أفقي */
+  color: var(--text-dark);
+  text-align: center; /* توسيط النص */
+}
+.App {
+ 
+  width: 98vw;
+  text-align: center;
+  direction: rtl;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  padding: 100px 0;
 }
 
-* {
-  box-sizing: border-box;
+.blk-design {
+  background-color: rgb(255, 242, 200);
+  color: white;
 }
 
-.shadow-top {
-  /* box-shadow: 0 -4px 10px rgba(255, 193, 7, 0.4);  */
-  box-shadow: 0px -5px 0px 0px #fbcc94;
-  -webkit-box-shadow: 0px -5px 0px 0px #fbcc94;
-  -moz-box-shadow: 0px -5px 0px 0px #fbcc94;
+.background-squares {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.square {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 10px;
+}
+
+.square-1 {
+  width: 300px;
+  height: 300px;
+  top: -150px;
+  right: -150px;
+  background: rgba(230, 192, 70, 0.2);
+}
+
+.square-2 {
+  width: 200px;
+  height: 200px;
+  bottom: 100px;
+  left: 100px;
+  background: rgba(230, 192, 70, 0.2);
+}
+
+.square-3 {
+  width: 150px;
+  height: 150px;
+  top: 30%;
+  left: 20%;
+  background: rgba(230, 192, 70, 0.2);
+}
+
+.square-4 {
+  width: 250px;
+  height: 250px;
+  bottom: -100px;
+  right: 30%;
+  background: rgba(230, 192, 70, 0.2);
+}
+
+.square-5 {
+  width: 180px;
+  height: 180px;
+  top: 50%;
+  right: 10%;
+  background: rgba(230, 192, 70, 0.2);
+}
+
+.main-content {
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 1.5rem;
+  opacity: 0.8;
+  margin-bottom: 40px;
+}
+
+.buttons { 
+  margin-top: 30px;
+}
+
+.btn-round {
+  border-radius: 30px !important;
+  padding: 12px 30px;
+  font-weight: 600;
+  margin: 0 5px;
+}
+/* تحسينات للخلفية */
+.home-background {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-background::before {
+  content: "";
+  
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0.15;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+/* تحسين الهيرو section */
+.hero-container {
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  width: 100%;
+}
+
+.hero-text {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  color:rgb(0, 0, 0);
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.hero-text p.lead {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+}
+
+/* تحسين الأزرار */
+.buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.login-btn, .send-request-btn {
+  font-size: 1.1rem;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-btn {
+  background: var(--primary);
+  color: rgba(0, 0, 0);
+}
+
+.send-request-btn {
+  background: var(--secondary);
+  color:rgba(0, 0, 0);
+}
+
+.login-btn:hover, .send-request-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* تحسين أقسام الأهداف والخدمات */
+.goals-container, .services-container {
+  padding: 4rem 2rem;
+  background: transparent;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.568);
+  margin: 2rem auto;
+  max-width: 1200px;
+  width: 90%;
+  text-align: center;
+}
+
+.goal-header h2 {
+  font-size: 2.2rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.goal-header p.lead {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+}
+
+.goals-content, .services-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.goal-item, .service-item {
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.9); /* بدلاً من white */
+  backdrop-filter: blur(5px); 
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  border-top: 4px solid var(--primary);
+  text-align: center;
+  margin: 0 auto;
+  position: relative;
+}
+
+.goal-item:hover, .service-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.goal-icon, .service-icon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1.5rem;
+  object-fit: contain;
+}
+
+/* قسم التبرعات */
+.donations-container {
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, var(--primary), #ffffff);
+  color: var(--text-light);
+  border-radius: 15px;
+  margin: 2rem auto;
+  max-width: 1200px;
+  width: 90%;
+  text-align: center;
+}
+
+.donations-container h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.donations-container p.lead {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.donation-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.donation-buttons-btn {
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  background: white;
+  color: var(--primary);
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.donation-buttons-btn:hover {
+  background: var(--secondary);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* تحسينات للـ Navbar */
+.navbar {
+  background: linear-gradient(135deg, white, #ffffff) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+  width: 100%;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-light) !important;
+  margin: 0 auto;
+}
+
+.navbar-nav {
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.navbar-nav .nav-link {
+  font-size: 1.1rem;
+  color:black !important;
+  transition: all 0.3s ease;
+  margin: 0 0.5rem;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--secondary) !important;
+}
+
+
+/* تأثيرات الحركة */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.goal-item, .service-item {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* جعل الموقع متجاوبًا */
+@media (max-width: 768px) {
+  .hero-text h1 {
+    font-size: 2.2rem;
+  }
+  
+  .hero-text p.lead {
+    font-size: 1.1rem;
+  }
+  
+  .buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .donation-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .goal-item, .service-item {
+    min-width: 100%;
+  }
+  
+  .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .goals-container, .services-container, .donations-container {
+    width: 95%;
+    padding: 2rem 1rem;
+  }
+}
+.home-background::before {
+  z-index: -1; /* التأكد من وجوده في الخلفية */
+}
+
+.hero-container {
+  z-index: 1; /* العناصر الأمامية */
+  
+  background: transparent; /* إزالة الخلفية المكررة */
 }

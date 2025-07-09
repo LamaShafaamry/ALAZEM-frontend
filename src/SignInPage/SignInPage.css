@@ -1,0 +1,87 @@
+/* تنسيقات عامة للصفحة */
+.signin-wrapper2 {
+  max-width: 500px;
+  margin: 80px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  direction: rtl;
+  text-align: right;
+}
+
+/* تنسيق العنوان */
+.signin-wrapper2 h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+/* تنسيق حقول الإدخال */
+.signin-wrapper2 .form-control {
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: all 0.3s;
+}
+
+.signin-wrapper2 .form-control:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+}
+
+/* تنسيق التسميات */
+.signin-wrapper2 .form-label {
+  font-weight: 500;
+  color: #34495e;
+  margin-bottom: 8px;
+}
+
+/* تنسيق زر تسجيل الدخول */
+.signin-wrapper2 .btn2 {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin-top: 10px;
+}
+
+.signin-wrapper2 .btn2:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+/* تنسيق الروابط */
+.signin-wrapper2 a {
+  color: #3498db;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.signin-wrapper2 a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+/* تنسيق الروابط في الأسفل */
+.signin-wrapper2 .mt-3 {
+  text-align: center;
+  margin-top: 20px;
+  color: #7f8c8d;
+}
+
+/* فصل بين الروابط */
+.signin-wrapper2 .mt-3 a:not(:last-child) {
+  margin-left: 15px;
+}
+
+/* خلفية الصفحة */
+body {
+  background-color: #f5f7fa;
+  font-family: 'Tajawal', sans-serif;
+}
