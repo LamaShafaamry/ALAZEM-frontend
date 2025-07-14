@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import InputField from "./InputField";
 import SelectField from "./SelectField";
 import DateField from "./DateField";
-import FileField from "./fileField";
 import { baseUrl } from "../config";
 import axios from "axios";
-import "/src/components/VolunteerRequestPage.css";
+import "./VolunteerRequestPage.css";
 
-const Form = () => {
+const VolunteerForm = () => {
   const [value, setValue] = useState({
     username: "hiba",
     password: "securepassword",
@@ -37,7 +36,6 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setIsLoading(true);
     axios
       .post(`${baseUrl}users/volunteer/create/`, value)
@@ -51,197 +49,185 @@ const Form = () => {
       });
   };
 
-  console.log(value);
   return (
-    <div className="volunteer-request-wrapper">
-      <form onSubmit={handleSubmit}>
-        <div className="container-wrapper">
-        <h2 className="display-6">استمارة طلب تطوع</h2>
-        <div className="d-flex gap-4 mt-3">
-        <div className="flex-fill">
-        <InputField
-            className="form-control"
-            label="الاسم "
-            name="first_name"
-            value={value.first_name}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل الاسم "
-          />
-          </div>
-          <div className="flex-fill">
-        <InputField
-            className="form-control"
-            label=" الاسم الأخير"
-            name="last_name"
-            value={value.last_name}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل الاسم الأخير"
-          />
-          </div>
-          <div className="flex-fill">
-       <InputField
-            className="form-control"
-            label="الأب"
-            name="father_name"
-            value={value.father_name}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل اسم الأب"
-          />
-          </div>
-          <div className="flex-fill">
-
-          <InputField
-          className="form-control"
-            label="الأم"
-            name="mother_name"
-            value={value.mother_name}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل اسم الأم"
-          />
-          </div>
-
-          </div>
-          <div className="d-flex gap-4 mt-3">
-          <div className="flex-fill">
-          <InputField
-          className="form-control"
-            label="تاريخ الميلاد"
-            name="date_of_birth"
-            value={value.date_of_birth}
-            onChange={(e) =>
-              setValue((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-            placeholder="mm/dd/yy"
-          /> 
-          </div>
-          <div className="flex-fill">
-          <InputField
-          className="form-control"
-            label="مكان الولادة"
-            name="place_of_birth"
-            value={value.place_of_birth}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل مكان الولادة "
-          /></div>
-          <div className="flex-fill">
-          <InputField
-          className="form-control"
-            label="الجنسية"
-            name="nationality"
-            value={value.nationality}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل الجنسية"
-          />
-          </div>
-          <div className="flex-fill">
-
-          <InputField
-          className="form-control"
-            label="رقم الهوية الوطنية"
-            name="nationality_ID"
-            value={value.nationality_ID}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل الرقم الوطني"
-          />
-          </div>
-          </div>
-          <div className="d-flex gap-4 mt-3">
-          <div className="flex-fill">
-          <InputField
-          className="form-control"
-            label="تاريخ "
-            name="grand_history"
-            value={value.grand_history}
-            onChange={(e) =>
-              setValue((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-            placeholder="mm/dd/yy"
-          /></div>
-          <div className="flex-fill">
-
-          <InputField
-          className="form-control"
-            label="العنوان  "
-            name="address"
-            value={value.address}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل العنوان  "
-          /></div>
-          <div className="flex-fill">
-          <InputField
-          className="form-control"
-            label="الشهادة"
-            name="certificate"
-            value={value.certificate}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="الشهادة"
-          /></div>
-          <div className="flex-fill">
-          <InputField
-          className="form-control"
-            label=" العمل"
-            name="job"
-            value={value.job}
-            onChange={(e) =>
-              setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-            }
-            placeholder="ادخل عملك "
-          /></div>
-          </div>
-          <div className="d-flex gap-4 mt-3">
-          <div className="flex-fill">
-          <InputField
-          style={{ border: "width: 100%;" }}
-          className="form-control"
-            label="أعمال أخرى  "
-            name="previously_affiliated_associations"
-            value={value.previously_affiliated_associations}
-            onChange={(e) =>
-              setValue((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-            placeholder="هل تعمل لدى جمعية أخرى  "
-          /></div>
-          </div>
-
+    <div className="donation-container">
+      <div className="donation-card">
+        <div className="donation-header">
+          <h1>استمارة طلب تطوع</h1>
+          <p>الرجاء تعبئة جميع الحقول المطلوبة للتسجيل</p>
         </div>
-        <button
-          className="btn request-submit-btn w-100 mt-4"
-          type="submit"
-          disabled={isLoading}
-        >
-          {isLoading ? "Loaing..." : "Submit"}
-        </button>
-      </form>
+
+        <form onSubmit={handleSubmit} className="donation-form">
+          {/* القسم الأول: المعلومات الشخصية */}
+          <div className="form-section">
+            <h2>المعلومات الشخصية</h2>
+            <div className="form-row-4">
+              <InputField
+                label="الاسم الأول"
+                name="first_name"
+                value={value.first_name}
+                onChange={(e) =>
+                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+                }
+                placeholder="ادخل الاسم الأول"
+              />
+              <InputField
+                label="الاسم الأخير"
+                name="last_name"
+                value={value.last_name}
+                onChange={(e) =>
+                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+                }
+                placeholder="ادخل الاسم الأخير"
+              />
+              <InputField
+                label="اسم الأب"
+                name="father_name"
+                value={value.father_name}
+                onChange={(e) =>
+                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+                }
+                placeholder="ادخل اسم الأب"
+              />
+              <InputField
+                label="اسم الأم"
+                name="mother_name"
+                value={value.mother_name}
+                onChange={(e) =>
+                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+                }
+                placeholder="ادخل اسم الأم"
+              />
+            </div>
+          </div>
+
+          {/* القسم الثاني: معلومات الميلاد والجنسية */}
+          <div className="form-section">
+            <h2>معلومات الميلاد والجنسية</h2>
+            <div className="form-row-4">
+              <DateField
+                label="تاريخ الميلاد"
+                name="date_of_birth"
+                value={value.date_of_birth}
+                onChange={(e) =>
+                  setValue((prev) => ({
+                    ...prev,
+                    [e.target.name]: e.target.value,
+                  }))
+                }
+                placeholder="mm/dd/yy"
+              />
+              <InputField
+                label="مكان الولادة"
+                name="place_of_birth"
+                value={value.place_of_birth}
+                onChange={(e) =>
+                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+                }
+                placeholder="ادخل مكان الولادة"
+              />
+              <InputField
+                label="الجنسية"
+                name="nationality"
+                value={value.nationality}
+                onChange={(e) =>
+                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+                }
+                placeholder="ادخل الجنسية"
+              />
+              <InputField
+                label="رقم الهوية الوطنية"
+                name="nationality_ID"
+                value={value.nationality_ID}
+                onChange={(e) =>
+                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+                }
+                placeholder="ادخل الرقم الوطني"
+              />
+            </div>
+          </div>
+
+          {/* القسم الثالث: المعلومات الوثائقية */}
+          <div className="form-section">
+            <h2>المعلومات الوثائقية</h2>
+            <div className="form-row-4">
+              <DateField
+                label="تاريخ"
+                name="grand_history"
+                value={value.grand_history}
+                onChange={(e) =>
+                  setValue((prev) => ({
+                    ...prev,
+                    [e.target.name]: e.target.value,
+                  }))
+                }
+                placeholder="mm/dd/yy"
+              />
+              <InputField
+                label="العنوان"
+                name="address"
+                value={value.address}
+                onChange={(e) =>
+                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+                }
+                placeholder="ادخل العنوان"
+              />
+              <InputField
+                label="الشهادة"
+                name="certificate"
+                value={value.certificate}
+                onChange={(e) =>
+                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+                }
+                placeholder="الشهادة"
+              />
+              <InputField
+                label="العمل"
+                name="job"
+                value={value.job}
+                onChange={(e) =>
+                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+                }
+                placeholder="ادخل عملك"
+              />
+            </div>
+          </div>
+
+          {/* القسم الرابع: معلومات إضافية */}
+          <div className="form-section">
+            <h2>معلومات إضافية</h2>
+            <div className="form-row">
+              <InputField
+                label="أعمال أخرى"
+                name="previously_affiliated_associations"
+                value={value.previously_affiliated_associations}
+                onChange={(e) =>
+                  setValue((prev) => ({
+                    ...prev,
+                    [e.target.name]: e.target.value,
+                  }))
+                }
+                placeholder="هل تعمل لدى جمعية أخرى"
+              />
+            </div>
+          </div>
+
+          <button
+            className="submit-btn"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? "جاري الإرسال..." : "تسجيل الطلب"}
+          </button>
+        </form>
+
+        <div className="donation-footer">
+          <p>جميع المعلومات المقدمة محمية وسرية وفق سياسة الخصوصية</p>
+          <p>شكراً لرغبتكم في التطوع معنا</p>
+        </div>
+      </div>
     </div>
-  
   );
 };
 
-export default Form;
+export default VolunteerForm;
