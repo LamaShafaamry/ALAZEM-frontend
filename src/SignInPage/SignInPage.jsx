@@ -35,7 +35,7 @@ function SignInPage() {
       return;
     }
 
-    if (username === "mentoruser" && password === "mentorpass") {
+    if (username === "patient" && password === "mentorpass") {
       navigate("/patient-page"); // التوجيه إلى صفحة المريض
       return;
     }

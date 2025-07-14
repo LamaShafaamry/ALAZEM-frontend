@@ -132,7 +132,7 @@ body {
 
 .home-background::before {
   content: "";
-  
+
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -178,11 +178,18 @@ body {
 }
 
 /* تحسين الأزرار */
-.buttons {
-  display: flex;
-  gap: 20px;
+.buttons2 {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+  gap: 6px;
 }
 
 .login-btn, .send-request-btn {

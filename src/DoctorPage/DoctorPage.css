@@ -1,69 +1,501 @@
-.doctor-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    direction: rtl;
-  }
+/* أنماط أساسية */
+:root {
+  --primary: #ffd28e;
+  --primary-light: #ffeacb;
+  --secondary: #ffd28e;
+  --danger: #e74c3c;
+  --warning: #f39c12;
+  --info: #ffeacb;
+  --light: #f8f9fa;
+  --dark: #000000;
+  --gray: #95a5a6;
+  --white: #ffffff;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  background-color: #f5f7fa;
+  direction: rtl;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* Navbar محسن */
+.doctor-navbar {
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  height: 70px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand i {
+  margin-left: 10px;
+  font-size: 1.6rem;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-user img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-light);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 600;
+  color:black;
+  margin-bottom: 3px;
+}
+
+.user-role {
+  font-size: 0.8rem;
+  color: var(--gray);
+}
+
+/* Header محسن */
+.doctor-header {
+  background: white;
+  color: var(--black);
+  padding: 30px;
+  margin-top: 70px;
+  position: relative;
+  overflow: hidden;
+}
+
+.doctor-header::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.doctor-header::after {
+  content: "";
+  position: absolute;
+  bottom: -80px;
+  right: -30px;
+  width: 250px;
+  height: 250px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.doctor-header h2 {
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+  position: relative;
+  z-index: 1;
+}
+
+.doctor-info {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.doctor-info p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.doctor-info strong {
+  font-weight: 600;
+}
+ 
+/* تبويبات محسنة */
+.doctor-tabs {
+  display: flex;
+  background: var(--white);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  margin: 20px 30px;
+  overflow: hidden;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 15px;
+  background: none;
+  border: none;
+  color: var(--gray);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  text-align: center;
+}
+
+.tab-btn:hover {
+  color: var(--primary);
+}
+
+.tab-btn.active {
+  color: var(--primary);
+  background: rgba(74, 111, 165, 0.1);
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--primary);
+}
+
+/* جدول المواعيد المحسن */
+.appointments-list {
+  background-color: var(--white);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  margin: 0 30px 30px;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+  color: #000;
+
+}
+
+.table th {
+  background-color: #f8fafc;
+  padding: 15px;
+  text-align: right;
+  font-weight: 600;
+  color: var(--dark);
+  border-bottom: 2px solid #eee;
+}
+
+.table td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background-color: #f8fafc;
+}
+
+/* أزرار الحالة المحسنة */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+  min-width: 100px;
+  text-align: center;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.approved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.completed {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+/* أزرار محسنة */
+.btn {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 2rem;
   
-  .doctor-header {
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .doctor-tabs {
-    display: flex;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 20px;
-  }
-  
-  .tab-btn {
-    padding: 10px 20px;
-    background: none;
-    border: none;
-    border-bottom: 3px solid transparent;
-    cursor: pointer;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .tab-btn.active {
-    border-bottom-color: #17a2b8;
-    color: #17a2b8;
-  }
-  
-  .appointments-list {
-    margin-top: 20px;
-  }
-  
-  .status-badge {
-    padding: 5px 10px;
-    border-radius: 3px;
-    font-size: 14px;
-  }
-  
-  .status-badge.pending {
-    background-color: #fff3cd;
-    color: #856404;
-  }
-  
-  .status-badge.approved {
-    background-color: #d4edda;
-    color: #155724;
-  }
-  
-  .status-badge.completed {
-    background-color: #d1ecf1;
-    color: #0c5460;
-  }
-  
-  .action-buttons {
-    display: flex;
-    gap: 5px;
-  }
-  
-  .no-appointments {
-    text-align: center;
-    padding: 40px;
-    color: #6c757d;
-  }
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+
+.btn-success {
+  background-color:rgb(255, 227, 134);
+  color: rgb(0, 0, 0);
+}
+
+.btn-success:hover {
+  background-color: rgb(248, 211, 88);
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  color: rgb(0, 0, 0);
+}
+
+.btn-danger:hover {
+  background-color: #d62c1a;
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background-color:#fdd190;
+  color: black;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary);
+  transform: translateY(-2px);
+  color:#000;
+}
+
+.btn-info {
+  background-color: var(--info);
+  color: black;
+}
+
+.btn-info:hover {
+  background-color: var(--primary);
+  transform: translateY(-2px);
+  color:#000;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+     
+/* الرسائل المحسنة */
+.alert {
+padding: 15px;
+border-radius: 8px;
+margin: 20px 30px;
+font-weight: 500;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.alert-success {
+background-color: #d4edda;
+color: #155724;
+border-left: 4px solid var(--secondary);
+}
+
+.alert-danger {
+background-color: #f8d7da;
+color: #721c24;
+border-left: 4px solid var(--danger);
+}
+
+/* المودال المحسن */
+.modal {
+direction: rtl;
+}
+
+.modal-content {
+border: none;
+border-radius: 10px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+border-bottom: 1px solid #eee;
+padding: 20px;
+background-color: #f8fafc;
+border-radius: 10px 10px 0 0;
+}
+
+.modal-title {
+font-weight: 700;
+color: var(--primary);
+font-size: 1.3rem;
+}
+
+.modal-body {
+padding: 25px;
+}
+
+.modal-footer {
+border-top: 1px solid #eee;
+padding: 15px 20px;
+background-color: #f8fafc;
+border-radius: 0 0 10px 10px;
+}
+
+.close {
+font-size: 1.8rem;
+font-weight: 300;
+color: #777;
+opacity: 1;
+}
+
+.appointment-details p {
+margin-bottom: 10px;
+display: flex;
+gap: 10px;
+}
+
+.appointment-details strong {
+min-width: 100px;
+font-weight: 600;
+}
+
+.form-group label {
+font-weight: 600;
+margin-bottom: 10px;
+display: block;
+}
+
+.form-control {
+width: 100%;
+padding: 12px;
+border: 1px solid #ddd;
+border-radius: 6px;
+font-family: 'Tajawal', sans-serif;
+transition: all 0.3s;
+}
+
+.form-control:focus {
+border-color: var(--primary);
+box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+outline: none;
+}
+
+textarea.form-control {
+min-height: 150px;
+resize: vertical;
+}
+
+/* حالة عدم وجود مواعيد */
+.no-appointments {
+padding: 40px;
+text-align: center;
+color: var(--gray);
+font-size: 1.1rem;
+}
+
+.no-appointments i {
+font-size: 2.5rem;
+margin-bottom: 15px;
+color: #ddd;
+display: block;
+}
+
+/* تصميم متجاوب */
+@media (max-width: 992px) {
+.doctor-navbar {
+  padding: 0 20px;
+}
+
+.doctor-header {
+  padding: 20px;
+}
+
+.doctor-info {
+  gap: 15px;
+}
+
+.doctor-tabs, .appointments-list, .alert {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+}
+
+@media (max-width: 768px) {
+.doctor-navbar {
+  padding: 0 15px;
+  height: 60px;
+}
+
+.navbar-brand {
+  font-size: 1.2rem;
+}
+
+.nav-user img {
+  width: 38px;
+  height: 38px;
+}
+
+.doctor-header {
+  margin-top: 60px;
+  padding: 15px;
+}
+
+.doctor-header h2 {
+  font-size: 1.5rem;
+}
+
+.doctor-info {
+  flex-direction: column;
+  gap: 8px;
+}
+
+.doctor-tabs {
+  flex-direction: column;
+}
+
+.tab-btn {
+  padding: 12px;
+}
+
+.table th, .table td {
+  padding: 10px;
+}
+
+.modal-dialog {
+  margin: 10px;
+}
+}

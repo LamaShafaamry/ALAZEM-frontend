@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ManagerPage.css";
+import api from "../api/api";
 
 const ManagerPage = () => {
   const [doctors, setDoctors] = useState([]);
@@ -15,76 +16,49 @@ const ManagerPage = () => {
   const [activeTab, setActiveTab] = useState("create");
   const [message, setMessage] = useState({ text: "", type: "" });
 
-  // Fetch doctors and patients
   useEffect(() => {
-    // Mock data - replace with actual API calls
-    const mockDoctors = [
-      { id: 1, name: "دكتور أحمد محمد", specialty: "قلب" },
-      { id: 2, name: "دكتور يوسف خالد", specialty: "عظام" },
-      { id: 3, name: "دكتورة سارة عبدالله", specialty: "أطفال" },
-    ];
-    
-    const mockPatients = [
-      { id: 1, name: "محمد علي", medicalNumber: "P12345" },
-      { id: 2, name: "فاطمة الزهراء", medicalNumber: "P12346" },
-      { id: 3, name: "خالد حسن", medicalNumber: "P12347" },
-    ];
-    
-    setDoctors(mockDoctors);
-    setPatients(mockPatients);
+    const fetchData = async () => {
+      try {
+        const doctorsRes = await api.getDoctors();
+        const patientsRes = await api.getPatients();
+        setDoctors(doctorsRes.data);
+        setPatients(patientsRes.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
   }, []);
 
   const showMessage = (text, type) => {
     setMessage({ text, type });
     setTimeout(() => setMessage({ text: "", type: "" }), 5000);
   };
-
   const handleCreateAppointment = async (e) => {
     e.preventDefault();
-    
     if (!selectedDoctor || !selectedPatient || !appointmentDate) {
-      showMessage("الرجاء تعبئة جميع الحقول المطلوبة", "error");
+      showMessage("الرجاء ملء جميع الحقول المطلوبة", "error");
       return;
     }
-    
+  
     try {
-      // In a real app:
-      // const response = await axios.post('/api/appointments/', {
-      //   doctor_id: selectedDoctor,
-      //   patient_id: selectedPatient,
-      //   date: appointmentDate,
-      //   notes: appointmentNotes,
-      //   status: "pending" // الحالة الافتراضية "قيد الانتظار"
-      // });
-      
-      // Mock response
-      const newAppointment = {
-        id: Math.random().toString(36).substr(2, 9),
-        doctor_id: selectedDoctor,
-        doctor_name: doctors.find(d => d.id == selectedDoctor).name,
+      await api.createAppointment({
         patient_id: selectedPatient,
-        patient_name: patients.find(p => p.id == selectedPatient).name,
-        date: appointmentDate,
-        notes: appointmentNotes,
-        status: "pending",
-        report: ""
-      };
-      
-      showMessage("تم إرسال طلب الموعد إلى الطبيب بنجاح", "success");
-      
+        doctor_id: selectedDoctor,
+        appointment_date: appointmentDate,
+        notes: appointmentNotes
+      });
+      showMessage("تم إنشاء الموعد بنجاح", "success");
       // Reset form
       setSelectedDoctor("");
       setSelectedPatient("");
       setAppointmentDate("");
       setAppointmentNotes("");
-      
-      // Update appointments list
-      setDoctorAppointments(prev => [...prev, newAppointment]);
     } catch (error) {
       showMessage("فشل في إنشاء الموعد", "error");
+      console.error('Error creating appointment:', error);
     }
   };
-
   const handleGetDoctorAppointments = async () => {
     if (!selectedDoctor) {
       showMessage("الرجاء اختيار طبيب", "error");
@@ -92,59 +66,22 @@ const ManagerPage = () => {
     }
     
     try {
-      // In a real app:
-      // const response = await axios.get(`/api/appointments/?doctor_id=${selectedDoctor}`);
-      // setDoctorAppointments(response.data);
-      
-      // Mock data
-      const mockAppointments = [
-        {
-          id: "abc123",
-          doctor_id: 1,
-          doctor_name: "دكتور أحمد محمد",
-          patient_id: 1,
-          patient_name: "محمد علي",
-          date: "2023-06-15T10:00:00",
-          status: "pending",
-          notes: "كشف دوري",
-          report: ""
-        },
-        {
-          id: "def456",
-          doctor_id: 1,
-          doctor_name: "دكتور أحمد محمد",
-          patient_id: 2,
-          patient_name: "فاطمة الزهراء",
-          date: "2023-06-15T11:30:00",
-          status: "approved",
-          notes: "متابعة علاج",
-          report: ""
-        },
-        {
-          id: "ghi789",
-          doctor_id: 1,
-          doctor_name: "دكتور أحمد محمد",
-          patient_id: 3,
-          patient_name: "خالد حسن",
-          date: "2023-06-16T09:15:00",
-          status: "completed",
-          notes: "شكوى من ألم في الصدر",
-          report: "تم الكشف ووصف العلاج المناسب"
-        }
-      ].filter(app => app.doctor_id == selectedDoctor);
-      
-      setDoctorAppointments(mockAppointments);
-      setActiveTab("view");
-      showMessage("تم تحميل مواعيد الطبيب بنجاح", "success");
+      const response = await api.get(`/appointments/?doctor_id=${selectedDoctor}`);
+      if (response.data && Array.isArray(response.data)) {
+        setDoctorAppointments(response.data);
+        setActiveTab("view");
+        showMessage("تم تحميل مواعيد الطبيب بنجاح", "success");
+      } else {
+        throw new Error("Invalid data format");
+      }
     } catch (error) {
       showMessage("فشل في جلب مواعيد الطبيب", "error");
+      console.error('Error fetching appointments:', error);
     }
   };
-
   const handleApproveAppointment = async (appointmentId, action) => {
     try {
-      // In a real app:
-      // await axios.post(`/api/appointments/approve/${appointmentId}/`, { action });
+      await axios.post(`/api/appointments/approve/${appointmentId}/`, { action });
       
       // Update local state
       setDoctorAppointments(prev => prev.map(app => 
@@ -162,7 +99,6 @@ const ManagerPage = () => {
       showMessage("فشل في تحديث حالة الموعد", "error");
     }
   };
-
   const handleCompleteAppointment = async () => {
     if (!selectedAppointment || !reportContent) {
       showMessage("الرجاء إدخال التقرير الطبي", "error");
@@ -170,11 +106,10 @@ const ManagerPage = () => {
     }
     
     try {
-      // In a real app:
-      // await axios.post(`/api/appointments/${selectedAppointment.id}/complete/`, {
-      //   report: reportContent,
-      //   status: "completed"
-      // });
+      await axios.post(`/api/appointments/${selectedAppointment.id}/complete/`, {
+        report: reportContent,
+        status: "completed"
+      });
       
       // Update local state
       setDoctorAppointments(prev => prev.map(app => 
@@ -195,7 +130,28 @@ const ManagerPage = () => {
 
   return (
     <div className="manager-page">
-      <h2 className="text-center">📅 نظام إدارة المواعيد الطبية</h2>
+       <nav className="manager-navbar">
+        <div className="navbar-brand">
+          <i className="fas fa-calendar-alt"></i>
+          نظام إدارة المواعيد
+        </div>
+        <div className="nav-user">
+          
+          <div className="user-info">
+            <span className="user-name">مدير النظام</span>
+            <span className="user-role">مسؤول الإدارة</span>
+          </div>
+        </div>
+      </nav>
+
+      {/* Header جديد */}
+      <div className="manager-header">
+        <h2>
+          <i className="fas fa-clinic-medical"></i>
+          نظام إدارة المواعيد الطبية
+        </h2>
+      </div>
+      
       
       {message.text && (
         <div className={`alert alert-${message.type === "error" ? "danger" : "success"}`}>
@@ -219,72 +175,67 @@ const ManagerPage = () => {
       </div>
       
       {activeTab === "create" ? (
-        <div className="appointment-form">
-          <h3 className="text-center">إنشاء موعد جديد</h3>
-          
-          <form onSubmit={handleCreateAppointment}>
-            <div className="form-group">
-              <label>اختر الطبيب:</label>
-              <select 
-                className="form-control"
-                value={selectedDoctor}
-                onChange={(e) => setSelectedDoctor(e.target.value)}
-                required
-              >
-                <option value="">-- اختر طبيب --</option>
-                {doctors.map(doctor => (
-                  <option key={doctor.id} value={doctor.id}>
-                    {doctor.name} - تخصص: {doctor.specialty}
-                  </option>
-                ))}
-              </select>
-            </div>
-            
-            <div className="form-group">
-              <label>اختر المريض:</label>
-              <select 
-                className="form-control"
-                value={selectedPatient}
-                onChange={(e) => setSelectedPatient(e.target.value)}
-                required
-              >
-                <option value="">-- اختر مريض --</option>
-                {patients.map(patient => (
-                  <option key={patient.id} value={patient.id}>
-                    {patient.name} - رقم الملف: {patient.medicalNumber}
-                  </option>
-                ))}
-              </select>
-            </div>
-            
-            <div className="form-group">
-              <label>تاريخ ووقت الموعد:</label>
-              <input
-                type="datetime-local"
-                className="form-control"
-                value={appointmentDate}
-                onChange={(e) => setAppointmentDate(e.target.value)}
-                required
-              />
-            </div>
-            
-            <div className="form-group">
-              <label>ملاحظات (اختياري):</label>
-              <textarea
-                className="form-control"
-                rows="3"
-                value={appointmentNotes}
-                onChange={(e) => setAppointmentNotes(e.target.value)}
-                placeholder="أي ملاحظات إضافية للموعد..."
-              ></textarea>
-            </div>
-            
-            <button type="submit" className="btn btn-primary btn-block">
-              إرسال الطلب إلى الطبيب
-            </button>
-          </form>
+  <div className="appointment-form">
+    <h3 className="text-center">إنشاء موعد جديد</h3>
+    
+    <form onSubmit={handleCreateAppointment}>
+      <div className="form-row">
+        <div className="form-group">
+          <label>اختر الطبيب:</label>
+          <select 
+            className="form-control"
+            value={selectedDoctor}
+            onChange={(e) => setSelectedDoctor(e.target.value)}
+            required
+          >
+            <option value="">-- اختر طبيب --</option>
+            {doctors.map(doctor => (
+              <option key={doctor.id} value={doctor.id}>
+                {doctor.name} - {doctor.specialty}
+              </option>
+            ))}
+          </select>
         </div>
-      ) : (
+        
+        <div className="form-group">
+          <label>اختر المريض:</label>
+          <select 
+            className="form-control"
+            value={selectedPatient}
+            onChange={(e) => setSelectedPatient(e.target.value)}
+            required
+          >
+            <option value="">-- اختر مريض --</option>
+            {patients.map(patient => (
+              <option key={patient.id} value={patient.id}>
+                {patient.name} - {patient.medicalNumber}
+              </option>
+            ))}
+          </select>
+        </div>
+        
+        <div className="form-group">
+          <label>تاريخ ووقت الموعد:</label>
+          <input
+            type="datetime-local"
+            className="form-control"
+            value={appointmentDate}
+            onChange={(e) => setAppointmentDate(e.target.value)}
+            required
+          />
+        </div>
+      </div>
+      
+ 
+      
+      <div className="submit-row">
+        <button type="submit" className="btn-submit">
+          إرسال الطلب إلى الطبيب
+        </button>
+      </div>
+    </form>
+  </div>
+) : (
         <div className="appointments-management">
           <h3 className="text-center">متابعة حالة المواعيد</h3>
           

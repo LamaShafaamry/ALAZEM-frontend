@@ -44,7 +44,7 @@ function HomePage() {
           <Col md="12" className="text-center">
             <h1 className="title text-dark">جمعية العزم للكفيفات المسنات</h1>
             <h4 className="description text-dark">نمنح النور بالأمل، ونرعى بحب</h4>
-            <div className="buttons">
+            <div className="buttons2">
             <Link to="/request">
               <Button className="donation-buttons-btn text-dark">
                 ارسل طلب

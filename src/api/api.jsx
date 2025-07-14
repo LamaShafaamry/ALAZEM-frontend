@@ -8,12 +8,29 @@ const api = axios.create({
 });
 
 // Patients
-export const getPatients = () => api.get('/patients/get/');
+export const getPatients = async () => {
+  try {
+    const response = await api.get('/patients/get/');
+    return response.data; // تغيير هنا من response.data إلى response
+  } catch (error) {
+    console.error('Error fetching patients:', error);
+    throw error;
+  }
+};
 export const createPatient = (data) => api.post('/patients/create/', data);
 export const updatePatient = (data) => api.post('/patients/update/', data);
 
 // Doctors
-export const getDoctors = () => api.get('/doctors/get/');
+export const getDoctors = async () => {
+  try {
+    const response = await api.get('/doctors/get/');
+    return response.data; // تغيير هنا من response.data إلى response
+  } catch (error) {
+    console.error('Error fetching doctors:', error);
+    throw error;
+  }
+};
+
 export const createDoctor = (data) => api.post('/doctor/create/', data);
 export const updateDoctor = (data) => api.post('/doctor/update/', data);
 
