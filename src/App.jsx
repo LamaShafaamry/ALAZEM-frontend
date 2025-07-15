@@ -215,9 +215,9 @@ function App() {
         <Route path="/payment-page" element={<IndividualDonation />} />
         <Route path="/payment-page2" element={<FullAssociationDonation />} />
         {/* <Route path="/manager-page" element={<ManagerPage />} /> */}
-        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+        {/* <Route element={<ProtectedRoute allowedRoles={["ADM"]} />}> */}
           <Route path="/manager-page" element={<ManagerPage />} />
-        </Route>
+        {/* </Route> */}
         <Route path="/patient-page" element={<PatientPage />} />
         <Route path="/doctor-page" element={<DoctorPage />} />
       </Routes>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { getDoctorsList, getPendingPatientsList, createServiceAppointment } from "../api/api";
 import "./ManagerPage.css";
 
 const ManagerPage = () => {
@@ -15,23 +15,27 @@ const ManagerPage = () => {
   const [activeTab, setActiveTab] = useState("create");
   const [message, setMessage] = useState({ text: "", type: "" });
 
-  // Fetch doctors and patients
   useEffect(() => {
-    // Mock data - replace with actual API calls
-    const mockDoctors = [
-      { id: 1, name: "دكتور أحمد محمد", specialty: "قلب" },
-      { id: 2, name: "دكتور يوسف خالد", specialty: "عظام" },
-      { id: 3, name: "دكتورة سارة عبدالله", specialty: "أطفال" },
-    ];
-    
-    const mockPatients = [
-      { id: 1, name: "محمد علي", medicalNumber: "P12345" },
-      { id: 2, name: "فاطمة الزهراء", medicalNumber: "P12346" },
-      { id: 3, name: "خالد حسن", medicalNumber: "P12347" },
-    ];
-    
-    setDoctors(mockDoctors);
-    setPatients(mockPatients);
+    const fetchDoctors = async () => {
+      try {
+        const response = await getDoctorsList();
+        setDoctors(response.data);
+      } catch (error) {
+        showMessage("فشل في جلب قائمة الأطباء", "error");
+      }
+    };
+
+    const fetchPatients = async () => {
+      try {
+        const response = await getPendingPatientsList();
+        setPatients(response.data);
+      } catch (error) {
+        showMessage("فشل في جلب قائمة المرضى", "error");
+      }
+    };
+
+    fetchDoctors();
+    fetchPatients();
   }, []);
 
   const showMessage = (text, type) => {
@@ -48,38 +52,17 @@ const ManagerPage = () => {
     }
     
     try {
-      // In a real app:
-      // const response = await axios.post('/api/appointments/', {
-      //   doctor_id: selectedDoctor,
-      //   patient_id: selectedPatient,
-      //   date: appointmentDate,
-      //   notes: appointmentNotes,
-      //   status: "pending" // الحالة الافتراضية "قيد الانتظار"
-      // });
-      
-      // Mock response
-      const newAppointment = {
-        id: Math.random().toString(36).substr(2, 9),
-        doctor_id: selectedDoctor,
-        doctor_name: doctors.find(d => d.id == selectedDoctor).name,
+      const body = {
         patient_id: selectedPatient,
-        patient_name: patients.find(p => p.id == selectedPatient).name,
-        date: appointmentDate,
-        notes: appointmentNotes,
-        status: "pending",
-        report: ""
+        doctor_id: selectedDoctor,
+        appointment_date: appointmentDate.replace('T', ' ').slice(0, 16), // Format: YYYY-MM-DD HH:mm
       };
-      
+      await createServiceAppointment(body);
       showMessage("تم إرسال طلب الموعد إلى الطبيب بنجاح", "success");
-      
-      // Reset form
       setSelectedDoctor("");
       setSelectedPatient("");
       setAppointmentDate("");
       setAppointmentNotes("");
-      
-      // Update appointments list
-      setDoctorAppointments(prev => [...prev, newAppointment]);
     } catch (error) {
       showMessage("فشل في إنشاء الموعد", "error");
     }
@@ -92,11 +75,6 @@ const ManagerPage = () => {
     }
     
     try {
-      // In a real app:
-      // const response = await axios.get(`/api/appointments/?doctor_id=${selectedDoctor}`);
-      // setDoctorAppointments(response.data);
-      
-      // Mock data
       const mockAppointments = [
         {
           id: "abc123",
@@ -143,10 +121,6 @@ const ManagerPage = () => {
 
   const handleApproveAppointment = async (appointmentId, action) => {
     try {
-      // In a real app:
-      // await axios.post(`/api/appointments/approve/${appointmentId}/`, { action });
-      
-      // Update local state
       setDoctorAppointments(prev => prev.map(app => 
         app.id === appointmentId ? { 
           ...app, 
@@ -170,13 +144,6 @@ const ManagerPage = () => {
     }
     
     try {
-      // In a real app:
-      // await axios.post(`/api/appointments/${selectedAppointment.id}/complete/`, {
-      //   report: reportContent,
-      //   status: "completed"
-      // });
-      
-      // Update local state
       setDoctorAppointments(prev => prev.map(app => 
         app.id === selectedAppointment.id ? { 
           ...app, 
@@ -234,7 +201,7 @@ const ManagerPage = () => {
                 <option value="">-- اختر طبيب --</option>
                 {doctors.map(doctor => (
                   <option key={doctor.id} value={doctor.id}>
-                    {doctor.name} - تخصص: {doctor.specialty}
+                    {doctor.first_name} - تخصص: {doctor.speciality}
                   </option>
                 ))}
               </select>
@@ -251,7 +218,7 @@ const ManagerPage = () => {
                 <option value="">-- اختر مريض --</option>
                 {patients.map(patient => (
                   <option key={patient.id} value={patient.id}>
-                    {patient.name} - رقم الملف: {patient.medicalNumber}
+                    {patient.first_name} - رقم الملف: {patient.disability_card_number}
                   </option>
                 ))}
               </select>
@@ -299,7 +266,7 @@ const ManagerPage = () => {
                 <option value="">-- اختر طبيب --</option>
                 {doctors.map(doctor => (
                   <option key={doctor.id} value={doctor.id}>
-                    {doctor.name} - {doctor.specialty}
+                    {doctor.first_name} - {doctor.speciality}
                   </option>
                 ))}
               </select>

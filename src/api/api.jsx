@@ -3,7 +3,7 @@ import axios from "axios";
 const api = axios.create({
   baseURL: "http://localhost:8000",
   headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
   },
 });
 
@@ -30,5 +30,12 @@ export const getUsers = () => api.get("/users/get/");
 // Auth
 export const login = (username, password) =>
   axios.post("http://127.0.0.1:8000/users/login/", { username, password });
+
+// Custom for ManagerPage
+export const getDoctorsList = () => api.get("/services/doctors/get/");
+export const getPendingPatientsList = () => api.get("/services/patients/get/?status_filter=pending");
+
+// Service Appointments
+export const createServiceAppointment = (data) => api.post("/services/api/create/appointments/", data);
 
 export default api;
