@@ -52,23 +52,14 @@ const FullAssociationDonation = () => {
 
             <div className="contact-box">
               <h3>للاستفسارات:</h3>
-              <p>هاتف: 1234567890</p>
+              <p>هاتف: 0998 766 972</p>
               <p>بريد إلكتروني: donations@example.com</p>
             </div>
           </div>
 
           <div className="donation-form">
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label>الاسم الكامل</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={donationData.name}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+       
 
               <div className="form-row">
                 <div className="form-group">
@@ -81,16 +72,7 @@ const FullAssociationDonation = () => {
                     required
                   />
                 </div>
-                <div className="form-group">
-                  <label>رقم الهاتف</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={donationData.phone}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
+
               </div>
 
               <div className="form-group">
@@ -106,18 +88,8 @@ const FullAssociationDonation = () => {
                   required
                 />
               </div>
+              <br></br>
 
-            
-              <div className="form-checkbox">
-                <input
-                  type="checkbox"
-                  id="isAnonymous"
-                  name="isAnonymous"
-                  checked={donationData.isAnonymous}
-                  onChange={handleChange}
-                />
-                <label htmlFor="isAnonymous">التبرع بشكل مجهول</label>
-              </div>
 
               <button type="submit" className="submit-btn">
                 تأكيد التبرع

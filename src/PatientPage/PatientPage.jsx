@@ -143,6 +143,21 @@ const PatientPage = () => {
 
   return (
     <div className="patient-page">
+      <nav className="patient-navbar">
+        <div className="navbar-brand">
+          <i className="fas fa-user-injured"></i>
+          نظام إدارة المرضى
+        </div>
+        <div className="nav-user">
+          
+          <div className="user-info">
+            <span className="user-name">{currentPatient.name}</span>
+            <span className="user-role">مريض</span>
+          </div>
+        </div>
+      </nav>
+
+      {/* Header جديد */}
       <div className="patient-header">
         <h2>مرحبًا بك، {currentPatient.name}</h2>
         <div className="patient-info">
@@ -176,12 +191,7 @@ const PatientPage = () => {
         >
           المواعيد الملغاة
         </button>
-        <button 
-          className={`tab-btn ${activeTab === "request" ? "active" : ""}`}
-          onClick={() => setActiveTab("request")}
-        >
-          طلب موعد جديد
-        </button>
+
       </div>
       
       {activeTab !== "request" ? (

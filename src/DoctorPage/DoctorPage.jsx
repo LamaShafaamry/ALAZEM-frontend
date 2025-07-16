@@ -130,16 +130,42 @@ const DoctorPage = () => {
 
   return (
     <div className="doctor-page">
+    {/* Navbar */}
+    <nav className="doctor-navbar">
+        <div className="navbar-brand">
+          <i className="fas fa-clinic-medical"></i>
+          نظام إدارة العيادة
+        </div>
+        <div className="nav-user">
+          
+          <div className="user-info">
+            <span className="user-name">{currentDoctor.name}</span>
+            <span className="user-role">طبيب {currentDoctor.specialty}</span>
+          </div>
+        </div>
+      </nav>
+
+      {/* Header محسن */}
       <div className="doctor-header">
         <h2>مرحبًا د. {currentDoctor.name}</h2>
         <div className="doctor-info">
-          <p><strong>التخصص:</strong> {currentDoctor.specialty}</p>
-          <p><strong>الهاتف:</strong> {currentDoctor.phone}</p>
+          <p>
+            <i className="fas fa-stethoscope"></i>
+            <strong>التخصص:</strong> {currentDoctor.specialty}
+          </p>
+          <p>
+            <i className="fas fa-phone"></i>
+            <strong>الهاتف:</strong> {currentDoctor.phone}
+          </p>
+          <p>
+            <i className="fas fa-envelope"></i>
+            <strong>البريد الإلكتروني:</strong> {currentDoctor.email}
+          </p>
         </div>
       </div>
-      
       {message.text && (
         <div className={`alert alert-${message.type === "error" ? "danger" : "success"}`}>
+          <i className={`fas ${message.type === "error" ? "fa-exclamation-circle" : "fa-check-circle"}`}></i>
           {message.text}
         </div>
       )}

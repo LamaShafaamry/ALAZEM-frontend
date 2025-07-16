@@ -159,10 +159,29 @@ const ManagerPage = () => {
       showMessage("فشل في إرسال التقرير", "error");
     }
   };
-
   return (
     <div className="manager-page">
-      <h2 className="text-center">📅 نظام إدارة المواعيد الطبية</h2>
+             <nav className="manager-navbar">
+        <div className="navbar-brand">
+          <i className="fas fa-calendar-alt"></i>
+          نظام إدارة المواعيد
+        </div>
+        <div className="nav-user">
+          
+          <div className="user-info">
+            <span className="user-name">مدير النظام</span>
+            <span className="user-role">مسؤول الإدارة</span>
+          </div>
+        </div>
+      </nav>
+
+      {/* Header جديد */}
+      <div className="manager-header">
+        <h2>
+          <i className="fas fa-clinic-medical"></i>
+          نظام إدارة المواعيد الطبية
+        </h2>
+      </div>
       
       {message.text && (
         <div className={`alert alert-${message.type === "error" ? "danger" : "success"}`}>
@@ -190,6 +209,7 @@ const ManagerPage = () => {
           <h3 className="text-center">إنشاء موعد جديد</h3>
           
           <form onSubmit={handleCreateAppointment}>
+          <div className="form-row">
             <div className="form-group">
               <label>اختر الطبيب:</label>
               <select 
@@ -235,20 +255,13 @@ const ManagerPage = () => {
               />
             </div>
             
-            <div className="form-group">
-              <label>ملاحظات (اختياري):</label>
-              <textarea
-                className="form-control"
-                rows="3"
-                value={appointmentNotes}
-                onChange={(e) => setAppointmentNotes(e.target.value)}
-                placeholder="أي ملاحظات إضافية للموعد..."
-              ></textarea>
             </div>
-            
-            <button type="submit" className="btn btn-primary btn-block">
+            <div className="submit-row">
+            <button type="submit" className="btn-submit">
               إرسال الطلب إلى الطبيب
             </button>
+            </div>
+
           </form>
         </div>
       ) : (
@@ -429,6 +442,6 @@ const ManagerPage = () => {
       </div>
     </div>
   );
-};
+ };
 
 export default ManagerPage;

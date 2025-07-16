@@ -1,240 +1,186 @@
 /* التنسيقات العامة */
-.individual-donation {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    direction: rtl;
-    color: #333;
-    line-height: 1.6;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+.donation-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f0f9ff, #ffffff);
+  padding: 2rem 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl;
+}
+
+.donation-card {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.donation-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.donation-header h1 {
+  font-size: 2rem;
+  color: #ffd28e;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.donation-header p {
+  color: #4b5563;
+  font-size: 1.1rem;
+}
+
+.donation-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .donation-content {
+    grid-template-columns: 1fr 1fr;
   }
-  
-  .donation-header {
-    text-align: center;
-    margin-bottom: 40px;
-    padding: 20px 0;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .donation-header h1 {
-    color: #2c3e50;
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-  }
-  
-  .donation-header p {
-    color: #7f8c8d;
-    font-size: 1.1rem;
-  }
-  
-  .donation-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-  }
-  
-  .donation-form-container {
-    flex: 1;
-    min-width: 300px;
-  }
-  
-  .donation-info {
-    flex: 0 0 350px;
-  }
-  
-  /* تنسيقات النموذج */
-  .donation-form {
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-section {
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #f1f1f1;
-  }
-  
-  .form-section:last-child {
-    border-bottom: none;
-  }
-  
-  .form-section h2 {
-    color: #2c3e50;
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #ffd28e;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #2c3e50;
-  }
-  
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-  }
-  
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    border-color: #ffd28e;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-    outline: none;
-  }
-  
+}
+
+.donation-info {
+  background: #f0f9ff;
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.donation-info h2 {
+  font-size: 1.5rem;
+  color: #ffd28e;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.benefits-list li {
+  margin-bottom: 0.75rem;
+  padding-right: 1.5rem;
+  position: relative;
+  color: #374151;
+}
+
+.benefits-list li:before {
+  content: "✓";
+  position: absolute;
+  right: 0;
+  color: #ffd28e;
+}
+
+.contact-box {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.contact-box h3 {
+  font-size: 1.1rem;
+  color: #000000;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.contact-box p {
+  color: #000000;
+  margin: 0.25rem 0;
+}
+
+/* تنسيقات النموذج */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #ffd28e;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 480px) {
   .form-row {
-    display: flex;
-    gap: 15px;
+    grid-template-columns: 1fr 1fr;
   }
-  
-  .form-row .form-group {
-    flex: 1;
-  }
-  
-  .form-checkbox {
-    display: flex;
-    align-items: center;
-    margin: 20px 0;
-  }
-  
-  .form-checkbox input {
-    margin-left: 10px;
-  }
-  
-  .form-checkbox label {
-    margin-bottom: 0;
-    font-weight: normal;
-  }
-  
-  .payment-methods {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
-  }
-  
-  .payment-method {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-  }
-  
-  .payment-method:hover {
-    border-color: #ffd28e;
-  }
-  
-  .payment-method input {
-    margin-left: 10px;
-  }
-  
-  .payment-method label {
-    flex: 1;
-    margin-bottom: 0;
-    cursor: pointer;
-  }
-  
-  .submit-btn {
-    background-color: #ffd28e;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submit-btn:hover {
-    background-color: #ffd28e;
-  }
-  
-  /* تنسيقات قسم المعلومات */
-  .info-card {
-    background: #fff;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-  
-  .info-card h3 {
-    color: #2c3e50;
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #ffd28e;
-  }
-  
-  .benefits-list {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-  }
-  
-  .benefits-list li {
-    padding: 8px 0;
-    padding-right: 25px;
-    position: relative;
-  }
-  
-  .benefits-list li:before {
-    content: "•";
-    color: #ffd28e;
-    font-size: 1.5rem;
-    position: absolute;
-    right: 0;
-    top: 2px;
-  }
-  
-  .contact-card p {
-    margin: 10px 0;
-    padding-right: 30px;
-    position: relative;
-  }
-  
-  .contact-card p .icon {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    background-color: #ffd28e;
-    border-radius: 50%;
-  }
-  
-  /* التنسيق للشاشات الصغيرة */
-  @media (max-width: 768px) {
-    .donation-container {
-      flex-direction: column;
-    }
-    
-    .donation-info {
-      flex: 1;
-    }
-    
-    .form-row {
-      flex-direction: column;
-      gap: 0;
-    }
-  }
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.form-checkbox input {
+  margin-left: 0.5rem;
+}
+
+.form-checkbox label {
+  color: #374151;
+}
+
+.submit-btn {
+  width: 100%;
+  background: #ffd28e;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background: #ffd28e;
+}
+
+/* تذييل الصفحة */
+.donation-footer {
+  text-align: center;
+  margin-top: 2rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.donation-footer p:first-child {
+  margin-bottom: 0.5rem;
+}

@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
-import './Individual.css';
+import './Individual.css'; 
 
 const IndividualDonation = () => {
   const [donationData, setDonationData] = useState({
-    fullName: '',
+    firstName: '',
+    lastName: '',
+    mothersName: '',
+    fatherName: '',
     email: '',
     phone: '',
     amount: '',
     donationType: 'education',
-    paymentMethod: 'credit',
     isRecurring: false,
-    message: ''
+    patients: []
   });
 
   const donationTypes = [
     { value: 'education', label: 'دعم التعليم' },
     { value: 'health', label: 'الرعاية الصحية' },
     { value: 'food', label: 'الإغاثة الغذائية' }
-  ];
-
-  const paymentMethods = [
-    { value: 'credit', label: 'بطاقة ائتمان' },
-    { value: 'bank', label: 'حوالة بنكية' },
-    { value: 'mobile', label: 'محفظة إلكترونية' }
   ];
 
   const handleChange = (e) => {
@@ -33,130 +29,181 @@ const IndividualDonation = () => {
     }));
   };
 
+  const addPatient = () => {
+    const { firstName, lastName, fatherName, mothersName } = donationData;
+    
+    if (!firstName || !lastName || !fatherName || !mothersName) {
+      alert('الرجاء إدخال جميع حقول الاسم');
+      return;
+    }
+
+    const fullName = `${firstName} ${fatherName}  ${lastName}`;
+    
+    setDonationData(prev => ({
+      ...prev,
+      patients: [...prev.patients, {
+        name: fullName,
+        isSelected: true
+      }],
+      firstName: '',
+      lastName: '',
+      fatherName: '',
+      mothersName: ''
+    }));
+  };
+
+  const togglePatientSelection = (index) => {
+    const updatedPatients = [...donationData.patients];
+    updatedPatients[index].isSelected = !updatedPatients[index].isSelected;
+    setDonationData(prev => ({
+      ...prev,
+      patients: updatedPatients
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`شكراً لتبرعك لدعم ${donationTypes.find(t => t.value === donationData.donationType).label}`);
+    if(donationData.patients.length === 0) {
+      alert('الرجاء إضافة مريض على الأقل');
+      return;
+    }
+    alert('تم تقديم التبرع بنجاح');
     console.log('Donation Data:', donationData);
   };
 
   return (
-    <div className="individual-donation">
-      <div className="donation-header">
-        <h1>التبرع الفردي</h1>
-        <p>اختر مجال التبرع الذي تريد دعمه وساهم في تغيير حياة الأفراد</p>
-      </div>
-
-      <div className="donation-container">
-        <div className="donation-form-container">
-          <form onSubmit={handleSubmit} className="donation-form">
-            <div className="form-section">
-              <h2>معلومات المتبرع</h2>
-              <div className="form-group">
-                <label htmlFor="fullName">الاسم الكامل</label>
-                <input
-                  type="text"
-                  id="fullName"
-                  name="fullName"
-                  value={donationData.fullName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="email">البريد الإلكتروني</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={donationData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="phone">رقم الهاتف</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={donationData.phone}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="form-section">
-              <h2>تفاصيل التبرع</h2>
-              <div className="form-group">
-                <label htmlFor="donationType">مجال التبرع</label>
-                <select
-                  id="donationType"
-                  name="donationType"
-                  value={donationData.donationType}
-                  onChange={handleChange}
-                >
-                  {donationTypes.map(type => (
-                    <option key={type.value} value={type.value}>
-                      {type.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="amount">مبلغ التبرع </label>
-                <input
-                  type="number"
-                  id="amount"
-                  name="amount"
-                  value={donationData.amount}
-                  onChange={handleChange}
-                  min="50"
-                  step="10"
-                  required
-                />
-              </div>
-
-              <div className="form-checkbox">
-                <input
-                  type="checkbox"
-                  id="isRecurring"
-                  name="isRecurring"
-                  checked={donationData.isRecurring}
-                  onChange={handleChange}
-                />
-                <label htmlFor="isRecurring">تبرع شهري متكرر</label>
-              </div>
-            </div>
-
-     
-            <button type="submit" className="submit-btn">
-              تأكيد التبرع
-            </button>
-          </form>
+    <div className="donation-container">
+      <div className="donation-card">
+        <div className="donation-header">
+          <h1>التبرع الفردي</h1>
+          <p>اختر مجال التبرع الذي تريد دعمه وساهم في تغيير حياة الأفراد</p>
         </div>
 
-        <div className="donation-info">
-          <div className="info-card">
-            <h3>كيف يستخدم تبرعك؟</h3>
+        <div className="donation-content">
+          <div className="donation-info">
+            <h2>معلومات عن التبرع</h2>
             <p>سيوجه تبرعك بالكامل إلى المجال الذي اخترته لدعم الأفراد المحتاجين.</p>
             <ul className="benefits-list">
               <li>شفافية كاملة في توزيع التبرعات</li>
               <li>تقارير دورية عن تأثير تبرعك</li>
               <li>إيصال ضريبي معتمد</li>
             </ul>
+
+            <div className="contact-box">
+              <h3>للاستفسارات:</h3>
+              <p>هاتف: 0998 766 972</p>
+              <p>بريد إلكتروني: donations@example.com</p>
+            </div>
           </div>
 
-          <div className="info-card contact-card">
-            <h3>للاستفسارات</h3>
-            <p><i className="icon phone"></i> 920000000</p>
-            <p><i className="icon email"></i> donations@example.org</p>
+          <div className="donation-form">
+            <form onSubmit={handleSubmit}>
+              
+              <div className="form-group">
+                <label>الاسم الأول</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={donationData.firstName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <br></br>
+              <div className="form-group">
+                <label>الاسم الأخير</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={donationData.lastName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <br></br>
+              <div className="form-group">
+                <label>اسم الأب</label>
+                <input
+                  type="text"
+                  name="fatherName"
+                  value={donationData.fatherName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <br></br>
+              <div className="form-group">
+                <label>اسم الأم</label>
+                <input
+                  type="text"
+                  name="mothersName"
+                  value={donationData.mothersName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <br></br>
 
+            
+
+             
+              <div className="form-group">
+                <label>البريد الإلكتروني</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={donationData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <br></br>
+
+              <div className="form-group">
+                <label>مبلغ التبرع</label>
+                <input
+                  type="number"
+                  name="amount"
+                  value={donationData.amount}
+                  onChange={handleChange}
+                  min="100"
+                  step="100"
+                  placeholder="أدخل المبلغ"
+                  required
+                />
+              </div>
+              <br></br>
+               {/* قائمة المرضى المضافين */}
+               <div className="patients-list">
+                {donationData.patients.map((patient, index) => (
+                  <div key={index} className="patient-item">
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={patient.isSelected}
+                        onChange={() => togglePatientSelection(index)}
+                      />
+                      {patient.name}
+                    </label>
+                  </div>
+                ))}
+              </div>
+              <br></br>
+
+
+
+              <button type="submit" 
+                className="submit-btn"
+                onClick={addPatient}>
+                تأكيد التبرع
+              </button>
+            </form>
           </div>
+        </div>
+
+        <div className="donation-footer">
+          <p>جميع التبرعات خاضعة للوائح وأنظمة الجمعية</p>
+          <p>شكراً لدعمكم ومساهمتكم في أعمال الخير</p>
         </div>
       </div>
     </div>
