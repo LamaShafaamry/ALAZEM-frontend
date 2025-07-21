@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./DoctorPage.css";
+import HomePage from "../App";
+import DoctorReportPage from "./DoctorReportPage";
 
 const DoctorPage = () => {
   const [appointments, setAppointments] = useState([]);
@@ -8,6 +10,7 @@ const DoctorPage = () => {
   const [reportContent, setReportContent] = useState("");
   const [message, setMessage] = useState({ text: "", type: "" });
   const [activeTab, setActiveTab] = useState("pending");
+  const [currentView, setCurrentView] = useState("appointments"); // حالة جديدة للتحكم في العرض
   const [currentDoctor, setCurrentDoctor] = useState({
     id: 1,
     name: "دكتور أحمد محمد",
@@ -16,6 +19,7 @@ const DoctorPage = () => {
     email: "doctor@example.com"
   });
 
+  
   useEffect(() => {
     // Fetch doctor's appointments
     const fetchAppointments = async () => {
@@ -130,157 +134,168 @@ const DoctorPage = () => {
 
   return (
     <div className="doctor-page">
-    {/* Navbar */}
-    <nav className="doctor-navbar">
+      {/* Navbar */}
+      <nav className="doctor-navbar">
         <div className="navbar-brand">
           <i className="fas fa-clinic-medical"></i>
           نظام إدارة العيادة
         </div>
+        <div className="nav-links">
+        <button 
+  className={`nav-link ${currentView === 'home' ? 'active' : ''}`}
+  onClick={() => setCurrentView('home')}
+>
+  الصفحة الرئيسية
+</button>
+          <button 
+            className={`nav-link ${currentView === 'appointments' ? 'active' : ''}`}
+            onClick={() => setCurrentView('appointments')}
+          >
+            المواعيد
+          </button>
+          <button 
+            className={`nav-link ${currentView === 'reports' ? 'active' : ''}`}
+            onClick={() => setCurrentView('reports')}
+          >
+            التقارير
+          </button>
+        </div>
         <div className="nav-user">
-          
           <div className="user-info">
             <span className="user-name">{currentDoctor.name}</span>
             <span className="user-role">طبيب {currentDoctor.specialty}</span>
           </div>
         </div>
       </nav>
-
-      {/* Header محسن */}
-      <div className="doctor-header">
-        <h2>مرحبًا د. {currentDoctor.name}</h2>
-        <div className="doctor-info">
-          <p>
-            <i className="fas fa-stethoscope"></i>
-            <strong>التخصص:</strong> {currentDoctor.specialty}
-          </p>
-          <p>
-            <i className="fas fa-phone"></i>
-            <strong>الهاتف:</strong> {currentDoctor.phone}
-          </p>
-          <p>
-            <i className="fas fa-envelope"></i>
-            <strong>البريد الإلكتروني:</strong> {currentDoctor.email}
-          </p>
-        </div>
-      </div>
-      {message.text && (
-        <div className={`alert alert-${message.type === "error" ? "danger" : "success"}`}>
-          <i className={`fas ${message.type === "error" ? "fa-exclamation-circle" : "fa-check-circle"}`}></i>
-          {message.text}
-        </div>
+      {currentView === 'home' && <HomePage />}
+      {currentView === 'reports' && <DoctorReportPage />}
+      {currentView === 'appointments' && (
+        <>
+          {/* Header */}
+          <div className="doctor-header">
+            <h2>مرحبًا د. {currentDoctor.name}</h2>
+          </div>
+          
+          {message.text && (
+            <div className={`alert alert-${message.type === "error" ? "danger" : "success"}`}>
+              <i className={`fas ${message.type === "error" ? "fa-exclamation-circle" : "fa-check-circle"}`}></i>
+              {message.text}
+            </div>
+          )}
+          
+          <div className="doctor-tabs">
+            <button 
+              className={`tab-btn ${activeTab === "pending" ? "active" : ""}`}
+              onClick={() => setActiveTab("pending")}
+            >
+              طلبات بانتظار الموافقة
+            </button>
+            <button 
+              className={`tab-btn ${activeTab === "upcoming" ? "active" : ""}`}
+              onClick={() => setActiveTab("upcoming")}
+            >
+              المواعيد المؤكدة
+            </button>
+            <button 
+              className={`tab-btn ${activeTab === "completed" ? "active" : ""}`}
+              onClick={() => setActiveTab("completed")}
+            >
+              المواعيد المكتملة
+            </button>
+          </div>
+          
+          <div className="appointments-list">
+            {filteredAppointments.length > 0 ? (
+              <div className="table-responsive">
+                <table className="table table-hover">
+                  <thead>
+                    <tr>
+                      <th className="text-center">المريض</th>
+                      <th className="text-center">رقم الملف</th>
+                      <th className="text-center">التاريخ والوقت</th>
+                      <th className="text-center">الحالة</th>
+                      <th className="text-center">ملاحظات</th>
+                      <th className="text-center">الإجراءات</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredAppointments.map(appointment => (
+                      <tr key={appointment.id}>
+                        <td className="text-center">{appointment.patient_name}</td>
+                        <td className="text-center">{appointment.patient_medical_number}</td>
+                        <td className="text-center">{new Date(appointment.date).toLocaleString()}</td>
+                        <td className="text-center">
+                          <span className={`status-badge ${
+                            appointment.status === "approved" ? "approved" :
+                            appointment.status === "completed" ? "completed" : "pending"
+                          }`}>
+                            {appointment.status === "approved" ? "مؤكد" :
+                             appointment.status === "completed" ? "مكتمل" : "بانتظار الموافقة"}
+                          </span>
+                        </td>
+                        <td className="text-center">{appointment.notes}</td>
+                        <td className="text-center">
+                          {appointment.status === "pending" && (
+                            <div className="action-buttons">
+                              <button
+                                className="btn btn-success btn-sm mr-2"
+                                onClick={() => handleApproveAppointment(appointment.id, "approve")}
+                              >
+                                قبول
+                              </button>
+                              <button
+                                className="btn btn-danger reject-btn"
+                                onClick={() => handleApproveAppointment(appointment.id, "reject")}
+                              >
+                                رفض
+                              </button>
+                            </div>
+                          )}
+                          
+                          {appointment.status === "approved" && (
+                            <button
+                              className="btn btn-primary btn-sm"
+                              onClick={() => {
+                                setSelectedAppointment(appointment);
+                                setReportContent("");
+                              }}
+                              data-toggle="modal"
+                              data-target="#reportModal"
+                            >
+                              إكمال الموعد
+                            </button>
+                          )}
+                          
+                          {appointment.status === "completed" && (
+                            <button
+                              className="btn btn-info btn-sm"
+                              onClick={() => {
+                                setSelectedAppointment(appointment);
+                                setReportContent(appointment.report);
+                              }}
+                              data-toggle="modal"
+                              data-target="#reportModal"
+                            >
+                              عرض التقرير
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="no-appointments">
+                <p>لا توجد مواعيد {activeTab === "pending" ? "بانتظار الموافقة" : activeTab === "upcoming" ? "مؤكدة" : "مكتملة"}</p>
+              </div>
+            )}
+          </div>
+        </>
       )}
       
-      <div className="doctor-tabs">
-        <button 
-          className={`tab-btn ${activeTab === "pending" ? "active" : ""}`}
-          onClick={() => setActiveTab("pending")}
-        >
-          طلبات بانتظار الموافقة
-        </button>
-        <button 
-          className={`tab-btn ${activeTab === "upcoming" ? "active" : ""}`}
-          onClick={() => setActiveTab("upcoming")}
-        >
-          المواعيد المؤكدة
-        </button>
-        <button 
-          className={`tab-btn ${activeTab === "completed" ? "active" : ""}`}
-          onClick={() => setActiveTab("completed")}
-        >
-          المواعيد المكتملة
-        </button>
-      </div>
-      
-      <div className="appointments-list">
-        {filteredAppointments.length > 0 ? (
-          <div className="table-responsive">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th>المريض</th>
-                  <th>رقم الملف</th>
-                  <th>التاريخ والوقت</th>
-                  <th>الحالة</th>
-                  <th>ملاحظات</th>
-                  <th>الإجراءات</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredAppointments.map(appointment => (
-                  <tr key={appointment.id}>
-                    <td>{appointment.patient_name}</td>
-                    <td>{appointment.patient_medical_number}</td>
-                    <td>{new Date(appointment.date).toLocaleString()}</td>
-                    <td>
-                      <span className={`status-badge ${
-                        appointment.status === "approved" ? "approved" :
-                        appointment.status === "completed" ? "completed" : "pending"
-                      }`}>
-                        {appointment.status === "approved" ? "مؤكد" :
-                         appointment.status === "completed" ? "مكتمل" : "بانتظار الموافقة"}
-                      </span>
-                    </td>
-                    <td>{appointment.notes}</td>
-                    <td>
-                      {appointment.status === "pending" && (
-                        <div className="action-buttons">
-                          <button
-                            className="btn btn-success btn-sm mr-2"
-                            onClick={() => handleApproveAppointment(appointment.id, "approve")}
-                          >
-                            قبول
-                          </button>
-                          <button
-                            className="btn btn-danger btn-sm"
-                            onClick={() => handleApproveAppointment(appointment.id, "reject")}
-                          >
-                            رفض
-                          </button>
-                        </div>
-                      )}
-                      
-                      {appointment.status === "approved" && (
-                        <button
-                          className="btn btn-primary btn-sm"
-                          onClick={() => {
-                            setSelectedAppointment(appointment);
-                            setReportContent("");
-                          }}
-                          data-toggle="modal"
-                          data-target="#reportModal"
-                        >
-                          إكمال الموعد
-                        </button>
-                      )}
-                      
-                      {appointment.status === "completed" && (
-                        <button
-                          className="btn btn-info btn-sm"
-                          onClick={() => {
-                            setSelectedAppointment(appointment);
-                            setReportContent(appointment.report);
-                          }}
-                          data-toggle="modal"
-                          data-target="#reportModal"
-                        >
-                          عرض التقرير
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="no-appointments">
-            <p>لا توجد مواعيد {activeTab === "pending" ? "بانتظار الموافقة" : activeTab === "upcoming" ? "مؤكدة" : "مكتملة"}</p>
-          </div>
-        )}
-      </div>
-      
-      {/* Report Modal */}
-      <div className="modal fade" id="reportModal" tabIndex="-1" role="dialog">
+     {/* Report Modal */}
+     <div className="modal fade" id="reportModal" tabIndex="-1" role="dialog">
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -324,7 +339,7 @@ const DoctorPage = () => {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-secondary "
                 data-dismiss="modal"
               >
                 إغلاق

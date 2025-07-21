@@ -18,7 +18,25 @@
   background-color: #f5f7fa;
   color: var(--dark);
 }
+.manager-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+}
 
+.nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 25px;
+}
+
+.nav-link:hover {
+  color: #f39c12; 
+  transform: translateY(-2px); /* حركة بسيطة للأعلى */
+}
 /* Navbar */
 .manager-navbar {
   background-color: var(--white);
@@ -79,18 +97,19 @@
 }
 
 /* Header */
-.manager-header {
+.manager-header2 {
   background: white;
   color: var(--dark);
   padding: 30px;
   margin-top: 70px;
-  text-align: center;
+  text-align: center !important;
 }
 
-.manager-header h2 {
+.manager-header2 h2 {
   font-weight: 700;
   margin-bottom: 10px;
   font-size: 1.8rem;
+  text-align: center !important;
 }
 
 /* التبويبات */
@@ -216,12 +235,13 @@
   width: 100%;
   border-collapse: collapse;
   color: var(--dark);
+  text-align: center;
 }
 
 .table th {
   background-color: var(--primary-light);
   padding: 15px;
-  text-align: right;
+  text-align: center;
   font-weight: 600;
   border-bottom: 2px solid var(--primary);
 }
@@ -258,11 +278,16 @@
 }
 
 .btn-success {
-  background-color: var(--secondary);
-  color: var(--dark);
+  background-color: var(--success) !important;
+  color: white;
 }
 
-.btn-danger {
+.btn-success:hover {
+  background-color: #218838 !important;
+  transform: translateY(-2px);
+}
+
+.btn-danger2 {
   background-color: var(--danger);
   color: white;
 }
@@ -363,5 +388,50 @@
   
   .tab-btn.active {
     border-left-color: var(--primary);
+  }
+}
+/* تنسيق الرسائل التوضيحية */
+.alert {
+  position: fixed;
+  top: 20px;
+  right: 20px; /* تغيير من left إلى right */
+  z-index: 1000;
+  padding: 15px;
+  border-radius: 5px;
+  color: white;
+  max-width: 300px;
+  animation: slideIn 0.5s, fadeOut 0.5s 4.5s;
+  animation-fill-mode: forwards;
+}
+
+.alert-danger {
+  background-color: #f44336; /* أحمر */
+}
+
+.alert-success {
+  background-color: #4CAF50; /* أخضر */
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+    visibility: hidden;
   }
 }

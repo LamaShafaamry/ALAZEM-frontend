@@ -1,135 +1,127 @@
+/* VolunteerForm.css */
+.donation-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f0f9ff, #ffffff);
+  padding: 2rem 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl;
+}
 
-/* الألوان المعدلة */
-.volunteer-page-theme {
-    --primary: #ffd28e;
-    --secondary: #ffd28e;
-    --light: #f8f9fa;
-    --dark: #343a40;
-    --text-dark: #2c3e50;
-    --text-light: #ffffff;
+.donation-card {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.donation-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.donation-header h1 {
+  font-size: 2rem;
+  color: #ffd28e;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.donation-header p {
+  color: #4b5563;
+  font-size: 1.1rem;
+}
+
+.form-section {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.form-section h2 {
+  color: #000000;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #ffd28e;
+  padding-bottom: 0.5rem;
+}
+
+.form-rows-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.form-rows {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .form-row-4 {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  /* الهيكل الأساسي (محدد بصفحة المتطوعين) */
-  .volunteer-request-wrapper {
-    width: 100%;
-    max-width: 1200px;
-    background: linear-gradient(to bottom, #f8ecd9 10%, #ffffff 90%);
-    padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border-top: 5px solid var(--primary);
-    margin: 2rem 0; /* تغيير من auto إلى 0 للجانبين */
-    color: #2c3e50;
-    direction: rtl;
-    font-family: 'Segoe UI', Tahoma, 'Arial Arabic', sans-serif;
-    box-sizing: border-box; /* هام لإدراج padding ضمن العرض */
+}
+
+@media (max-width: 768px) {
+  .form-row-4,
+  .form-row {
+    grid-template-columns: 1fr;
   }
-  
-  /* للتأكد من أن العنصر الأب يأخذ العرض الكامل */
-  body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-  }
-  
-  .container-wrapper {
-    padding: 0 1rem; /* مسافة ثابتة من الجانبين */
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  /* التأكد من أن المتغيرات محددة */
-  :root {
-    --primary: #ffd28e;
-  }
-  
-  /* إذا كان النص العربي لا يظهر بشكل صحيح */
-  .volunteer-request-wrapper {
-    direction: rtl;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  .volunteer-request-wrapper h2.display-6 {
-    color: var(--text-dark);
-    text-align: center;
-    margin-bottom: 1rem;
-    font-weight: 700;
-  }
-  
-  .volunteer-request-wrapper p {
-    color: var(--text-dark);
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-  }
-  
-  /* حقول الإدخال (محددة بصفحة المتطوعين) */
-  .volunteer-request-wrapper .form-control {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px 15px;
-    margin-bottom: 5px;
-    transition: all 0.3s ease;
-    text-align: right;
-    padding-right: 15px;
-  }
-  
-  .volunteer-request-wrapper .form-control:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 0.25rem rgba(255, 210, 142, 0.25);
-  }
-  
-  .volunteer-request-wrapper .form-label {
-    color: var(--text-dark);
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    display: block;
-    text-align: right;
-    margin-right: 5px;
-  }
-  
-  /* زر الإرسال (محدد بصفحة المتطوعين) */
-  .volunteer-request-wrapper .request-submit-btn {
-    background-color: var(--primary);
-    color: var(--text-dark);
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-size: 1.1rem;
-  }
-  
-  .volunteer-request-wrapper .request-submit-btn:hover {
-    background-color: #e0b880;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    color: var(--text-dark);
-  }
-  
-  /* التكيف مع الشاشات الصغيرة */
-  @media (max-width: 992px) {
-    .volunteer-request-wrapper .d-flex {
-      flex-direction: column;
-      gap: 1rem !important;
-    }
-    
-    .volunteer-request-wrapper .flex-fill {
-      width: 100%;
-    }
-    
-    .volunteer-request-wrapper {
-      padding: 1.5rem;
-      width: 95%;
-    }
-  }
-  
-  /* تأثيرات إضافية خاصة بصفحة المتطوعين */
-  .volunteer-request-wrapper input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(0.5);
-    cursor: pointer;
-  }
-  
-  .volunteer-request-wrapper input[type="date"]:focus::-webkit-calendar-picker-indicator {
-    filter: invert(0.7);
-  }
+}
+
+.submit-btn {
+  background: #ffd28e;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background: #e6b56e;
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.input-field, .select-field, .date-field {
+  margin-bottom: 0;
+}
+
+.input-field input, 
+.select-field select, 
+.date-field input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.donation-footer {
+  text-align: center;
+  margin-top: 2rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.donation-footer p:first-child {
+  margin-bottom: 0.5rem;
+}

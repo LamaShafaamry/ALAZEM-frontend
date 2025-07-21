@@ -1,0 +1,269 @@
+/* أنماط أساسية */
+:root {
+  --primary: #ffd28e;
+  --primary-light: #ffeacb;
+  --secondary: #ffd28e;
+  --danger: #e74c3c;
+  --warning: #f39c12;
+  --success: #28a745;
+  --info: #ffeacb;
+  --light: #f8f9fa;
+  --dark: #000000;
+  --gray: #95a5a6;
+  --white: #ffffff;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.manager-page {
+  font-family: 'Tajawal', sans-serif;
+  background-color: #f5f7fa;
+  color: var(--dark);
+}
+
+.manager-header2 {
+  background: white;
+  color: var(--dark);
+  padding: 30px;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.manager-header2 h2 {
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+
+/* الجدول */
+.appointments-management {
+  margin: 20px 30px;
+}
+
+.appointments-list {
+  background-color: var(--white);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--dark);
+}
+
+.table th {
+  background-color: var(--primary-light);
+  padding: 15px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--primary);
+  text-align: center;
+}
+
+.table td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+/* البادجات */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-badge.approved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* الأزرار */
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-success {
+  background-color: var(--success) !important;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #218838 !important;
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+.reject-btn {
+  color: white !important;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.875rem;
+}
+
+.btn-secondary {
+  background-color: var(--gray);
+  color: white;
+}
+
+/* الأزرار داخل الجدول */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* المودال */
+.donation-details-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--white);
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: var(--shadow);
+}
+
+.modal-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--gray);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.details-section h4 {
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+.modal-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .manager-header2 {
+    padding: 15px;
+    margin-top: 60px;
+  }
+  
+  .appointments-management {
+    margin: 15px;
+  }
+  
+  .table th, .table td {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .btn {
+    padding: 6px 12px;
+  }
+}/* أنماط الأزرار الجديدة */
+.view-details-btn {
+  background-color: var(--info);
+  color: var(--dark);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.view-details-btn:hover {
+  background-color: #d5e6f7;
+  transform: translateY(-2px);
+}
+
+/* تحسينات أخرى */
+.btn-info {
+  background-color: var(--info);
+  color: var(--dark);
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.reject-btn {
+  color: white !important;
+}

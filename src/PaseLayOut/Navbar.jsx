@@ -32,6 +32,9 @@ function Navbar() {
             <li className="nav-item">
               <button className="nav-link btn btn-link" onClick={() => scrollToSection("donations-section")}>تبرع</button>
             </li>
+            <li className="nav-item">
+              <button className="nav-link btn btn-link" onClick={() => scrollToSection("contact")}>تواصل معنا</button>
+            </li>
           </ul>
         </div>
       </div>

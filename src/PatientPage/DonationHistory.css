@@ -1,0 +1,280 @@
+/* أنماط أساسية */
+:root {
+  --primary: #ffd28e;
+  --primary-light: #ffeacb;
+  --secondary: #ffd28e;
+  --danger: #e74c3c;
+  --warning: #f39c12;
+  --info: #ffeacb;
+  --light: #f8f9fa;
+  --dark: #000000;
+  --gray: #95a5a6;
+  --white: #ffffff;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.patient-page {
+  font-family: 'Tajawal', sans-serif;
+  background-color: #f5f7fa;
+  color: var(--dark);
+}
+
+.patient-header {
+  background: white;
+  color: var(--dark);
+  padding: 30px;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.patient-header h2 {
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+
+/* التبويبات */
+.patient-tabs {
+  display: flex;
+  background: var(--white);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  margin: 20px 30px;
+  overflow: hidden;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 15px;
+  background: none;
+  border: none;
+  color: var(--gray);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  text-align: center;
+}
+
+.tab-btn:hover {
+  color: var(--dark);
+}
+
+.tab-btn.active {
+  color: var(--dark);
+  background: rgba(255, 210, 142, 0.2);
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--primary);
+}
+
+/* الجدول */
+.appointments-list {
+  margin: 20px 30px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--dark);
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th {
+  background-color: var(--primary-light);
+  padding: 15px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--primary);
+  text-align: center;
+}
+
+.table td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+/* الأزرار */
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-info {
+  background-color: var(--primary);
+  color: var(--dark);
+}
+
+.btn-info:hover {
+  background-color: #ffc56e;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--gray);
+  color: white;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.875rem;
+}
+
+/* البادجات */
+.donation-type, .status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.donation-type.financial {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.donation-type.blood {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.donation-type.medical {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.status-badge.completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.cancelled {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* المودال */
+.donation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--white);
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: var(--shadow);
+}
+
+.modal-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-weight: 700;
+}
+
+.modal-header button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--gray);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.donation-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.modal-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* الأزرار داخل الجدول */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .patient-tabs {
+    flex-direction: column;
+  }
+  
+  .tab-btn {
+    border-bottom: 1px solid #eee;
+  }
+  
+  .tab-btn.active::after {
+    width: 3px;
+    height: 100%;
+    right: 0;
+    bottom: auto;
+  }
+  
+  .detail-row {
+    flex-direction: column;
+    gap: 5px;
+  }
+}

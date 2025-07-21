@@ -18,6 +18,9 @@ import ManagerPage from "./ManagerPage/ManagerPage";
 import PatientPage from "./PatientPage/PatientPage";
 import DoctorPage from "./DoctorPage/DoctorPage";
 import ProtectedRoute from "./provider/ProtectedRoute.jsx";
+
+
+
 function HomePage() {
   return (
     <div className="home-background">
@@ -47,17 +50,17 @@ function HomePage() {
                   نمنح النور بالأمل، ونرعى بحب
                 </h4>
                 <div className="buttons">
-                  <Link to="/request">
-                    <Button className="donation-buttons-btn text-dark">
-                      ارسل طلب
-                    </Button>
-                  </Link>
-                  <Link to="/signin">
-                    <Button className="donation-buttons-btn text-dark">
-                      تسجيل الدخول
-                    </Button>
-                  </Link>
-                </div>
+  <Link to="/request">
+    <Button className="custom-request-btn">
+      ارسل طلب
+    </Button>
+  </Link>
+  <Link to="/signin">
+    <Button className="custom-login-btn">
+      تسجيل الدخول
+    </Button>
+  </Link>
+</div>
               </Col>
             </Row>
           </Container>
@@ -185,8 +188,108 @@ function HomePage() {
             </Link>
           </div>
         </div>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+   {/* أضف هذا الكود بعد قسم التبرعات مباشرة */}
+<section id="contact" className="contact-container mt-5 py-5">
+  <div className="container">
+    <h2 className="text-center mb-4">تواصل معنا</h2>
+    <p className="text-center lead mb-5">نسعد بسماع آرائكم واستفساراتكم</p>
+    
+    <div className="row justify-content-center">
+      <div className="col-md-8">
+        <div className="contact-card p-4">
+          <div className="row">
+            {/* معلومات التواصل */}
+            <div className="col-md-6">
+              <div className="contact-info">
+                <h4 className="mb-4">معلومات التواصل</h4>
+                
+                <div className="contact-item mb-3">
+                  <i className="fas fa-map-marker-alt contact-icon"></i>
+                  <span>عنوان الجمعية: الرياض، حي النخيل</span>
+                </div>
+                
+                <div className="contact-item mb-3">
+                  <i className="fas fa-phone contact-icon"></i>
+                  <span>الهاتف: 0112345678</span>
+                </div>
+                
+                <div className="contact-item mb-3">
+                  <i className="fas fa-envelope contact-icon"></i>
+                  <span>البريد الإلكتروني: alazm@gmail.org</span>
+                </div>
+                
+                <div className="social-media mt-4">
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-twitter"></i>
+                  </a>
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-facebook-f"></i>
+                  </a>
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-instagram"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            {/* نموذج التواصل */}
+            <div className="col-md-6">
+              <form className="contact-form">
+                <div className="form-group mb-3">
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    placeholder="الاسم الكامل" 
+                    required 
+                  />
+                </div>
+                
+                <div className="form-group mb-3">
+                  <input 
+                    type="email" 
+                    className="form-control" 
+                    placeholder="البريد الإلكتروني" 
+                    required 
+                  />
+                </div>
+                
+                <div className="form-group mb-3">
+                  <input 
+                    type="tel" 
+                    className="form-control" 
+                    placeholder="رقم الهاتف" 
+                  />
+                </div>
+                
+                <div className="form-group mb-3">
+                  <textarea 
+                    className="form-control" 
+                    rows="4" 
+                    placeholder="رسالتك..."
+                    required
+                  ></textarea>
+                </div>
+                
+                <button type="submit" className="btn contact-submit-btn">
+                  إرسال الرسالة
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+</section>
+      </div>
+    </div>
+
   );
 }
 
@@ -220,6 +323,8 @@ function App() {
         {/* </Route> */}
         <Route path="/patient-page" element={<PatientPage />} />
         <Route path="/doctor-page" element={<DoctorPage />} />
+       
+
       </Routes>
     </Router>
   );

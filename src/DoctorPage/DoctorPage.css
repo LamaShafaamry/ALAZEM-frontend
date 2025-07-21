@@ -12,6 +12,13 @@
   --white: #ffffff;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+.reject-btn {
+  color: white !important;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
 
 body {
   font-family: 'Tajawal', sans-serif;
@@ -64,7 +71,78 @@ body {
   object-fit: cover;
   border: 2px solid var(--primary-light);
 }
+/* أنماط الجدول */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
+.table th {
+  background-color: #ffeacb;
+  padding: 15px;
+  font-weight: 600;
+  border-bottom: 2px solid #ffd28e;
+  text-align: center;
+}
+
+.table td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+/* أنماط الأزرار */
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* أنماط البادجات */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-badge.approved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.completed {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* محاذاة العناصر */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.no-appointments {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.1rem;
+  color: #6c757d;
+}
 .user-info {
   display: flex;
   flex-direction: column;
