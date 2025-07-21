@@ -168,13 +168,13 @@ const ManagerPage = () => {
   };
   
   return (
-    <div className="manager-page">
-      <nav className="manager-navbar">
-        <div className="navbar-brand">
+    <div className="manager-page2">
+      <nav className="manager-navbar2">
+        <div className="navbar-brand2">
           <i className="fas fa-clinic-medical"></i>
-          نظام إدارة العيادة
+          
         </div>
-        <div className="nav-links">
+        <div className="nav-links2">
         <button 
   className={`nav-link ${currentView === 'home' ? 'active' : ''}`}
   onClick={() => setCurrentView('home')}

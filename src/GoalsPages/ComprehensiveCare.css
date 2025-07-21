@@ -1,0 +1,138 @@
+/* الألوان الرئيسية */
+:root {
+    --primary-color: #ffc187;
+    --secondary-color: #2c3e50;
+    --accent-color: #ffc187;
+    --text-color: #2c3e50;
+    --light-bg: #f8f9fa;
+    --white: #ffffff;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* التنسيق العام */
+  .comprehensive-care-page {
+    background-color: var(--light-bg);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    padding: 20px 0;
+  }
+  
+  .care-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* العنوان الرئيسي */
+  .care-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+  }
+  
+  .care-header h1 {
+    color: var(--secondary-color);
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  
+  .header-subtitle {
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* خدمات الرعاية المعدلة */
+  .care-service {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .service-image {
+    flex: 0 0 40%;
+    margin-right: 25px;
+  }
+  
+  .service-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+  
+  .service-content {
+    flex: 1;
+  }
+  
+  .care-service h2 {
+    color: var(--secondary-color);
+    font-size: 1.6rem;
+    text-align: right;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent-color);
+  }
+  
+  .service-description {
+    font-size: 1rem;
+    color: var(--text-color);
+    text-align: right;
+  }
+  
+  .service-description ul {
+    margin: 15px 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .service-description li {
+    margin-bottom: 8px;
+    padding-right: 0;
+  }
+  
+  .service-summary {
+    font-style: italic;
+    text-align: right;
+    margin-top: 15px;
+    color: var(--secondary-color);
+  }
+  
+  /* التجاوب مع الشاشات الصغيرة */
+  @media (max-width: 768px) {
+    .care-header h1 {
+      font-size: 1.8rem;
+    }
+    
+    .header-subtitle {
+      font-size: 1rem;
+    }
+    
+    .care-service {
+      flex-direction: column;
+      padding: 20px;
+    }
+    
+    .service-image {
+      margin-right: 0;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+    
+    .care-service h2 {
+      font-size: 1.4rem;
+      text-align: center;
+    }
+    
+    .service-description,
+    .service-summary {
+      text-align: center;
+    }
+  }

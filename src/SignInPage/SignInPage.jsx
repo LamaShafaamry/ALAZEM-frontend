@@ -65,11 +65,11 @@ function SignInPage() {
         <form onSubmit={handleLogin}>
           {error && <div className="alert alert-danger">{error}</div>}
           <div className="mb-3">
-            <label className="form-label">اسم المستخدم</label>
+            <label className="form-label">الإيميل </label>
             <input
               type="text"
               className="form-control"
-              placeholder="ادخل اسم المستخدم"
+              placeholder="ادخل الإيميل "
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required

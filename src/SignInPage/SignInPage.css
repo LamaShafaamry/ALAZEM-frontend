@@ -27,7 +27,7 @@
 }
 
 .signin-wrapper2 .form-control:focus {
-  border-color: #3498db;
+  border-color: #ffd28e;
   box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
 }
 
@@ -42,7 +42,7 @@
 .signin-wrapper2 .btn2 {
   width: 100%;
   padding: 12px;
-  background-color: #3498db;
+  background-color: #ffd28e;
   color: white;
   border: none;
   border-radius: 8px;
@@ -52,19 +52,19 @@
 }
 
 .signin-wrapper2 .btn2:hover {
-  background-color: #2980b9;
+  background-color: #ffcb7d;
   transform: translateY(-2px);
 }
 
 /* تنسيق الروابط */
 .signin-wrapper2 a {
-  color: #3498db;
+  color: #000000;
   text-decoration: none;
   transition: all 0.3s;
 }
 
 .signin-wrapper2 a:hover {
-  color: #2980b9;
+  color: #000000;
   text-decoration: underline;
 }
 

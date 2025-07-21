@@ -20,6 +20,24 @@ const DonationsSection = () => {
       amount: 2000,
       date: "2023-06-16",
       status: "قيد المراجعة"
+    },
+    {
+      id: 3,
+      type: "جمعية",
+      organization: "جمعية الخير",
+      email: "info@charity.org",
+      amount: 2500,
+      date: "2023-05-26",
+      status: "قيد المراجعة"
+    },
+    {
+      id: 4,
+      type: "فردي",
+      organization: "جمعية الخير",
+      email: "info@charity.org",
+      amount: 4000,
+      date: "2023-05-26",
+      status: "قيد المراجعة"
     }
   ]);
 

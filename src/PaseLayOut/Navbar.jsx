@@ -24,10 +24,10 @@ function Navbar() {
               <button className="nav-link btn btn-link" onClick={scrollToHome}>الصفحة الرئيسية</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() => scrollToSection("goals-section")}>الأهداف</button>
+              <button className="nav-link btn btn-link" onClick={() => scrollToSection("goals-section")}>الخدمات</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() => scrollToSection("services")}>الخدمات</button>
+              <button className="nav-link btn btn-link" onClick={() => scrollToSection("services")}>النشاطات</button>
             </li>
             <li className="nav-item">
               <button className="nav-link btn btn-link" onClick={() => scrollToSection("donations-section")}>تبرع</button>

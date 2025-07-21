@@ -5,7 +5,7 @@ const PatientsManagement = () => {
   const [patients, setPatients] = useState([
     {
       id: 1,
-      fullName: 'محمد علي',
+      fullName: 'مريم علي',
       disabilityCardNumber: 'DIS12345',
       phone: '0512345678',
       motherName: 'فاطمة',
@@ -23,7 +23,7 @@ const PatientsManagement = () => {
     },
     {
       id: 3,
-      fullName: 'خالد سعيد',
+      fullName: 'راما سعيد',
       disabilityCardNumber: 'DIS54321',
       phone: '0543210987',
       motherName: 'أمينة',

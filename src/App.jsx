@@ -18,8 +18,10 @@ import ManagerPage from "./ManagerPage/ManagerPage";
 import PatientPage from "./PatientPage/PatientPage";
 import DoctorPage from "./DoctorPage/DoctorPage";
 import ProtectedRoute from "./provider/ProtectedRoute.jsx";
-
-
+import ChantingPage from "./Activities/ChantingPage";
+import SportsPage from "./Activities/SportsPage";
+import CulturalPage from "./Activities/ReadingPage";
+import VolunteerProfile from './VolunteerProfile/VolunteerProfile';
 
 function HomePage() {
   return (
@@ -50,25 +52,20 @@ function HomePage() {
                   نمنح النور بالأمل، ونرعى بحب
                 </h4>
                 <div className="buttons">
-  <Link to="/request">
-    <Button className="custom-request-btn">
-      ارسل طلب
-    </Button>
-  </Link>
-  <Link to="/signin">
-    <Button className="custom-login-btn">
-      تسجيل الدخول
-    </Button>
-  </Link>
-</div>
+                  <Link to="/request">
+                    <Button className="custom-request-btn">ارسل طلب</Button>
+                  </Link>
+                  <Link to="/signin">
+                    <Button className="custom-login-btn">تسجيل الدخول</Button>
+                  </Link>
+                </div>
               </Col>
             </Row>
           </Container>
         </div>
         <div id="goals-section" className="goals-container mt-5">
           <div className="goal-header">
-            <h2 className="text-center text-dark ">الهدف الرئيسي</h2>
-            <p className="lead text-center">تأمين دار آمنة لمن لا مأوى لهن</p>
+            <h2 className="text-center text-dark ">الخدمات </h2>
           </div>
           <div className="goals-content">
             <Link to="/comprehensive-care" className="goal-item">
@@ -100,14 +97,6 @@ function HomePage() {
 
               <p>تأهيل الكفيفات المسنات على المهارات الحياتية</p>
             </Link>
-            <Link to="/activities" className="goal-item">
-              <img
-                src="Photos/activities.png"
-                alt="الأنشطة الترفيهية"
-                className="goal-icon"
-              />
-              <p>تنظيم أنشطة ترفيهية وتعليمية لتعزيز جودة الحياة</p>
-            </Link>
           </div>
         </div>
         <br></br>
@@ -119,43 +108,40 @@ function HomePage() {
         <br></br>
         <br></br>
         <section id="services" className="services-container">
-          <h2 className="text-center"> الخدمات</h2>
+          <h2 className="text-center"> النشاطات</h2>
 
           <div className="services-content">
-            <div className="service-item">
+            <Link to="/activities/chanting" className="service-item">
               <img
-                src="Photos/care1.jpg"
-                alt="الرعاية الشاملة"
+                src="Photos/نشاط.jpg"
+                alt="التراتيل الدينية"
                 className="service-icon"
               />
-              <h3>الرعاية الشاملة</h3>
+              
               <p>
-                نوفر الدعم النفسي والصحي الشامل لضمان راحة الكفيفات المسنات.
+                من فعاليات احتفالنا السنوي المقام في دار العزم للكفيفات المسنات
               </p>
-            </div>
-            <div className="service-item">
+            </Link>
+
+            <Link to="/activities/sports" className="service-item">
               <img
-                src="Photos/training1.png"
-                alt="التأهيل والتدريب"
+                src="Photos/health3.png"
+                alt="الأنشطة الرياضية"
                 className="service-icon"
               />
-              <h3>التأهيل والتدريب</h3>
-              <p>
-                نساعد في تطوير المهارات الحياتية والمهنية لضمان استقلالية أفضل.
-              </p>
-            </div>
-            <div className="service-item">
+              
+              <p>تمارين رياضية خاصة بالمكفوفات المسنات</p>
+            </Link>
+
+            <Link to="/activities/cultural" className="service-item">
               <img
                 src="Photos/activites1.png"
-                alt="الأنشطة الترفيهية"
+                alt="الأنشطة الثقافية"
                 className="service-icon"
               />
-              <h3>الأنشطة المتنوعة</h3>
-              <p>
-                تنظيم الفعاليات التعليمية والترفيهية لتعزيز جودة الحياة وإثراء
-                المجتمع.
-              </p>
-            </div>
+              
+              <p>تهدف لتنشيط الذاكرة وتحسين الحالة النفسية</p>
+            </Link>
           </div>
         </section>
         <br></br>
@@ -194,102 +180,48 @@ function HomePage() {
         <br></br>
         <br></br>
         <br></br>
-   {/* أضف هذا الكود بعد قسم التبرعات مباشرة */}
-<section id="contact" className="contact-container mt-5 py-5">
-  <div className="container">
-    <h2 className="text-center mb-4">تواصل معنا</h2>
-    <p className="text-center lead mb-5">نسعد بسماع آرائكم واستفساراتكم</p>
-    
-    <div className="row justify-content-center">
-      <div className="col-md-8">
-        <div className="contact-card p-4">
-          <div className="row">
-            {/* معلومات التواصل */}
-            <div className="col-md-6">
-              <div className="contact-info">
-                <h4 className="mb-4">معلومات التواصل</h4>
-                
-                <div className="contact-item mb-3">
-                  <i className="fas fa-map-marker-alt contact-icon"></i>
-                  <span>عنوان الجمعية: الرياض، حي النخيل</span>
-                </div>
-                
-                <div className="contact-item mb-3">
-                  <i className="fas fa-phone contact-icon"></i>
-                  <span>الهاتف: 0112345678</span>
-                </div>
-                
-                <div className="contact-item mb-3">
-                  <i className="fas fa-envelope contact-icon"></i>
-                  <span>البريد الإلكتروني: alazm@gmail.org</span>
-                </div>
-                
-                <div className="social-media mt-4">
-                  <a href="#" className="social-icon">
-                    <i className="fab fa-twitter"></i>
-                  </a>
-                  <a href="#" className="social-icon">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="#" className="social-icon">
-                    <i className="fab fa-instagram"></i>
-                  </a>
-                </div>
+
+        {/* أضف هذا الكود بعد قسم التبرعات مباشرة */}
+        <div id="contact" className="contact-container">
+          <h1 className="main-title">تواصل معنا</h1>
+
+          <div className="content-wrapper">
+            <div className="right-section">
+              <h2>ماذا سيحدث بعد ذلك؟</h2>
+              <div className="steps">
+                <p>
+                  <span className="blue-circle"></span>عند استلامنا رسالتك سنجهز
+                  طلبك وندرسه
+                </p>
+                <p>
+                  <span className="blue-circle"></span>ثم نرسل لك بريداً
+                  إلكترونياً يحتوي على جوابك
+                </p>
+                <p>
+                  <span className="blue-circle"></span>أو تفاصيل محددة، أو
+                  لتحديد اجتماع مع المسؤولين لدينا
+                </p>
+                <p>
+                  <span className="blue-circle"></span>سنكون سعداء بالتعرف عليك،
+                  ونأمل أن تعاود الاتصال بنا
+                </p>
               </div>
             </div>
-            
-            {/* نموذج التواصل */}
-            <div className="col-md-6">
-              <form className="contact-form">
-                <div className="form-group mb-3">
-                  <input 
-                    type="text" 
-                    className="form-control" 
-                    placeholder="الاسم الكامل" 
-                    required 
-                  />
-                </div>
-                
-                <div className="form-group mb-3">
-                  <input 
-                    type="email" 
-                    className="form-control" 
-                    placeholder="البريد الإلكتروني" 
-                    required 
-                  />
-                </div>
-                
-                <div className="form-group mb-3">
-                  <input 
-                    type="tel" 
-                    className="form-control" 
-                    placeholder="رقم الهاتف" 
-                  />
-                </div>
-                
-                <div className="form-group mb-3">
-                  <textarea 
-                    className="form-control" 
-                    rows="4" 
-                    placeholder="رسالتك..."
-                    required
-                  ></textarea>
-                </div>
-                
-                <button type="submit" className="btn contact-submit-btn">
-                  إرسال الرسالة
-                </button>
+
+            <div className="left-section">
+              <form>
+                <h3>أرسل لنا رسالة</h3>
+                <input type="text" placeholder="الاسم" />
+                <input type="email" placeholder="البريد الإلكتروني" />
+                <input type="tel" placeholder="رقم الهاتف" />
+                <textarea placeholder="الملاحظات"></textarea>
+                <button type="submit">إرسال الرسالة</button>
               </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-      </div>
-    </div>
-
   );
 }
 
@@ -319,12 +251,14 @@ function App() {
         <Route path="/payment-page2" element={<FullAssociationDonation />} />
         {/* <Route path="/manager-page" element={<ManagerPage />} /> */}
         {/* <Route element={<ProtectedRoute allowedRoles={["ADM"]} />}> */}
-          <Route path="/manager-page" element={<ManagerPage />} />
+        <Route path="/manager-page" element={<ManagerPage />} />
         {/* </Route> */}
         <Route path="/patient-page" element={<PatientPage />} />
         <Route path="/doctor-page" element={<DoctorPage />} />
-       
-
+        <Route path="/volunteer-page" element={<VolunteerProfile />} />
+        <Route path="/activities/chanting" element={<ChantingPage />} />
+        <Route path="/activities/sports" element={<SportsPage />} />
+        <Route path="/activities/cultural" element={<CulturalPage />} />
       </Routes>
     </Router>
   );
