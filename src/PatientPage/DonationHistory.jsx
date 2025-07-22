@@ -14,7 +14,7 @@ const DonationHistory = () => {
       id: 2,
       date: "2023-05-20",
       type: "دم",
-      amount: "-",
+      amount: 400,
       status: "مكتمل"
     },
     {
@@ -28,7 +28,7 @@ const DonationHistory = () => {
       id: 4,
       date: "2023-07-01",
       type: "أدوية",
-      amount: "-",
+      amount: 350,
       status: "قيد المراجعة"
     }
   ]);
@@ -53,33 +53,9 @@ const DonationHistory = () => {
           التبرعات
         </h2>
       </div>
+      <br></br>
 
-      <div className="patient-tabs">
-        <button 
-          className={`tab-btn ${activeFilter === "all" ? "active" : ""}`}
-          onClick={() => setActiveFilter("all")}
-        >
-          الكل
-        </button>
-        <button 
-          className={`tab-btn ${activeFilter === "مكتمل" ? "active" : ""}`}
-          onClick={() => setActiveFilter("مكتمل")}
-        >
-          مكتملة
-        </button>
-        <button 
-          className={`tab-btn ${activeFilter === "قيد المراجعة" ? "active" : ""}`}
-          onClick={() => setActiveFilter("قيد المراجعة")}
-        >
-          قيد المراجعة
-        </button>
-        <button 
-          className={`tab-btn ${activeFilter === "ملغى" ? "active" : ""}`}
-          onClick={() => setActiveFilter("ملغى")}
-        >
-          ملغاة
-        </button>
-      </div>
+    
 
       <div className="appointments-list">
         <table className="table">
@@ -87,9 +63,9 @@ const DonationHistory = () => {
             <tr>
               <th className="text-center">تاريخ التبرع</th>
               
-              <th className="text-center">المبلغ/الكمية</th>
-              <th className="text-center">الحالة</th>
-              <th className="text-center">الإجراءات</th>
+              <th className="text-center">المبلغ</th>
+             
+             
             </tr>
           </thead>
           <tbody>
@@ -98,26 +74,10 @@ const DonationHistory = () => {
                 <td className="text-center">{donation.date}</td>
              
                 <td className="text-center">
-                  {donation.type === "مالي" ? `${donation.amount} ر.س` : "---"}
+                  {donation.type === "مالي" ? `${donation.amount} ل.س` : "400 ل.س"}
                 </td>
-                <td className="text-center">
-                  <span className={`status-badge ${
-                    donation.status === "مكتمل" ? "completed" :
-                    donation.status === "قيد المراجعة" ? "pending" : "cancelled"
-                  }`}>
-                    {donation.status}
-                  </span>
-                </td>
-                <td className="text-center">
-                  <div className="action-buttons">
-                    <button 
-                      className="btn btn-info btn-sm"
-                      onClick={() => setSelectedDonation(donation)}
-                    >
-                      التفاصيل
-                    </button>
-                  </div>
-                </td>
+                
+
               </tr>
             ))}
           </tbody>
@@ -139,30 +99,14 @@ const DonationHistory = () => {
                   <span className="detail-label">تاريخ التبرع:</span>
                   <span>{selectedDonation.date}</span>
                 </div>
-                <div className="detail-row">
-                  <span className="detail-label">نوع التبرع:</span>
-                  <span className={`donation-type ${
-                    selectedDonation.type === "مالي" ? "financial" :
-                    selectedDonation.type === "دم" ? "blood" : "medical"
-                  }`}>
-                    {selectedDonation.type}
-                  </span>
-                </div>
+                
                 {selectedDonation.type === "مالي" && (
                   <div className="detail-row">
                     <span className="detail-label">المبلغ:</span>
-                    <span>{selectedDonation.amount} ر.س</span>
+                    <span>{selectedDonation.amount} ل.س</span>
                   </div>
                 )}
-                <div className="detail-row">
-                  <span className="detail-label">الحالة:</span>
-                  <span className={`status-badge ${
-                    selectedDonation.status === "مكتمل" ? "completed" :
-                    selectedDonation.status === "قيد المراجعة" ? "pending" : "cancelled"
-                  }`}>
-                    {selectedDonation.status}
-                  </span>
-                </div>
+              
               </div>
             </div>
             <div className="modal-footer">

@@ -24,6 +24,26 @@ const DoctorReportsPage = () => {
       treatment: 'مضاد حيوي مع محلول لتعويض السوائل',
       status: 'مرفوض',
       attachments: ['تحليل_البراز.pdf']
+    },
+    {
+      id: 3,
+      doctorName: 'دكتورة عليا موسى',
+      specialty: 'جلدية ',
+      date: '2023-04-26',
+      diagnosis: 'حرق من الدرجة الاولى ',
+      treatment: 'كريم  ',
+      status: 'مرفوض',
+      attachments: ['صورة_الحرق.pdf']
+    },
+    {
+      id: 4,
+      doctorName: 'دكتورة لانا العلي',
+      specialty: 'داخلية ',
+      date: '2023-04-26',
+      diagnosis: '    ',
+      treatment: '  ',
+      status: 'مرفوض',
+      attachments: ['صورة_.pdf']
     }
   ]);
 
@@ -48,10 +68,10 @@ const DoctorReportsPage = () => {
             <tr>
               <th>اسم الطبيب</th>
               <th>التخصص</th>
-              <th>التشخيص</th>
+             
               <th>التاريخ</th>
               <th>الحالة</th>
-              <th>الإجراءات</th>
+              <th>التقرير الطبي</th>
             </tr>
           </thead>
           <tbody>
@@ -59,7 +79,7 @@ const DoctorReportsPage = () => {
               <tr key={report.id}>
                 <td>{report.doctorName}</td>
                 <td>{report.specialty}</td>
-                <td>{report.diagnosis}</td>
+               
                 <td>{report.date}</td>
                 <td>
                   <span className={`status-badge ${
@@ -100,11 +120,7 @@ const DoctorReportsPage = () => {
               <p><strong>التاريخ:</strong> {selectedReport.date}</p>
             </div>
             
-            <div className="details-section">
-              <h4>التشخيص والعلاج</h4>
-              <p><strong>التشخيص:</strong> {selectedReport.diagnosis}</p>
-              <p><strong>العلاج الموصوف:</strong> {selectedReport.treatment}</p>
-            </div>
+            
 
             {selectedReport.attachments && selectedReport.attachments.length > 0 && (
               <div className="details-section">

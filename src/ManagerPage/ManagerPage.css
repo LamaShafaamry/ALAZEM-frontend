@@ -13,19 +13,19 @@
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.manager-page2 {
+.manager-page {
   font-family: 'Tajawal', sans-serif;
   background-color: #f5f7fa;
   color: var(--dark);
 }
-.manager-navbar2 {
+.manager-navbar{
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 30px;
 }
 
-.nav-links2 {
+.nav-links {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -38,7 +38,7 @@
   transform: translateY(-2px); /* حركة بسيطة للأعلى */
 }
 /* Navbar */
-.manager-navbar2 {
+.manager-navbar {
   background-color: var(--white);
   box-shadow: var(--shadow);
   height: 70px;

@@ -31,11 +31,31 @@ const DoctorPage = () => {
           {
             id: "app1",
             patient_id: 1,
-            patient_name: "محمد علي",
+            patient_name: "سمر علي",
             patient_medical_number: "P12345",
             date: "2023-06-20T10:00:00",
             status: "pending",
-            notes: "كشف دوري على القلب",
+            notes: "   ",
+            report: ""
+          },
+          {
+            id: "app2",
+            patient_id: 5,
+            patient_name: "لميا عطار ",
+            patient_medical_number: "P12345",
+            date: "2023-06-20T10:00:00",
+            status: "pending",
+            notes: "   ",
+            report: ""
+          },
+          {
+            id: "app1",
+            patient_id: 6,
+            patient_name: " مؤمنة سالم",
+            patient_medical_number: "P12345",
+            date: "2023-06-20T10:00:00",
+            status: "pending",
+            notes: " ",
             report: ""
           },
           {
@@ -51,12 +71,22 @@ const DoctorPage = () => {
           {
             id: "app3",
             patient_id: 3,
-            patient_name: "خالد حسن",
+            patient_name: "تسنيم حسن",
             patient_medical_number: "P12347",
             date: "2023-06-25T11:15:00",
             status: "completed",
             notes: "شكوى من ألم في الصدر",
             report: "تم الكشف وتبين وجود مشكلة في الصمام، تم وصف العلاج المناسب"
+          },
+          {
+            id: "app4",
+            patient_id: 4,
+            patient_name: "يارا احمد ",
+            patient_medical_number: "P12347",
+            date: "2023-06-25T11:15:00",
+            status: "completed",
+            notes: "شكوى من ألم في المعدة",
+            report: "تم الكشف وتبين وجود مشكلة في المعدة، تم وصف العلاج المناسب"
           }
         ];
         
@@ -183,26 +213,7 @@ const DoctorPage = () => {
             </div>
           )}
           
-          <div className="doctor-tabs">
-            <button 
-              className={`tab-btn ${activeTab === "pending" ? "active" : ""}`}
-              onClick={() => setActiveTab("pending")}
-            >
-              طلبات بانتظار الموافقة
-            </button>
-            <button 
-              className={`tab-btn ${activeTab === "upcoming" ? "active" : ""}`}
-              onClick={() => setActiveTab("upcoming")}
-            >
-              المواعيد المؤكدة
-            </button>
-            <button 
-              className={`tab-btn ${activeTab === "completed" ? "active" : ""}`}
-              onClick={() => setActiveTab("completed")}
-            >
-              المواعيد المكتملة
-            </button>
-          </div>
+<br></br>
           
           <div className="appointments-list">
             {filteredAppointments.length > 0 ? (
@@ -211,9 +222,9 @@ const DoctorPage = () => {
                   <thead>
                     <tr>
                       <th className="text-center">المريض</th>
-                      <th className="text-center">رقم الملف</th>
+                      <th className="text-center">الرقم التسلسلي</th>
                       <th className="text-center">التاريخ والوقت</th>
-                      <th className="text-center">الحالة</th>
+                      
                       <th className="text-center">ملاحظات</th>
                       <th className="text-center">الإجراءات</th>
                     </tr>
@@ -224,15 +235,7 @@ const DoctorPage = () => {
                         <td className="text-center">{appointment.patient_name}</td>
                         <td className="text-center">{appointment.patient_medical_number}</td>
                         <td className="text-center">{new Date(appointment.date).toLocaleString()}</td>
-                        <td className="text-center">
-                          <span className={`status-badge ${
-                            appointment.status === "approved" ? "approved" :
-                            appointment.status === "completed" ? "completed" : "pending"
-                          }`}>
-                            {appointment.status === "approved" ? "مؤكد" :
-                             appointment.status === "completed" ? "مكتمل" : "بانتظار الموافقة"}
-                          </span>
-                        </td>
+                        
                         <td className="text-center">{appointment.notes}</td>
                         <td className="text-center">
                           {appointment.status === "pending" && (
@@ -254,7 +257,7 @@ const DoctorPage = () => {
                           
                           {appointment.status === "approved" && (
                             <button
-                              className="btn btn-primary btn-sm"
+                              className="btn btn-info btn-sm"
                               onClick={() => {
                                 setSelectedAppointment(appointment);
                                 setReportContent("");
@@ -348,7 +351,7 @@ const DoctorPage = () => {
               {selectedAppointment?.status !== "completed" && (
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-info btn-sm"
                   onClick={() => {
                     handleCompleteAppointment();
                     window.$('#reportModal').modal('hide');

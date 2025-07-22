@@ -87,7 +87,7 @@ const WithdrawalRequests = () => {
                   <td className="text-center">{request.type}</td>
                   <td className="text-center">
                     <div>الاسم: {request.personName}</div>
-                    <div>اسم الأم: {request.motherName}</div>
+                    
                     <div>رقم التسجيل: {request.personId}</div>
                   </td>
                   <td className="text-center">{request.requestDate}</td>

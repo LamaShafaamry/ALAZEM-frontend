@@ -7,8 +7,11 @@ const ReadingPage = () => {
       <div className="page-container">
         {/* العنوان الرئيسي */}
         <header className="page-header">
+        <br></br>
+          <br></br>
+          <br></br>
           <h1>القراءة المكيفة للمسنات المكفوفات</h1>
-          <div className="header-divider"></div>
+          
         </header>
 
         {/* محتوى النشاط */}

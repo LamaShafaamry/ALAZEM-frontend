@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./VolunteerProfile.css";
+import HomePage from "../App";
 
 const VolunteersSection = () => {
   const [volunteers, setVolunteers] = useState([
@@ -12,7 +13,7 @@ const VolunteersSection = () => {
       status: "قيد المراجعة"
     }
   ]);
-
+  const [currentView, setCurrentView] = useState("appointments");
   const [selectedVolunteer, setSelectedVolunteer] = useState(null);
 
   const handleApprove = (id) => {
@@ -29,6 +30,35 @@ const VolunteersSection = () => {
 
   return (
     <div className="manager-page">
+            <nav className="doctor-navbar">
+        <div className="navbar-brand">
+          <i className="fas fa-clinic-medical"></i>
+       
+        </div>
+        <div className="nav-links">
+        <button 
+  className={`nav-link ${currentView === 'home' ? 'active' : ''}`}
+  onClick={() => setCurrentView('home')}
+>
+  الصفحة الرئيسية
+</button>
+          <button 
+            className={`nav-link ${currentView === 'appointments' ? 'active' : ''}`}
+            onClick={() => setCurrentView('appointments')}
+          >
+            المواعيد
+          </button>
+
+        </div>
+        <div className="nav-user">
+          <div className="user-info">
+          
+          </div>
+        </div>
+      </nav>
+      {currentView === 'home' && <HomePage />}
+      {currentView === 'appointments' && (
+        <>
       <div className="manager-header2">
         <h2>
           <i className="fas fa-hands-helping"></i>
@@ -90,6 +120,8 @@ const VolunteersSection = () => {
           </table>
         </div>
       </div>
+      </>
+      )}
 
       {selectedVolunteer && (
         <div className="donation-details-modal">
@@ -134,6 +166,7 @@ const VolunteersSection = () => {
         </div>
       )}
     </div>
+      
   );
 };
 

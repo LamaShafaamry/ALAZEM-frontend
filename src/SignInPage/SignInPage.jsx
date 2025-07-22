@@ -61,7 +61,7 @@ function SignInPage() {
   return (
     <div className="signin-container">
       <div className="signin-wrapper2">
-        <h2 className="display-6">مرحبًا بك في تسجيل الدخول</h2>
+        <h3 className="display-6">مرحبًا بك في تسجيل الدخول</h3>
         <form onSubmit={handleLogin}>
           {error && <div className="alert alert-danger">{error}</div>}
           <div className="mb-3">

@@ -33,7 +33,10 @@ const FullAssociationDonation = () => {
   };
 
   return (
+    
     <div className="donation-container">
+      <br></br>
+      <br></br>
       <div className="donation-card">
         <div className="donation-header">
           <h1>التبرع لكامل الجمعية</h1>
@@ -53,7 +56,7 @@ const FullAssociationDonation = () => {
             <div className="contact-box">
               <h3>للاستفسارات:</h3>
               <p>هاتف: 0998 766 972</p>
-              <p>بريد إلكتروني: donations@example.com</p>
+              <p>بريد إلكتروني: jmytalzmalmsnatalkfyfat@gmail.com</p>
             </div>
           </div>
 

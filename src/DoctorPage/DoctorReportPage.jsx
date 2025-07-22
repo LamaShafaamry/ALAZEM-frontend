@@ -12,7 +12,7 @@ const DoctorReportPage = () => {
 
   const [currentPatient, setCurrentPatient] = useState({
     id: 1,
-    name: "محمد علي",
+    name: "سمر علي",
     medicalNumber: "P12345",
     phone: "0512345678"
   });

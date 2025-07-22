@@ -9,8 +9,11 @@ const ComprehensiveCare = () => {
       {/* العنوان الرئيسي مع صورة خلفية */}
       <header className="care-header">
         <div className="header-overlay">
+          <br></br>
+          <br></br>
+          <br></br>
           <h1>الرعاية الشاملة للمسنات المكفوفات</h1>
-          <div className="header-divider"></div>
+          
           <p className="header-subtitle">نقدم رعاية متكاملة تراعي الاحتياجات الخاصة للمسنات المكفوفات</p>
         </div>
       </header>

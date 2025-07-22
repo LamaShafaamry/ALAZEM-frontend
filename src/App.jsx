@@ -182,15 +182,15 @@ function HomePage() {
         <br></br>
 
         {/* أضف هذا الكود بعد قسم التبرعات مباشرة */}
-        <div id="contact" className="contact-container">
-          <h1 className="main-title">تواصل معنا</h1>
+        <div id="contact" className="contact-container4">
+          <h1 className="main-title4 bold-text">تواصل معنا</h1>
 
-          <div className="content-wrapper">
-            <div className="right-section">
-              <h2>ماذا سيحدث بعد ذلك؟</h2>
-              <div className="steps">
+          <div className="content-wrapper4">
+            <div className="right-section4">
+              <h2 className="bold-text">ماذا سيحدث بعد ذلك؟</h2>
+              <div className="steps4 bold-text">
                 <p>
-                  <span className="blue-circle"></span>عند استلامنا رسالتك سنجهز
+                  <span className="blue-circle "></span>عند استلامنا رسالتك سنجهز
                   طلبك وندرسه
                 </p>
                 <p>
@@ -208,14 +208,14 @@ function HomePage() {
               </div>
             </div>
 
-            <div className="left-section">
+            <div className="left-section4 bold-text">
               <form>
-                <h3>أرسل لنا رسالة</h3>
+                <h3 className="bold-text">أرسل لنا رسالة</h3>
                 <input type="text" placeholder="الاسم" />
                 <input type="email" placeholder="البريد الإلكتروني" />
-                <input type="tel" placeholder="رقم الهاتف" />
+                <input type="tel" placeholder="                                                                 رقم الهاتف" />
                 <textarea placeholder="الملاحظات"></textarea>
-                <button type="submit">إرسال الرسالة</button>
+                <button className="99" type="submit">إرسال الرسالة</button>
               </form>
             </div>
           </div>
