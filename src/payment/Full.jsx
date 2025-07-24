@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Full.css'; 
-
+import { Link } from 'react-router-dom'; 
 const FullAssociationDonation = () => {
   const [donationData, setDonationData] = useState({
     name: '',
@@ -94,9 +94,13 @@ const FullAssociationDonation = () => {
               <br></br>
 
 
-              <button type="submit" className="submit-btn">
-                تأكيد التبرع
-              </button>
+              <Link 
+  to="/payment-success" 
+  className="submit-btn" 
+  style={{ textDecoration: 'none', display: 'block' }}
+>
+  تأكيد التبرع
+</Link>
             </form>
           </div>
         </div>

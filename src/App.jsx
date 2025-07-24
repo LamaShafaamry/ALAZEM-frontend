@@ -22,7 +22,7 @@ import ChantingPage from "./Activities/ChantingPage";
 import SportsPage from "./Activities/SportsPage";
 import CulturalPage from "./Activities/ReadingPage";
 import VolunteerProfile from './VolunteerProfile/VolunteerProfile';
-
+import PaymentSuccess from './payment/PaymentSuccess';
 function HomePage() {
   return (
     <div className="home-background">
@@ -259,6 +259,8 @@ function App() {
         <Route path="/activities/chanting" element={<ChantingPage />} />
         <Route path="/activities/sports" element={<SportsPage />} />
         <Route path="/activities/cultural" element={<CulturalPage />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+       
       </Routes>
     </Router>
   );
