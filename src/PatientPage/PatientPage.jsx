@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./PatientPage.css";
 
-import ServicesPage from "./ServicesPage";
-import ActivitiesPage from "./ActivitiesPage";
+
 import DonationHistory from "./DonationHistory";
 import HomePage from "../App";
 
@@ -135,8 +134,7 @@ const PatientPage = () => {
       </nav>
       {currentView === "home" && <HomePage />}
      
-      {currentView === "service" && <ServicesPage />}
-      {currentView === "activity" && <ActivitiesPage />}
+    
       {currentView === "donations" && <DonationHistory />}
       {currentView === "appointments" ? (
         <>

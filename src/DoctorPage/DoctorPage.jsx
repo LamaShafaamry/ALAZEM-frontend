@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./DoctorPage.css";
 import HomePage from "../App";
 import DoctorReportPage from "./DoctorReportPage";
+import { 
+  getDoctorAppointments,
+  updateAppointmentStatus,
+  updateMedicalReport
+} from "../api/api";
 
 const DoctorPage = () => {
   const [appointments, setAppointments] = useState([]);
@@ -10,7 +14,7 @@ const DoctorPage = () => {
   const [reportContent, setReportContent] = useState("");
   const [message, setMessage] = useState({ text: "", type: "" });
   const [activeTab, setActiveTab] = useState("pending");
-  const [currentView, setCurrentView] = useState("appointments"); // حالة جديدة للتحكم في العرض
+  const [currentView, setCurrentView] = useState("appointments");
   const [currentDoctor, setCurrentDoctor] = useState({
     id: 1,
     name: "دكتور أحمد محمد",
@@ -19,109 +23,82 @@ const DoctorPage = () => {
     email: "doctor@example.com"
   });
 
-  
-  useEffect(() => {
-    // Fetch doctor's appointments
-    const fetchAppointments = async () => {
-      try {
-        // Mock data - replace with actual API call
-        // const response = await axios.get(`/api/appointments/?doctor_id=${currentDoctor.id}`);
+ useEffect(() => {
+  const fetchAppointments = async () => {
+    try {
+      console.log('Fetching appointments...');
+      const response = await getDoctorAppointments(currentDoctor.id);
+      console.log('API Response:', response);
+      
+      if (response.data) {
+        const formattedAppointments = response.data.map(app => ({
+          id: app.id,
+          patient_id: app.patient_id,
+          patient_name: app.patient_name || `مريض ${app.patient_id}`,
+          patient_medical_number: app.patient_medical_number || 'N/A',
+          date: app.appointment_date,
+          status: app.status,
+          notes: app.notes || '',
+          report: app.report || ''
+        }));
         
-        const mockAppointments = [
-          {
-            id: "app1",
-            patient_id: 1,
-            patient_name: "سمر علي",
-            patient_medical_number: "P12345",
-            date: "2023-06-20T10:00:00",
-            status: "pending",
-            notes: "   ",
-            report: ""
-          },
-          {
-            id: "app2",
-            patient_id: 5,
-            patient_name: "لميا عطار ",
-            patient_medical_number: "P12345",
-            date: "2023-06-20T10:00:00",
-            status: "pending",
-            notes: "   ",
-            report: ""
-          },
-          {
-            id: "app1",
-            patient_id: 6,
-            patient_name: " مؤمنة سالم",
-            patient_medical_number: "P12345",
-            date: "2023-06-20T10:00:00",
-            status: "pending",
-            notes: " ",
-            report: ""
-          },
-          {
-            id: "app2",
-            patient_id: 2,
-            patient_name: "فاطمة الزهراء",
-            patient_medical_number: "P12346",
-            date: "2023-06-18T14:30:00",
-            status: "approved",
-            notes: "متابعة بعد العملية",
-            report: ""
-          },
-          {
-            id: "app3",
-            patient_id: 3,
-            patient_name: "تسنيم حسن",
-            patient_medical_number: "P12347",
-            date: "2023-06-25T11:15:00",
-            status: "completed",
-            notes: "شكوى من ألم في الصدر",
-            report: "تم الكشف وتبين وجود مشكلة في الصمام، تم وصف العلاج المناسب"
-          },
-          {
-            id: "app4",
-            patient_id: 4,
-            patient_name: "يارا احمد ",
-            patient_medical_number: "P12347",
-            date: "2023-06-25T11:15:00",
-            status: "completed",
-            notes: "شكوى من ألم في المعدة",
-            report: "تم الكشف وتبين وجود مشكلة في المعدة، تم وصف العلاج المناسب"
-          }
-        ];
-        
-        setAppointments(mockAppointments);
-      } catch (error) {
-        showMessage("فشل في تحميل المواعيد", "error");
+        console.log('Formatted Appointments:', formattedAppointments);
+        setAppointments(formattedAppointments);
       }
-    };
-    
-    fetchAppointments();
-  }, [currentDoctor.id]);
+    } catch (error) {
+      console.error("Full error details:", {
+        message: error.message,
+        response: error.response,
+        config: error.config
+      });
+      showMessage("فشل في تحميل المواعيد", "error");
+    }
+  };
+
+  fetchAppointments();
+  
+  // التحديث التلقائي كل 30 ثانية
+  const interval = setInterval(fetchAppointments, 30000);
+  return () => clearInterval(interval);
+}, [currentDoctor.id]);
 
   const showMessage = (text, type) => {
     setMessage({ text, type });
     setTimeout(() => setMessage({ text: "", type: "" }), 5000);
   };
+  const handleGetDoctorAppointments = async () => {
+    if (!selectedDoctor) {
+      showMessage("الرجاء اختيار طبيب", "error");
+      return;
+    }
+    
+    try {
+      const response = await getDoctorAppointments(selectedDoctor);
+      if (response.data) {
+        setDoctorAppointments(response.data);
+        setActiveTab("view");
+        showMessage("تم تحميل مواعيد الطبيب بنجاح", "success");
+      }
+    } catch (error) {
+      console.error("Fetch appointments error:", error);
+      showMessage("فشل في جلب مواعيد الطبيب", "error");
+    }
+  };
 
   const handleApproveAppointment = async (appointmentId, action) => {
     try {
-      // In a real app:
-      // await axios.post(`/api/appointments/approve/${appointmentId}/`, { action });
+      const response = await updateAppointmentStatus(appointmentId, {
+        action: action === "approve" ? "approve" : "reject"
+      });
       
-      // Update local state
-      setAppointments(prev => prev.map(app => 
-        app.id === appointmentId ? { 
-          ...app, 
-          status: action === "approve" ? "approved" : "rejected" 
-        } : app
-      ));
-      
-      showMessage(
-        `تم ${action === "approve" ? "موافقة" : "رفض"} الموعد بنجاح`,
-        "success"
-      );
+      if (response.data) {
+        setAppointments(prev => prev.map(app => 
+          app.id === appointmentId ? response.data : app
+        ));
+        showMessage(`تم ${action === "approve" ? "موافقة" : "رفض"} الموعد بنجاح`, "success");
+      }
     } catch (error) {
+      console.error("Approve error:", error);
       showMessage("فشل في تحديث حالة الموعد", "error");
     }
   };
@@ -133,12 +110,7 @@ const DoctorPage = () => {
     }
     
     try {
-      // In a real app:
-      // await axios.post(`/api/appointments/${selectedAppointment.id}/complete/`, {
-      //   report: reportContent
-      // });
-      
-      // Update local state
+      await updateMedicalReport(selectedAppointment.id, reportContent);
       setAppointments(prev => prev.map(app => 
         app.id === selectedAppointment.id ? { 
           ...app, 
@@ -151,6 +123,7 @@ const DoctorPage = () => {
       setSelectedAppointment(null);
       setReportContent("");
     } catch (error) {
+      console.error("Complete appointment error:", error);
       showMessage("فشل في إكمال الموعد", "error");
     }
   };
@@ -164,19 +137,18 @@ const DoctorPage = () => {
 
   return (
     <div className="doctor-page">
-      {/* Navbar */}
       <nav className="doctor-navbar">
         <div className="navbar-brand">
           <i className="fas fa-clinic-medical"></i>
           نظام إدارة العيادة
         </div>
         <div className="nav-links">
-        <button 
-  className={`nav-link ${currentView === 'home' ? 'active' : ''}`}
-  onClick={() => setCurrentView('home')}
->
-  الصفحة الرئيسية
-</button>
+          <button 
+            className={`nav-link ${currentView === 'home' ? 'active' : ''}`}
+            onClick={() => setCurrentView('home')}
+          >
+            الصفحة الرئيسية
+          </button>
           <button 
             className={`nav-link ${currentView === 'appointments' ? 'active' : ''}`}
             onClick={() => setCurrentView('appointments')}
@@ -197,11 +169,12 @@ const DoctorPage = () => {
           </div>
         </div>
       </nav>
+
       {currentView === 'home' && <HomePage />}
       {currentView === 'reports' && <DoctorReportPage />}
+      
       {currentView === 'appointments' && (
         <>
-          {/* Header */}
           <div className="doctor-header">
             <h2>مرحبًا د. {currentDoctor.name}</h2>
           </div>
@@ -213,7 +186,26 @@ const DoctorPage = () => {
             </div>
           )}
           
-<br></br>
+          <div className="tabs-container">
+            <button 
+              className={`tab-btn ${activeTab === "pending" ? "active" : ""}`}
+              onClick={() => setActiveTab("pending")}
+            >
+              بانتظار الموافقة
+            </button>
+            <button 
+              className={`tab-btn ${activeTab === "upcoming" ? "active" : ""}`}
+              onClick={() => setActiveTab("upcoming")}
+            >
+              المواعيد المؤكدة
+            </button>
+            <button 
+              className={`tab-btn ${activeTab === "completed" ? "active" : ""}`}
+              onClick={() => setActiveTab("completed")}
+            >
+              المواعيد المكتملة
+            </button>
+          </div>
           
           <div className="appointments-list">
             {filteredAppointments.length > 0 ? (
@@ -224,7 +216,6 @@ const DoctorPage = () => {
                       <th className="text-center">المريض</th>
                       <th className="text-center">الرقم التسلسلي</th>
                       <th className="text-center">التاريخ والوقت</th>
-                      
                       <th className="text-center">ملاحظات</th>
                       <th className="text-center">الإجراءات</th>
                     </tr>
@@ -234,9 +225,10 @@ const DoctorPage = () => {
                       <tr key={appointment.id}>
                         <td className="text-center">{appointment.patient_name}</td>
                         <td className="text-center">{appointment.patient_medical_number}</td>
-                        <td className="text-center">{new Date(appointment.date).toLocaleString()}</td>
-                        
-                        <td className="text-center">{appointment.notes}</td>
+                        <td className="text-center">
+                          {appointment.date ? new Date(appointment.date).toLocaleString() : 'غير محدد'}
+                        </td>
+                        <td className="text-center">{appointment.notes || 'لا توجد ملاحظات'}</td>
                         <td className="text-center">
                           {appointment.status === "pending" && (
                             <div className="action-buttons">
@@ -297,8 +289,7 @@ const DoctorPage = () => {
         </>
       )}
       
-     {/* Report Modal */}
-     <div className="modal fade" id="reportModal" tabIndex="-1" role="dialog">
+      <div className="modal fade" id="reportModal" tabIndex="-1" role="dialog">
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -319,8 +310,10 @@ const DoctorPage = () => {
                         <p><strong>رقم الملف:</strong> {selectedAppointment.patient_medical_number}</p>
                       </div>
                       <div className="col-md-6">
-                        <p><strong>تاريخ الموعد:</strong> {new Date(selectedAppointment.date).toLocaleString()}</p>
-                        <p><strong>ملاحظات:</strong> {selectedAppointment.notes}</p>
+                        <p><strong>تاريخ الموعد:</strong> 
+                          {selectedAppointment.date ? new Date(selectedAppointment.date).toLocaleString() : 'غير محدد'}
+                        </p>
+                        <p><strong>ملاحظات:</strong> {selectedAppointment.notes || 'لا توجد ملاحظات'}</p>
                       </div>
                     </div>
                   </div>
@@ -342,7 +335,7 @@ const DoctorPage = () => {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary "
+                className="btn btn-secondary"
                 data-dismiss="modal"
               >
                 إغلاق
