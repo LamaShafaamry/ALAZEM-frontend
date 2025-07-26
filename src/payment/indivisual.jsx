@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createDonation } from '../api/api';
 import './Individual.css'; 
 
 const IndividualDonation = () => {
@@ -8,18 +9,14 @@ const IndividualDonation = () => {
     mothersName: '',
     fatherName: '',
     email: '',
-    phone: '',
+    
     amount: '',
-    donationType: 'education',
+    
     isRecurring: false,
     patients: []
   });
 
-  const donationTypes = [
-    { value: 'education', label: 'دعم التعليم' },
-    { value: 'health', label: 'الرعاية الصحية' },
-    { value: 'food', label: 'الإغاثة الغذائية' }
-  ];
+ 
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -37,7 +34,7 @@ const IndividualDonation = () => {
       return;
     }
 
-    const fullName = `${firstName} ${fatherName}  ${lastName}`;
+    const fullName = `${firstName} ${fatherName} ${lastName}`;
     
     setDonationData(prev => ({
       ...prev,
@@ -61,14 +58,51 @@ const IndividualDonation = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
     if(donationData.patients.length === 0) {
       alert('الرجاء إضافة مريض على الأقل');
       return;
     }
-    alert('تم تقديم التبرع بنجاح');
-    console.log('Donation Data:', donationData);
+
+    // تحضير بيانات التبرع للإرسال
+    const donationRequest = {
+      donor_name: `${donationData.firstName} ${donationData.fatherName} ${donationData.lastName}`,
+      mother_name: donationData.mothersName,
+      email: donationData.email,
+      
+      amount: donationData.amount,
+   
+      is_recurring: donationData.isRecurring,
+      patients: donationData.patients
+        .filter(p => p.isSelected)
+        .map(p => p.name),
+      is_individual: true
+    };
+
+    try {
+      const response = await createDonation(donationRequest);
+      alert('تم تقديم التبرع بنجاح');
+      console.log('Donation Response:', response.data);
+      
+      // إعادة تعيين النموذج
+      setDonationData({
+        firstName: '',
+        lastName: '',
+        mothersName: '',
+        fatherName: '',
+        email: '',
+        phone: '',
+        amount: '',
+        donationType: 'education',
+        isRecurring: false,
+        patients: []
+      });
+    } catch (error) {
+      alert('حدث خطأ أثناء إرسال التبرع');
+      console.error('Donation Error:', error);
+    }
   };
 
   return (
@@ -146,9 +180,6 @@ const IndividualDonation = () => {
               </div>
               <br></br>
 
-            
-
-             
               <div className="form-group">
                 <label>البريد الإلكتروني</label>
                 <input
@@ -175,8 +206,8 @@ const IndividualDonation = () => {
                 />
               </div>
               <br></br>
-               {/* قائمة المرضى المضافين */}
-               <div className="patients-list">
+              
+              <div className="patients-list">
                 {donationData.patients.map((patient, index) => (
                   <div key={index} className="patient-item">
                     <label>
@@ -192,11 +223,11 @@ const IndividualDonation = () => {
               </div>
               <br></br>
 
-
-
-              <button type="submit" 
+              <button 
+                type="submit" 
                 className="submit-btn"
-                onClick={addPatient}>
+                onClick={addPatient}
+              >
                 تأكيد التبرع
               </button>
             </form>

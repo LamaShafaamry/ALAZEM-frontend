@@ -44,12 +44,24 @@ export const getPendingPatientsList = () => api.get("/services/patients/get/?sta
     params: { doctor_id: doctorId }
   });
 
-
-
 export const updateAppointmentStatus = (id, data) =>
   api.patch(`/services/appointments/${id}/status/`, data);
 
 export const updateMedicalReport = (id, report) =>
   api.post(`/services/appointments/${id}/medical-report/`, { report });
+
+
+
+  // دوال التبرعات
+export const createDonation = (data) => api.post("/donations/donation/create/", data);
+
+  
+
+export const getPendingDonations = () => api.get("/donations/get/donation/?status=pending");
+export const approveDonation = (donationId) => 
+  api.patch(`/donations/change/donation/status/${donationId}`, { status: "approved" });
+export const rejectDonation = (donationId) => 
+  api.patch(`/donations/change/donation/status/${donationId}`, { status: "rejected" });
+  export const getIndividualDonations = () => api.get("/donations/get/donation/?is_individual=true");
 
 export default api;

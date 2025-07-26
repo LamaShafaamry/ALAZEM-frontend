@@ -1,39 +1,59 @@
 import React, { useState } from 'react';
-import './Full.css'; 
-import { Link } from 'react-router-dom'; 
+import { createDonation } from '../api/api';
+import './Full.css';
+import { Link } from 'react-router-dom';
+
 const FullAssociationDonation = () => {
   const [donationData, setDonationData] = useState({
-    name: '',
     email: '',
-    phone: '',
-    amount: '',
-    paymentMethod: 'credit',
-    message: '',
-    isAnonymous: false
+    amount: ''
   });
-
-  const paymentMethods = [
-    { value: 'credit', label: 'بطاقة ائتمان' },
-    { value: 'bank', label: 'حوالة بنكية' },
-    { value: 'cash', label: 'نقداً في المقر' }
-  ];
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({ text: '', type: '' });
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setDonationData(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: value
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Donation submitted:', donationData);
-    alert('شكراً لتبرعك الكريم! سنتصل بك لتأكيد التفاصيل.');
+    
+    if (!donationData.email || !donationData.amount) {
+      showMessage('الرجاء تعبئة جميع الحقول المطلوبة', 'error');
+      return;
+    }
+  
+    setLoading(true);
+    try {
+      const response = await createDonation({
+        email: donationData.email,
+        amount: donationData.amount
+      });
+  
+      if (response.status === 201) {
+        showMessage('تم إرسال التبرع بنجاح', 'success');
+        setDonationData({ email: '', amount: '' });
+      } else {
+        showMessage('حدث خطأ أثناء إرسال التبرع', 'error');
+      }
+    } catch (error) {
+      showMessage('حدث خطأ في الاتصال بالخادم', 'error');
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const showMessage = (text, type) => {
+    setMessage({ text, type });
+    setTimeout(() => setMessage({ text: '', type: '' }), 5000);
   };
 
   return (
-    
     <div className="donation-container">
       <br></br>
       <br></br>
@@ -42,6 +62,12 @@ const FullAssociationDonation = () => {
           <h1>التبرع لكامل الجمعية</h1>
           <p>تبرعك يساهم في دعم جميع أنشطة الجمعية وبرامجها</p>
         </div>
+
+        {message.text && (
+          <div className={`alert alert-${message.type === 'error' ? 'danger' : 'success'}`}>
+            {message.text}
+          </div>
+        )}
 
         <div className="donation-content">
           <div className="donation-info">
@@ -62,8 +88,6 @@ const FullAssociationDonation = () => {
 
           <div className="donation-form">
             <form onSubmit={handleSubmit}>
-       
-
               <div className="form-row">
                 <div className="form-group">
                   <label>البريد الإلكتروني</label>
@@ -75,7 +99,6 @@ const FullAssociationDonation = () => {
                     required
                   />
                 </div>
-
               </div>
 
               <div className="form-group">
@@ -93,14 +116,13 @@ const FullAssociationDonation = () => {
               </div>
               <br></br>
 
-
-              <Link 
-  to="/payment-success" 
-  className="submit-btn" 
-  style={{ textDecoration: 'none', display: 'block' }}
->
-  تأكيد التبرع
-</Link>
+              <button 
+                type="submit" 
+                className="submit-btn"
+                disabled={loading}
+              >
+                {loading ? 'جاري الإرسال...' : 'تأكيد التبرع'}
+              </button>
             </form>
           </div>
         </div>
