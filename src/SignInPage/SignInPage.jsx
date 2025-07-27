@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/authSlice";
+import Navbar from "../PaseLayOut/NavBar";
 
 function SignInPage() {
   const navigate = useNavigate();
@@ -59,17 +60,20 @@ function SignInPage() {
   };
 
   return (
-    <div className="signin-container">
+    <div>
+      <Navbar />
+      <h1>مرحبًا بك في موقعنا!</h1>
+      { <div className="signin-container">
       <div className="signin-wrapper2">
-        <h3 className="display-6">مرحبًا بك في تسجيل الدخول</h3>
+        <h3 className="display-6"> تسجيل الدخول</h3>
         <form onSubmit={handleLogin}>
           {error && <div className="alert alert-danger">{error}</div>}
           <div className="mb-3">
-            <label className="form-label">الإيميل </label>
+            <label className="form-label">البريد الإلكتروني </label>
             <input
               type="text"
               className="form-control"
-              placeholder="ادخل الإيميل "
+              placeholder="ادخل البريد الإلكتروني "
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -108,8 +112,16 @@ function SignInPage() {
           <Link to="/request">ارسل طلب</Link>
         </div>
       </div>
+    </div>}
     </div>
+    
+   
+
   );
+
 }
+
+
+
 
 export default SignInPage;

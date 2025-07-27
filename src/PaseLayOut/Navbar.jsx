@@ -1,5 +1,9 @@
 import React from "react";
 
+import { useDispatch } from "react-redux";
+import { logout } from "../store/authSlice";
+import { useNavigate } from 'react-router-dom';
+
 const scrollToSection = (id) => {
   const section = document.getElementById(id);
   if (section) {
@@ -12,6 +16,28 @@ const scrollToHome = () => {
 };
 
 function Navbar() {
+          const dispatch = useDispatch();
+  const navigate = useNavigate();
+    const handleLogout = () => {
+
+    dispatch(logout());
+    navigate('/'); // or any route you prefer
+  };
+  const ProfileNavigation = () =>{
+    var role = sessionStorage.getItem('role');
+    if (role == "PAT") {
+      navigate("/patient-page")
+    }
+    // if (role == "DOC") {
+    //   navigate("/doctor-page")
+    // }
+    // if (role == "VOL") {
+    //   navigate("/volunteer-page")
+    // }
+    // if (role == "MAN") {
+    //   navigate("/manager-page")
+    // }
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
       <div className="container">
@@ -23,6 +49,19 @@ function Navbar() {
             <li className="nav-item">
               <button className="nav-link btn btn-link" onClick={scrollToHome}>الصفحة الرئيسية</button>
             </li>
+             {sessionStorage.getItem('accessToken') ? 
+
+                  (
+                    <>
+            <li className="nav-item">
+              <button className="nav-link btn btn-link" onClick={() => ProfileNavigation()}>ملفي الشخصي</button>
+            </li>
+            </>
+                  ):
+                  (
+                    <></>
+                  )
+                }
             <li className="nav-item">
               <button className="nav-link btn btn-link" onClick={() => scrollToSection("goals-section")}>الخدمات</button>
             </li>
@@ -34,7 +73,28 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <button className="nav-link btn btn-link" onClick={() => scrollToSection("contact")}>تواصل معنا</button>
+    
             </li>
+            <li className="nav-item">
+                  <button className="nav-link btn btn-link" onClick={() =>navigate("/request")}>ارسل طلب</button>
+                  
+            </li>
+
+            <li className="nav-item">
+                 {!sessionStorage.getItem('accessToken') ? 
+
+                  (
+                    <>
+                    <button className="nav-link btn btn-link" onClick={() =>navigate("/signin")}>تسجيل الدخول</button>
+                  </>
+                  ) : (
+                    <>
+                   
+                    <button className="nav-link btn btn-link"  onClick ={()=> handleLogout()}>تسجيل الخروج</button>
+                    </>
+                  )
+                  }
+                  </li>
           </ul>
         </div>
       </div>

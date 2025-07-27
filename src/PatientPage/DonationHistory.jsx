@@ -1,127 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "./DonationHistory.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMyDonation } from '../store/myDonationSlice';
+import { useNavigate } from 'react-router-dom';
 
 const DonationHistory = () => {
-  const [donations, setDonations] = useState([
-    {
-      id: 1,
-      date: "2023-06-15",
-      type: "مالي",
-      amount: 500,
-      status: "مكتمل"
-    },
-    {
-      id: 2,
-      date: "2023-05-20",
-      type: "دم",
-      amount: 400,
-      status: "مكتمل"
-    },
-    {
-      id: 3,
-      date: "2023-04-10",
-      type: "مالي",
-      amount: 200,
-      status: "ملغى"
-    },
-    {
-      id: 4,
-      date: "2023-07-01",
-      type: "أدوية",
-      amount: 350,
-      status: "قيد المراجعة"
-    }
-  ]);
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
   const [selectedDonation, setSelectedDonation] = useState(null);
-  const [activeFilter, setActiveFilter] = useState("all");
 
-  const filteredDonations = donations.filter(donation => {
-    if (activeFilter === "all") return true;
-    return donation.status === activeFilter;
-  });
+   const { data: myDonation, loading, error } = useSelector((state) => state.myDonation);
+  const [donations, setDonations] = useState([]);
 
-  const totalDonations = donations
-    .filter(d => d.type === "مالي" && d.status === "مكتمل")
-    .reduce((sum, donation) => sum + donation.amount, 0);
+  useEffect(() => {
+    dispatch(fetchMyDonation());
+  }, [dispatch]);
+
+  if (loading) {
+    return <div className="text-center mt-10 text-lg">جارٍ تحميل الملف الشخصي...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center mt-10 text-red-600">{error}</div>;
+  }
+console.log(myDonation);
+
+  if (!myDonation) {
+    return null;
+  }
+
+
 
   return (
-    <div className="patient-page">
-      <div className="patient-header">
-        <h2>
-          <i className="fas fa-hand-holding-heart"></i>
-          التبرعات
-        </h2>
-      </div>
-      <br></br>
+    <div className="patient-page" >
+      <div className="patient-header text-center mb-6">
+      <h2 className="text-3xl font-bold flex items-center justify-center gap-2 text-gray-800">
+        التبرعات
+      </h2>
+    </div>
 
-    
+      <br />
 
       <div className="appointments-list">
         <table className="table">
           <thead>
             <tr>
               <th className="text-center">تاريخ التبرع</th>
-              
               <th className="text-center">المبلغ</th>
-             
-             
             </tr>
           </thead>
           <tbody>
-            {filteredDonations.map(donation => (
-              <tr key={donation.id}>
-                <td className="text-center">{donation.date}</td>
-             
-                <td className="text-center">
-                  {donation.type === "مالي" ? `${donation.amount} ل.س` : "400 ل.س"}
-                </td>
-                
-
+            {myDonation.map((myDonation, index) => (
+              <tr key={index} onClick={() => setSelectedDonation(myDonation)}>
+                <td className="text-center" dir="ltr">{myDonation.creation_date}</td>
+                <td className="text-center">{myDonation.amount} ل.س</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
-      {selectedDonation && (
-        <div className="donation-modal">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h3>تفاصيل التبرع</h3>
-              <button onClick={() => setSelectedDonation(null)}>
-                <i className="fas fa-times"></i>
-              </button>
-            </div>
-            <div className="modal-body">
-              <div className="donation-details">
-                <div className="detail-row">
-                  <span className="detail-label">تاريخ التبرع:</span>
-                  <span>{selectedDonation.date}</span>
-                </div>
-                
-                {selectedDonation.type === "مالي" && (
-                  <div className="detail-row">
-                    <span className="detail-label">المبلغ:</span>
-                    <span>{selectedDonation.amount} ل.س</span>
-                  </div>
-                )}
-              
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button 
-                className="btn btn-secondary"
-                onClick={() => setSelectedDonation(null)}
-              >
-                إغلاق
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+</div>
+       
   );
 };
+
+
 
 export default DonationHistory;

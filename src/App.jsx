@@ -1,7 +1,8 @@
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, useLocation ,Outlet} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Navbar from "./PaseLayOut/NavBar";
+import UserNavbar from "./PaseLayOut/userNavbar";
 // import Header from "./PaseLayOut/Header";
 import LifeSkills from "./GoalsPages/LifeSkills";
 import HealthServices from "./GoalsPages/HealthServices";
@@ -23,8 +24,15 @@ import SportsPage from "./Activities/SportsPage";
 import CulturalPage from "./Activities/ReadingPage";
 import VolunteerProfile from './VolunteerProfile/VolunteerProfile';
 import PaymentSuccess from './payment/PaymentSuccess';
+import DonationHistory from "./PatientPage/DonationHistory.jsx";
+import MyAppointments from "./PatientPage/myAppointments.jsx";
+
+
+
+
 function HomePage() {
-  return (
+
+    return (
     <div className="home-background">
       <div id="home" className="text-center mb-4">
         <br></br>
@@ -51,14 +59,7 @@ function HomePage() {
                 <h4 className="description text-dark">
                   نمنح النور بالأمل، ونرعى بحب
                 </h4>
-                <div className="buttons">
-                  <Link to="/request">
-                    <Button className="custom-request-btn">ارسل طلب</Button>
-                  </Link>
-                  <Link to="/signin">
-                    <Button className="custom-login-btn">تسجيل الدخول</Button>
-                  </Link>
-                </div>
+               
               </Col>
             </Row>
           </Container>
@@ -225,22 +226,69 @@ function HomePage() {
   );
 }
 
+function LayoutWrapper() {
+  const location = useLocation();
+
+  // Define routes that should use UserNavbar
+  const userNavbarRoutes = ["/patient-page", "/donations", "/doctor-page", "/volunteer-page" , "/appointments"];
+  const showUserNavbar = userNavbarRoutes.includes(location.pathname);
+
+//   return (
+//     <>
+//       {showUserNavbar ? <UserNavbar /> : <Navbar />}
+
+//       <Routes>
+//         <Route path="/" element={<HomePage />} />
+//         <Route path="/signin" element={<SignInPage />} />
+//         <Route path="/life-skills" element={<LifeSkills />} />
+//         <Route path="/health-services" element={<HealthServices />} />
+//         <Route path="/activities" element={<Activities />} />
+//         <Route path="/comprehensive-care" element={<ComprehensiveCare />} />
+//         <Route path="/request" element={<RequestPage />} />
+//         <Route path="/volunteer-request" element={<VolunteerRequestPage />} />
+//         <Route path="/patient-request" element={<Form />} />
+//         <Route path="/payment-page" element={<IndividualDonation />} />
+//         <Route path="/payment-page2" element={<FullAssociationDonation />} />
+//         <Route path="/manager-page" element={<ManagerPage />} />
+//         <Route path="/patient-page" element={<PatientPage />} />
+//         <Route path="/donation" element={<DonationHistory />} />
+//         <Route path="/doctor-page" element={<DoctorPage />} />
+//         <Route path="/volunteer-page" element={<VolunteerProfile />} />
+//         <Route path="/activities/chanting" element={<ChantingPage />} />
+//         <Route path="/activities/sports" element={<SportsPage />} />
+//         <Route path="/activities/cultural" element={<CulturalPage />} />
+//         <Route path="/payment-success" element={<PaymentSuccess />} />
+//       </Routes>
+//     </>
+//   );
+// }
+
+ return (
+    <>
+      {showUserNavbar ? <UserNavbar /> : <Navbar />}
+      <div className="page-content"> 
+        <Outlet />
+      </div>
+    </>
+  );
+}
+// function App() {
+//   return (
+//     <Router>
+//       <LayoutWrapper />
+//     </Router>
+//   );
+// }
+
 function App() {
   return (
     <Router>
-      {/* <Header /> */}
-      {location.pathname === "/" && <Navbar />}
-      <Routes>
+
+    <Routes>
+      <Route element={<LayoutWrapper />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/signin" element={<SignInPage />} />
-        <Route
-          path="/life-skills"
-          element={
-            // <ProtectedRoute requiredRole={["ADM", "doctor"]}>
-            <LifeSkills />
-            // </ProtectedRoute>
-          }
-        />
+        <Route path="/life-skills" element={<LifeSkills />} />
         <Route path="/health-services" element={<HealthServices />} />
         <Route path="/activities" element={<Activities />} />
         <Route path="/comprehensive-care" element={<ComprehensiveCare />} />
@@ -249,21 +297,23 @@ function App() {
         <Route path="/patient-request" element={<Form />} />
         <Route path="/payment-page" element={<IndividualDonation />} />
         <Route path="/payment-page2" element={<FullAssociationDonation />} />
-        {/* <Route path="/manager-page" element={<ManagerPage />} /> */}
-        {/* <Route element={<ProtectedRoute allowedRoles={["ADM"]} />}> */}
         <Route path="/manager-page" element={<ManagerPage />} />
-        {/* </Route> */}
         <Route path="/patient-page" element={<PatientPage />} />
+        <Route path="/donations" element={<DonationHistory />} />
         <Route path="/doctor-page" element={<DoctorPage />} />
         <Route path="/volunteer-page" element={<VolunteerProfile />} />
         <Route path="/activities/chanting" element={<ChantingPage />} />
         <Route path="/activities/sports" element={<SportsPage />} />
         <Route path="/activities/cultural" element={<CulturalPage />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
-       
-      </Routes>
-    </Router>
+        <Route path="/appointments" element={<MyAppointments />} />
+      </Route>
+    </Routes>
+        </Router>
+
   );
 }
 
 export default App;
+
+

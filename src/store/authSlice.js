@@ -33,8 +33,27 @@ const initialState = getSessionAuth();
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+      logout: (state) => {
+      // Clear Redux state
+      state.authenticated = false;
+      state.accessToken = null;
+      state.refreshToken = null;
+      state.role = null;
+      state.error = null;
+      state.loading = false;
+
+      // Clear session storage
+      sessionStorage.removeItem('accessToken');
+      sessionStorage.removeItem('refreshToken');
+      sessionStorage.removeItem('role');
+    },
+  },
   extraReducers: (builder) => {
+
+    
+  
+
     builder
       .addCase(login.pending, (state) => {
         state.loading = true;
@@ -56,6 +75,11 @@ const authSlice = createSlice({
         state.error = action.payload || 'Login failed';
       });
   },
+
+
+
 });
+
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

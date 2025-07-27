@@ -63,6 +63,8 @@
 .btn-info {
   background-color: #17a2b8;
   color: white;
+  margin-bottom: 1.6rem;
+  vertical-align: middle;
 }
 
 .btn-sm {
@@ -182,14 +184,16 @@
   background:white;
   color: var(--dark);
   padding: 30px;
-  margin-top: 70px;
+  margin-top: 6rem;
   text-align: center;
 }
+
 
 .patient-header h2 {
   font-weight: 700;
   margin-bottom: 10px;
   font-size: 1.8rem;
+  text-align: center;
 }
 
 .patient-info {
