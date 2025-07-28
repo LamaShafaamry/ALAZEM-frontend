@@ -100,7 +100,12 @@ body {
 .btn-danger {
   background-color: #e74c3c;
   color: white;
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.65rem;
+  vertical-align: middle;
+}
+.btn-success {
+  color: white;
+  margin-bottom: 1.65rem;
   vertical-align: middle;
 }
 

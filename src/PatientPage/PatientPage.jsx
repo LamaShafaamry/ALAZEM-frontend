@@ -5,8 +5,6 @@ import UserNavbar from "../PaseLayOut/userNavbar";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPatientProfile } from '../store/patientProfileSlice';
 import { useNavigate } from 'react-router-dom';
-import DonationHistory from "./DonationHistory";
-import HomePage from "../App";
 import {
   Box,
   Typography,

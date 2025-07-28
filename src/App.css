@@ -695,3 +695,15 @@ button:hover {
     padding: 15px;
   }
 }
+
+
+.appointment-filter{
+  width: 100%;
+    text-align: right;
+    margin-right: 2rem;
+}
+
+.appointment-select-filter{
+  width: 30%;
+  margin-right:1.5rem ;
+}

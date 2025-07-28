@@ -26,8 +26,8 @@ import VolunteerProfile from './VolunteerProfile/VolunteerProfile';
 import PaymentSuccess from './payment/PaymentSuccess';
 import DonationHistory from "./PatientPage/DonationHistory.jsx";
 import MyAppointments from "./PatientPage/myAppointments.jsx";
-
-
+import DoctorAppointments from "./DoctorPage/DoctorAppiontments";
+import VolunteerNotesPage from "./VolunteerProfile/VolunteerNotesPage.jsx";
 
 
 function HomePage() {
@@ -230,7 +230,7 @@ function LayoutWrapper() {
   const location = useLocation();
 
   // Define routes that should use UserNavbar
-  const userNavbarRoutes = ["/patient-page", "/donations", "/doctor-page", "/volunteer-page" , "/appointments"];
+  const userNavbarRoutes = ["/volunteer-notes-page","/patient-page", "/donations", "/doctor-page", "/volunteer-page" , "/appointments","/doctor-appointments"];
   const showUserNavbar = userNavbarRoutes.includes(location.pathname);
 
 //   return (
@@ -307,6 +307,9 @@ function App() {
         <Route path="/activities/cultural" element={<CulturalPage />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/appointments" element={<MyAppointments />} />
+        <Route path="/doctor-appointments" element={<DoctorAppointments />} />
+        <Route path="/volunteer-notes-page" element={<VolunteerNotesPage />} />
+
       </Route>
     </Routes>
         </Router>

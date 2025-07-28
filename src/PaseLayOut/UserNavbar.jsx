@@ -1,8 +1,8 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 // import { Donation } from '../PatientPage/PatientPage'
 import DonationHistory from "../PatientPage/DonationHistory";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/authSlice";
 
 const scrollToSection = (id) => {
@@ -16,40 +16,139 @@ const scrollToHome = () => {
   window.scrollTo({ top: 0, behavior: "smooth" }); // العودة لأعلى الصفحة
 };
 
-
-
 function UserNavbar() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const handleLogout = () => {
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = () => {
     dispatch(logout());
-    navigate('/'); // or any route you prefer
+    navigate("/"); // or any route you prefer
   };
+  const AppointmentNavigation = () => {
+    var role = sessionStorage.getItem("role");
+    if (role == "PAT") {
+      navigate("/appointments");
+    }
+    if (role == "DOC") {
+      navigate("/doctor-appointments");
+    }
+    // if (role == "VOL") {
+    //   navigate("/volunteer-page")
+    // }
+    // if (role == "MAN") {
+    //   navigate("/manager-page")
+    // }
+  };
+
+  const ProfileNavigation = () => {
+    var role = sessionStorage.getItem("role");
+    if (role == "PAT") {
+      navigate("/patient-page");
+    }
+    if (role == "DOC") {
+      navigate("/doctor-page");
+    }
+    if (role == "VOL") {
+      navigate("/volunteer-page");
+    }
+    // if (role == "MAN") {
+    //   navigate("/manager-page")
+    // }
+  };
+  const IsAppointmentVisibility = () => {
+    var role = sessionStorage.getItem("role");
+    if (role == "VOL") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+    const IsNotesVisibility = () => {
+    var role = sessionStorage.getItem("role");
+    if (role == "VOL") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const user = useSelector((state) => state.auth.user);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
       <div className="container">
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <div
+          className="collapse navbar-collapse justify-content-center"
+          id="navbarNav"
+        >
           <ul className="navbar-nav">
             <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() => navigate('/')}>الصفحة الرئيسية</button>
+              <button
+                className="nav-link btn btn-link"
+                onClick={() => navigate("/")}
+              >
+                الصفحة الرئيسية
+              </button>
             </li>
             <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() => navigate("/patient-page")}>الملف الشخصي</button>
+              <button
+                className="nav-link btn btn-link"
+                onClick={() => ProfileNavigation()}
+              >
+                الملف الشخصي
+              </button>
             </li>
-            <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() =>  navigate("/appointments")}>المواعيد</button>
-            </li>
-            <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() => navigate('/donations')}>التبرعات</button>
-            </li>
-           <li className="nav-item">
-            <button className="nav-link btn btn-link"  onClick ={()=> handleLogout()}>تسجيل الخروج</button>
+            {!IsAppointmentVisibility() ? (
+              <li className="nav-item">
+                <button
+                  className="nav-link btn btn-link"
+                  onClick={() => AppointmentNavigation()}
+                >
+                  المواعيد
+                </button>
+              </li>
+            ) : (
+              <></>
+            )}
 
-           </li>
+            {IsNotesVisibility() ? (
+              <li className="nav-item">
+                <button
+                  className="nav-link btn btn-link"
+                  onClick={() => navigate('/volunteer-notes-page')}
+                >
+                  ملاحظات المريض
+                </button>
+              </li>
+            ) : (
+              <></>
+            )}
+            
+            {user?.role === "patient" && (
+              <li className="nav-item">
+                <button
+                  className="nav-link btn btn-link"
+                  onClick={() => navigate("/donations")}
+                >
+                  التبرعات
+                </button>
+              </li>
+            )}
+            <li className="nav-item">
+              <button
+                className="nav-link btn btn-link"
+                onClick={() => handleLogout()}
+              >
+                تسجيل الخروج
+              </button>
+            </li>
           </ul>
         </div>
       </div>
@@ -59,9 +158,6 @@ function UserNavbar() {
 
 export default UserNavbar;
 
-
 function Donations() {
-  return (
-    <DonationHistory />
-  );
+  return <DonationHistory />;
 }

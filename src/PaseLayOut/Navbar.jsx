@@ -28,12 +28,12 @@ function Navbar() {
     if (role == "PAT") {
       navigate("/patient-page")
     }
-    // if (role == "DOC") {
-    //   navigate("/doctor-page")
-    // }
-    // if (role == "VOL") {
-    //   navigate("/volunteer-page")
-    // }
+    if (role == "DOC") {
+      navigate("/doctor-page")
+    }
+    if (role == "VOL") {
+      navigate("/volunteer-page")
+    }
     // if (role == "MAN") {
     //   navigate("/manager-page")
     // }
