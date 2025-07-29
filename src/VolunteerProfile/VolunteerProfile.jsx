@@ -1,8 +1,9 @@
 import "./VolunteerProfile.css";
+
+import "./VolunteerProfile.css";
 import HomePage from "../App";
 
-import { Button, Modal,Input } from 'antd';
-
+import { Button, Modal, Input } from "antd";
 
 import React, { useState, useEffect } from "react";
 import UserNavbar from "../PaseLayOut/userNavbar";
@@ -27,30 +28,18 @@ import {
   ContactPage,
 } from "@mui/icons-material";
 
-const VolunteersSection = () => {
+const VolunteerProfile = () => {
   const [currentView, setCurrentView] = useState("appointments");
   const [selectedVolunteer, setSelectedVolunteer] = useState(null);
   const [modal2Open, setModal2Open] = useState(false);
   const [withdrawReason, setWithdrawReason] = useState(""); // Step 1: State to hold input
   const { TextArea } = Input;
 
-  // const handleApprove = (id) => {
-  //   setVolunteers(volunteers.map(volunteer =>
-  //     volunteer.id === id ? { ...volunteer, status: "مقبول" } : volunteer
-  //   ));
-  // };
-
-  // const handleReject = (id) => {
-  //   setVolunteers(volunteers.map(volunteer =>
-  //     volunteer.id === id ? { ...volunteer, status: "مرفوض" } : volunteer
-  //   ));
-  // };
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const {
-    data: profile,
+    data: volunteerInfo,
     loading,
     error,
   } = useSelector((state) => state.volunteerProfile);
@@ -70,273 +59,214 @@ const VolunteersSection = () => {
   if (error) {
     return <div className="text-center mt-10 text-red-600">{error}</div>;
   }
-  console.log(profile);
+  console.log(volunteerInfo);
 
-  if (!profile) {
+  if (!volunteerInfo) {
     return null;
   }
 
-  return (
-    <>
-      <UserNavbar />
-      <br></br>
-      <Box maxWidth="md" mx="auto" mt={6} p={3}>
-        <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
-          <Typography variant="h4" align="center" gutterBottom color="primary">
-            الملف الشخصي للمتطوع
-          </Typography>
-
-          <Grid container spacing={3} mt={2}>
-            <ProfileItem
-              icon={<AccountCircle />}
-              label="الاسم الكامل"
-              value={`${profile.first_name} ${profile.last_name}`}
-            />
-            <ProfileItem
-              icon={<Email />}
-              label="البريد الإلكتروني"
-              value={profile.email}
-            />
-            <ProfileItem
-              icon={<Phone />}
-              label="رقم الهاتف"
-              value={profile.phone}
-            />
-            {/* <ProfileItem icon={<Public />} label="الاختصاص" value={profile.speciality} /> */}
-          </Grid>
-
-          <Divider sx={{ my: 4 }} />
-
-          <Box textAlign="center">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => navigate("/edit-profile")}
-              size="large"
-            >
-              تعديل الملف
-            </Button>
-            <br></br>
-            <br></br>
-            <Button type="primary" onClick={() => setModal2Open(true)}>
-        طلب انسحاب
-      </Button>
-      <Modal
-  title={
-    <div style={{ textAlign: "center", width: "100%", fontWeight: "bold" }}>
-      تأكيد طلب الانسحاب
-    </div>
-  }  centered
-  open={modal2Open}
-  onCancel={() => setModal2Open(false)}
-  footer={
-    <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
-      <Button
-        onClick={() => setModal2Open(false)}
-        style={{ backgroundColor: "white", borderColor: "orange", color: "orange", width: "100px" }}
-      >
-        إلغاء
-      </Button>
-      <Button
-        onClick={() => {
-          // You can also trigger the withdraw action here if needed
-          setModal2Open(false);
-        }}
-        style={{ backgroundColor: "orange", borderColor: "orange", color: "white", width: "100px" }}
-      >
-        تأكيد
-      </Button>
-    </div>
-  }
->
-  <br></br>
-  <p>هل أنت متأكد من أنك تريد تقديم طلب انسحاب؟</p>
-  <p>الرجاء كتابة السبب:</p>
-  <Input.TextArea
-    rows={4}
-    placeholder="اكتب السبب هنا..."
-    value={withdrawReason}
-    onChange={(e) => setWithdrawReason(e.target.value)}
-  />
-</Modal>
-
-
-
-          {/* <Modal
-  title="تأكيد طلب الانسحاب "
-  // visible={addModalVisible}
-  onCancel={() => setAddModalVisible(false)}
-  footer={
-    <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
-      <Button
-        onClick={() => setAddModalVisible(false)}
-        style={{ backgroundColor: "white", borderColor: "orange", color: "orange", width: "100px" }}
-      >
-        إلغاء
-      </Button>
-      <Button
-        // onClick={handleAddNote}
-        style={{ backgroundColor: "orange", borderColor: "orange", color: "white", width: "100px" }}
-      >
-        تأكيد
-      </Button>
-    </div>
-  }
->
-  <TextArea
-    rows={4}
-    // value={newNoteContent}
-    onChange={(e) => setNewNoteContent(e.target.value)}
-    placeholder="اكتب السبب هنا..."
-  />
-</Modal> */}
-
-          </Box>
-        </Paper>
-      </Box>
-    </>
-  );
-
   //   return (
-  //     <div className="manager-page">
-  //             <nav className="doctor-navbar">
-  //         <div className="navbar-brand">
-  //           <i className="fas fa-clinic-medical"></i>
+  //     <div className="volunteer-profile-container">
+  //         <br></br>
+  //       <div className="volunteer-profile-card">
+  //         {/* Header Section */}
+  //         <div className="volunteer-header">
+  //           <div className="volunteer-avatar">
+  //             <img src="https://via.placeholder.com/150" alt="صورة المتطوع" />
+  //           </div>
+  //           <div className="volunteer-title">
+  //             <h1>{volunteerInfo.name}</h1>
+  //             <h2>{volunteerInfo.position}</h2>
+  //             <div className="volunteer-meta">
+  //               <span className="join-date">{volunteerInfo.joinDate}</span>
 
-  //         </div>
-  //         <div className="nav-links">
-  //         <button
-  //   className={`nav-link ${currentView === 'home' ? 'active' : ''}`}
-  //   onClick={() => setCurrentView('home')}
-  // >
-  //   الصفحة الرئيسية
-  // </button>
-  //           <button
-  //             className={`nav-link ${currentView === 'appointments' ? 'active' : ''}`}
-  //             onClick={() => setCurrentView('appointments')}
-  //           >
-  //             المواعيد
-  //           </button>
-
-  //         </div>
-  //         <div className="nav-user">
-  //           <div className="user-info">
-
+  //             </div>
   //           </div>
   //         </div>
-  //       </nav>
-  //       {currentView === 'home' && <HomePage />}
-  //       {currentView === 'appointments' && (
-  //         <>
-  //       <div className="manager-header2">
-  //         <h2>
-  //           <i className="fas fa-hands-helping"></i>
-  //           مرحباً بك       </h2>
-  //       </div>
 
-  //       <div className="appointments-management">
-  //         <div className="appointments-list">
-  //           <table className="table">
-  //             <thead>
-  //               <tr>
-  //                 <th className="text-center">اسم المريض</th>
+  //         {/* Main Content */}
+  //         <div className="volunteer-content">
+  //           {/* Left Column - Main Info */}
+  //           <div className="volunteer-main-info">
 
-  //                 <th className="text-center">تاريخ الانضمام</th>
-  //                 <th className="text-center"> كتابة التقرير</th>
+  //           </div>
 
-  //                 <th className="text-center">الانسحاب</th>
-  //               </tr>
-  //             </thead>
-  //             <tbody>
-  //               {volunteers.map(volunteer => (
-  //                 <tr key={volunteer.id} onClick={() => setSelectedVolunteer(volunteer)}>
-  //                   <td className="text-center">{volunteer.name}</td>
-
-  //                   <td className="text-center">{volunteer.joinDate}</td>
-  //                   <td className="text-center">
-  //                   <div className="action-buttons">
-  //                   <button
-  //                           className="btn btn-primary btn-sm "
-  //                           onClick={(e) => {
-  //                             e.stopPropagation();
-  //                             handleReject(volunteer.id);
-  //                           }}
-  //                         >
-  //                           كتابة التقرير
-  //                         </button>
-  //                         </div>
-  //                   </td>
-
-  //                   <td className="text-center">
-  //                     {volunteer.status === "قيد المراجعة" && (
-  //                       <div className="action-buttons">
-
-  //                         <button
-  //                           className="btn btn-danger btn-sm reject-btn"
-  //                           onClick={(e) => {
-  //                             e.stopPropagation();
-  //                             handleReject(volunteer.id);
-  //                           }}
-  //                         >
-  //                           انسحاب
-  //                         </button>
-  //                       </div>
-  //                     )}
-  //                   </td>
-  //                 </tr>
-  //               ))}
-  //             </tbody>
-  //           </table>
-  //         </div>
-  //       </div>
-  //       </>
-  //       )}
-
-  //       {selectedVolunteer && (
-  //         <div className="donation-details-modal">
-  //           <div className="modal-content">
-  //             <div className="modal-header">
-  //               <h3 className="modal-title">تفاصيل المتطوع</h3>
-  //               <button
-  //                 className="close-btn"
-  //                 onClick={() => setSelectedVolunteer(null)}
-  //               >
-  //                 <i className="fas fa-times"></i>
-  //               </button>
-  //             </div>
-  //             <div className="modal-body">
-  //               <div className="details-section">
-  //                 <h4>المعلومات الشخصية</h4>
-  //                 <p><strong>الاسم الكامل:</strong> {selectedVolunteer.name}</p>
-  //                 <p><strong>البريد الإلكتروني:</strong> {selectedVolunteer.email}</p>
-  //                 <p><strong>رقم الجوال:</strong> {selectedVolunteer.phone}</p>
-
-  //                 <h4>معلومات التطوع</h4>
-  //                 <p><strong>تاريخ الانضمام:</strong> {selectedVolunteer.joinDate}</p>
-  //                 <p><strong>الحالة:</strong>
-  //                   <span className={`status-badge ${
-  //                     selectedVolunteer.status === "مقبول" ? "approved" :
-  //                     selectedVolunteer.status === "مرفوض" ? "rejected" : "pending"
-  //                   }`}>
-  //                     {selectedVolunteer.status}
-  //                   </span>
-  //                 </p>
+  //           {/* Right Column - Sidebar */}
+  //           <div className="volunteer-sidebar">
+  //             <div className="sidebar-section contact-info">
+  //               <h3 className="sidebar-title">معلومات الاتصال</h3>
+  //               <div className="contact-item">
+  //                 <span className="contact-icon">📞</span>
+  //                 <span>{volunteerInfo.phone}</span>
   //               </div>
+  //               <div className="contact-item">
+  //                 <span className="contact-icon">✉️</span>
+  //                 <span>{volunteerInfo.email}</span>
+  //               </div>
+
   //             </div>
-  //             <div className="modal-footer">
-  //               <button
-  //                 className="btn btn-secondary"
-  //                 onClick={() => setSelectedVolunteer(null)}
-  //               >
-  //                 إغلاق
-  //               </button>
+
+  //             <div className="sidebar-section working-hours">
+  //               <h3 className="sidebar-title">ساعات التطوع</h3>
+  //               <ul className="hours-list">
+  //                 {volunteerInfo.workingHours.map((hour, index) => (
+  //                   <li key={index}>{hour}</li>
+  //                 ))}
+  //               </ul>
   //             </div>
+
+  //             <div className="sidebar-section education">
+  //               <h3 className="sidebar-title">المؤهلات العلمية</h3>
+  //               <ul className="education-list">
+  //                 {volunteerInfo.education.map((edu, index) => (
+  //                   <li key={index}>
+  //                     <span className="education-icon">🎓</span>
+  //                     {edu}
+  //                   </li>
+  //                 ))}
+  //               </ul>
+  //             </div>
+
   //           </div>
   //         </div>
-  //       )}
-  //     </div>
 
+  //         {/* Footer */}
+  //         <div className="volunteer-footer">
+  //           <p>© {new Date().getFullYear()} جمعية الإغاثة الطبية. جميع الحقوق محفوظة.</p>
+  //         </div>
+  //       </div>
+  //     </div>
   //   );
+  // };
+
+  return (
+    <div className="doctor-profile-container">
+      <div className="doctor-profile-card">
+        {/* Header Section */}
+        <div className="doctor-header">
+          <div className="doctor-avatar">
+            <img src="Photos/user-default.png" alt="صورة الطبيب" />
+          </div>
+          <div className="doctor-title">
+            <h1>
+              {volunteerInfo.first_name} {volunteerInfo.last_name}
+            </h1>
+            <p>متطوع</p>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="doctor-content">
+          {/* Left Column - Main Info */}
+
+          {/* Right Column - Sidebar */}
+          <div className="doctor-sidebar">
+            <div className="doctor-sidebar">
+  <div
+    className="sidebar-sections-container"
+    style={{
+      display: "flex",
+      gap: "20px",
+      flexWrap: "wrap", // for responsiveness
+    }}
+  >
+    {/* Personal Info Section */}
+    <div className="sidebar-section contact-info" style={{ flex: 1, minWidth: "300px" }}>
+      <h3 className="sidebar-title">معلوماتي الشخصية</h3>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>👤 الاسم الكامل: </span>
+        <span>
+          {volunteerInfo.first_name} {volunteerInfo.last_name}
+        </span>
+      </div>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>🎓 الشهادة: </span>
+        <span>{volunteerInfo.certificate}</span>
+      </div>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>📅 مكان وتاريخ الولادة: </span>
+        <span>
+          {volunteerInfo.place_of_birth} - {volunteerInfo.date_of_birth}
+        </span>
+      </div>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>🌍 الجنسية: </span>
+        <span>{volunteerInfo.nationality}</span>
+      </div>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>🏠 العنوان: </span>
+        <span>{volunteerInfo.address || "غير محدد"}</span>
+      </div>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>📞 رقم الهاتف: </span>
+        <span>{volunteerInfo.phone}</span>
+      </div>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>✉️ البريد الإلكتروني: </span>
+        <span>{volunteerInfo.email}</span>
+      </div>
+    </div>
+
+    {/* Additional Info Section */}
+    <div className="sidebar-section contact-info" style={{ flex: 1, minWidth: "300px" }}>
+      <h3 className="sidebar-title">المعلومات الإضافية</h3>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>👵 اسم الأب: </span>
+        <span>{volunteerInfo.father_name}</span>
+      </div>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>👵 اسم الأم: </span>
+        <span>{volunteerInfo.mother_name}</span>
+      </div>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>🧾 الرقم الوطني: </span>
+        <span>{volunteerInfo.nationality_ID || "غير متوفر"}</span>
+      </div>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>🏢 المهنة: </span>
+        <span>{volunteerInfo.job || "غير محددة"}</span>
+      </div>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>📚 الجمعيات السابقة: </span>
+        <span>{volunteerInfo.previously_affiliated_associations || "لا يوجد"}</span>
+      </div>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>📋 التاريخ الطبي العائلي: </span>
+        <span>{volunteerInfo.grand_history || "لا يوجد"}</span>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+            <Box textAlign="center">
+              <Button
+                style={{
+                  color: "white",
+                  backgroundColor: "orange",
+                }}
+                variant="contained"
+                color="primary"
+                onClick={() => navigate("/edit-profile")}
+                size="large"
+              >
+                تعديل الملف
+              </Button>
+            </Box>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="doctor-footer">
+          <p>
+            © {new Date().getFullYear()} جمعية العزم للكفيفات المسنات , جميع
+            الحقوق محفوظة.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 };
 const ProfileItem = ({ icon, label, value }) => (
   <div className="flex items-center justify-between border-b pb-2">
@@ -347,4 +277,5 @@ const ProfileItem = ({ icon, label, value }) => (
     <div className="text-gray-900">{value || "-"}</div>
   </div>
 );
-export default VolunteersSection;
+
+export default VolunteerProfile;

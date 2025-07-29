@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createDonation } from '../api/api';
+import { createDonation , verifyPatientExist} from '../api/api';
 import './Individual.css'; 
 
 const IndividualDonation = () => {
@@ -26,28 +26,51 @@ const IndividualDonation = () => {
     }));
   };
 
-  const addPatient = () => {
-    const { firstName, lastName, fatherName, mothersName } = donationData;
-    
-    if (!firstName || !lastName || !fatherName || !mothersName) {
-      alert('الرجاء إدخال جميع حقول الاسم');
-      return;
-    }
+ // import it
 
-    const fullName = `${firstName} ${fatherName} ${lastName}`;
-    
-    setDonationData(prev => ({
+const addPatient = async () => {
+  const { firstName, lastName, fatherName, mothersName , amount} = donationData;
+
+  if (!firstName || !lastName || !fatherName || !mothersName) {
+    alert('الرجاء إدخال جميع حقول الاسم');
+    return;
+  }
+
+  const patientData = {
+    first_name: firstName,
+    last_name: lastName,
+    father_name: fatherName,
+    mother_name: mothersName,
+  };
+
+  try {
+    const response = await verifyPatientExist(patientData);
+    const patient = response.data;
+
+    const fullName = `${patient.first_name} ${patient.father_name} ${patient.last_name}`;
+
+    setDonationData((prev) => ({
       ...prev,
-      patients: [...prev.patients, {
-        name: fullName,
-        isSelected: true
-      }],
+      patients: [
+        ...prev.patients,
+        {
+          id: patient.id,
+          name: fullName,
+          amount: amount.trim(), // Use current amount
+          isSelected: true,
+        },
+      ],
       firstName: '',
       lastName: '',
       fatherName: '',
-      mothersName: ''
+      mothersName: '',
     }));
-  };
+  } catch (error) {
+    console.error('Error adding patient:', error);
+    alert('حدث خطأ أثناء إضافة المريض');
+  }
+};
+
 
   const togglePatientSelection = (index) => {
     const updatedPatients = [...donationData.patients];
@@ -66,20 +89,19 @@ const IndividualDonation = () => {
       return;
     }
 
-    // تحضير بيانات التبرع للإرسال
-    const donationRequest = {
-      donor_name: `${donationData.firstName} ${donationData.fatherName} ${donationData.lastName}`,
-      mother_name: donationData.mothersName,
-      email: donationData.email,
-      
-      amount: donationData.amount,
-   
-      is_recurring: donationData.isRecurring,
-      patients: donationData.patients
-        .filter(p => p.isSelected)
-        .map(p => p.name),
-      is_individual: true
-    };
+const donationRequest = {
+  email: donationData.email,
+  donation_type: "IND", // or other type depending on context
+  amount: donationData.amount.trim(), // remove whitespace just in case
+  donations: donationData.patients
+    .filter((p) => p.isSelected)
+    .map((p) => ({
+      id: p.id,
+      amount: p.amount, // make sure each patient has amount defined
+    })),
+  is_individual: true,
+  is_recurring: donationData.isRecurring
+};
 
     try {
       const response = await createDonation(donationRequest);
@@ -128,7 +150,7 @@ const IndividualDonation = () => {
             <div className="contact-box">
               <h3>للاستفسارات:</h3>
               <p>هاتف: 0998 766 972</p>
-              <p>بريد إلكتروني: jmytalzmalmsnatalkfyfat@gmail.com</p>
+              <p>بريد إلكتروني: ALAZEM@gmail.com</p>
             </div>
           </div>
 
@@ -208,27 +230,36 @@ const IndividualDonation = () => {
               <br></br>
               
               <div className="patients-list">
-                {donationData.patients.map((patient, index) => (
-                  <div key={index} className="patient-item">
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={patient.isSelected}
-                        onChange={() => togglePatientSelection(index)}
-                      />
-                      {patient.name}
-                    </label>
-                  </div>
-                ))}
-              </div>
+  {donationData.patients.map((patient, index) => (
+    <div key={index} className="patient-item">
+      <label>
+        <input
+          type="checkbox"
+          checked={patient.isSelected}
+          onChange={() => togglePatientSelection(index)}
+        />
+        {patient.name} - مبلغ التبرع: {patient.amount} ل.س
+      </label>
+    </div>
+  ))}
+</div>
+
               <br></br>
 
               <button 
-                type="submit" 
+                type="button" 
                 className="submit-btn"
                 onClick={addPatient}
               >
                 تأكيد التبرع
+              </button>
+
+                <button 
+                type="submit" 
+                className="submit-btn"
+                onClick={handleSubmit}
+              >
+                إرسال
               </button>
             </form>
           </div>

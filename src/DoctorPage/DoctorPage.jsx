@@ -3,14 +3,15 @@ import "./DoctorPage.css";
 // import HomePage from "../App";
 import DoctorReportPage from "./DoctorReportPage";
 import UserNavbar from "../PaseLayOut/userNavbar";
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchDoctorProfile } from '../store/doctorProfileSlice';
-import { 
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDoctorProfile } from "../store/doctorProfileSlice";
+import DoctorProfile from "./DoctorProfile";
+import {
   getDoctorAppointments,
   updateAppointmentStatus,
-  updateMedicalReport
+  updateMedicalReport,
 } from "../api/api";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -19,7 +20,7 @@ import {
   Button,
   CircularProgress,
   Divider,
-} from '@mui/material';
+} from "@mui/material";
 import {
   AccountCircle,
   Email,
@@ -28,7 +29,7 @@ import {
   Public,
   Badge,
   ContactPage,
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 const DoctorPage = () => {
   const [appointments, setAppointments] = useState([]);
@@ -38,78 +39,116 @@ const DoctorPage = () => {
   const [activeTab, setActiveTab] = useState("pending");
   const [currentView, setCurrentView] = useState("appointments");
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-   const { data: profile, loading, error } = useSelector((state) => state.doctorProfile);
+  const {
+    data: doctorInfo,
+    loading,
+    error,
+  } = useSelector((state) => state.doctorProfile);
 
   useEffect(() => {
     dispatch(fetchDoctorProfile());
   }, [dispatch]);
 
   if (loading) {
-    return <div className="text-center mt-10 text-lg">جارٍ تحميل الملف الشخصي...</div>;
+    return (
+      <div className="text-center mt-10 text-lg">
+        جارٍ تحميل الملف الشخصي...
+      </div>
+    );
   }
 
   if (error) {
     return <div className="text-center mt-10 text-red-600">{error}</div>;
   }
-console.log(profile);
+  console.log(doctorInfo);
 
-  if (!profile) {
+  if (!doctorInfo) {
     return null;
   }
 
-  return(
-    <>
-      <UserNavbar/>
-      <br></br>
-    <Box maxWidth="md" mx="auto" mt={6} p={3}>
-        <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
-          <Typography variant="h4" align="center" gutterBottom color="primary">
-            الملف الشخصي للطبيب
-          </Typography>
+  return (
+    <div className="doctor-profile-container">
+      <div className="doctor-profile-card">
+        {/* Header Section */}
+        <div className="doctor-header">
+          <div className="doctor-avatar">
+            <img src="Photos/user-default.png" alt="صورة الكفيفة" />
+          </div>
+          <div className="doctor-title">
+            <h1>
+              {doctorInfo.first_name} {doctorInfo.last_name}
+            </h1>
+            <p>طبيب</p>
+          </div>
+        </div>
 
-          <Grid container spacing={3} mt={2}>
-            <ProfileItem icon={<AccountCircle />} label="الاسم الكامل" value={`${profile.first_name} ${profile.last_name}`} />
-            <ProfileItem icon={<Email />} label="البريد الإلكتروني" value={profile.email} />
-            <ProfileItem icon={<Phone />} label="رقم الهاتف" value={profile.phone} />
-            <ProfileItem icon={<Public />} label="الاختصاص" value={profile.speciality} />
+        {/* Main Content */}
+        <div className="doctor-content">
+          {/* Left Column - Main Info */}
 
-          </Grid>
+          {/* Right Column - Sidebar */}
+          <div className="doctor-sidebar">
+            <div className="sidebar-section contact-info">
+              <h3 className="sidebar-title">معلومات الطبيب</h3>
+              <div className="contact-item">
+                <span className="contact-icon">🩺</span>
 
-          <Divider sx={{ my: 4 }} />
+                <span>{doctorInfo.speciality}</span>
+              </div>
+              <div className="contact-item">
+                <span className="contact-icon">📞</span>
 
-          <Box textAlign="center">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => navigate('/edit-profile')}
-              size="large"
-            >
-              تعديل الملف
-            </Button>
-          </Box>
-        </Paper>
-      </Box>
-    </>
+                <span>{doctorInfo.phone}</span>
+              </div>
+
+              <div className="contact-item">
+                <span className="contact-icon">✉️</span>
+                <span>{doctorInfo.email}</span>
+              </div>
+            </div>
+
+            <Box textAlign="center">
+              <Button
+                style={{
+                  color: "white",
+                  backgroundColor: "orange",
+                }}
+                variant="contained"
+                color="primary"
+                onClick={() => navigate("/edit-profile")}
+                size="large"
+              >
+                تعديل الملف
+              </Button>
+            </Box>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="doctor-footer">
+          <p>
+            © {new Date().getFullYear()} جمعية العزم للكفيفات المسنات , جميع
+            الحقوق محفوظة.
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
-
-  const ProfileItem = ({ icon, label, value }) => (
+const ProfileItem = ({ icon, label, value }) => (
   <div className="flex items-center justify-between border-b pb-2">
     <div className="text-gray-600 flex items-center gap-2">
       <span className="text-blue-600">{icon}</span>
       <span className="font-semibold">{label}:</span>
     </div>
-    <div className="text-gray-900">{value || '-'}</div>
+    <div className="text-gray-900">{value || "-"}</div>
   </div>
 );
 
 export default DoctorPage;
-
 
 //  useEffect(() => {
 //   const fetchAppointments = async () => {
@@ -117,7 +156,7 @@ export default DoctorPage;
 //       console.log('Fetching appointments...');
 //       const response = await getDoctorAppointments(currentDoctor.id);
 //       console.log('API Response:', response);
-      
+
 //       if (response.data) {
 //         const formattedAppointments = response.data.map(app => ({
 //           id: app.id,
@@ -129,7 +168,7 @@ export default DoctorPage;
 //           notes: app.notes || '',
 //           report: app.report || ''
 //         }));
-        
+
 //         console.log('Formatted Appointments:', formattedAppointments);
 //         setAppointments(formattedAppointments);
 //       }
@@ -144,7 +183,7 @@ export default DoctorPage;
 //   };
 
 //   fetchAppointments();
-  
+
 //   // التحديث التلقائي كل 30 ثانية
 //   const interval = setInterval(fetchAppointments, 30000);
 //   return () => clearInterval(interval);
@@ -159,7 +198,7 @@ export default DoctorPage;
 //       showMessage("الرجاء اختيار طبيب", "error");
 //       return;
 //     }
-    
+
 //     try {
 //       const response = await getDoctorAppointments(selectedDoctor);
 //       if (response.data) {
@@ -178,9 +217,9 @@ export default DoctorPage;
 //       const response = await updateAppointmentStatus(appointmentId, {
 //         action: action === "approve" ? "approve" : "reject"
 //       });
-      
+
 //       if (response.data) {
-//         setAppointments(prev => prev.map(app => 
+//         setAppointments(prev => prev.map(app =>
 //           app.id === appointmentId ? response.data : app
 //         ));
 //         showMessage(`تم ${action === "approve" ? "موافقة" : "رفض"} الموعد بنجاح`, "success");
@@ -196,17 +235,17 @@ export default DoctorPage;
 //       showMessage("الرجاء كتابة التقرير الطبي", "error");
 //       return;
 //     }
-    
+
 //     try {
 //       await updateMedicalReport(selectedAppointment.id, reportContent);
-//       setAppointments(prev => prev.map(app => 
-//         app.id === selectedAppointment.id ? { 
-//           ...app, 
+//       setAppointments(prev => prev.map(app =>
+//         app.id === selectedAppointment.id ? {
+//           ...app,
 //           status: "completed",
 //           report: reportContent
 //         } : app
 //       ));
-      
+
 //       showMessage("تم إكمال الموعد وإرسال التقرير", "success");
 //       setSelectedAppointment(null);
 //       setReportContent("");
@@ -231,19 +270,19 @@ export default DoctorPage;
 //           نظام إدارة العيادة
 //         </div>
 //         <div className="nav-links">
-//           <button 
+//           <button
 //             className={`nav-link ${currentView === 'home' ? 'active' : ''}`}
 //             onClick={() => setCurrentView('home')}
 //           >
 //             الصفحة الرئيسية
 //           </button>
-//           <button 
+//           <button
 //             className={`nav-link ${currentView === 'appointments' ? 'active' : ''}`}
 //             onClick={() => setCurrentView('appointments')}
 //           >
 //             المواعيد
 //           </button>
-//           <button 
+//           <button
 //             className={`nav-link ${currentView === 'reports' ? 'active' : ''}`}
 //             onClick={() => setCurrentView('reports')}
 //           >
@@ -260,41 +299,41 @@ export default DoctorPage;
 
 //       {currentView === 'home' && <HomePage />}
 //       {currentView === 'reports' && <DoctorReportPage />}
-      
+
 //       {currentView === 'appointments' && (
 //         <>
 //           <div className="doctor-header">
 //             <h2>مرحبًا د. {currentDoctor.name}</h2>
 //           </div>
-          
+
 //           {message.text && (
 //             <div className={`alert alert-${message.type === "error" ? "danger" : "success"}`}>
 //               <i className={`fas ${message.type === "error" ? "fa-exclamation-circle" : "fa-check-circle"}`}></i>
 //               {message.text}
 //             </div>
 //           )}
-          
+
 //           <div className="tabs-container">
-//             <button 
+//             <button
 //               className={`tab-btn ${activeTab === "pending" ? "active" : ""}`}
 //               onClick={() => setActiveTab("pending")}
 //             >
 //               بانتظار الموافقة
 //             </button>
-//             <button 
+//             <button
 //               className={`tab-btn ${activeTab === "upcoming" ? "active" : ""}`}
 //               onClick={() => setActiveTab("upcoming")}
 //             >
 //               المواعيد المؤكدة
 //             </button>
-//             <button 
+//             <button
 //               className={`tab-btn ${activeTab === "completed" ? "active" : ""}`}
 //               onClick={() => setActiveTab("completed")}
 //             >
 //               المواعيد المكتملة
 //             </button>
 //           </div>
-          
+
 //           <div className="appointments-list">
 //             {filteredAppointments.length > 0 ? (
 //               <div className="table-responsive">
@@ -334,7 +373,7 @@ export default DoctorPage;
 //                               </button>
 //                             </div>
 //                           )}
-                          
+
 //                           {appointment.status === "approved" && (
 //                             <button
 //                               className="btn btn-info btn-sm"
@@ -348,7 +387,7 @@ export default DoctorPage;
 //                               إكمال الموعد
 //                             </button>
 //                           )}
-                          
+
 //                           {appointment.status === "completed" && (
 //                             <button
 //                               className="btn btn-info btn-sm"
@@ -376,7 +415,7 @@ export default DoctorPage;
 //           </div>
 //         </>
 //       )}
-      
+
 //       <div className="modal fade" id="reportModal" tabIndex="-1" role="dialog">
 //         <div className="modal-dialog modal-lg" role="document">
 //           <div className="modal-content">
@@ -398,14 +437,14 @@ export default DoctorPage;
 //                         <p><strong>رقم الملف:</strong> {selectedAppointment.patient_medical_number}</p>
 //                       </div>
 //                       <div className="col-md-6">
-//                         <p><strong>تاريخ الموعد:</strong> 
+//                         <p><strong>تاريخ الموعد:</strong>
 //                           {selectedAppointment.date ? new Date(selectedAppointment.date).toLocaleString() : 'غير محدد'}
 //                         </p>
 //                         <p><strong>ملاحظات:</strong> {selectedAppointment.notes || 'لا توجد ملاحظات'}</p>
 //                       </div>
 //                     </div>
 //                   </div>
-                  
+
 //                   <div className="form-group">
 //                     <label>التقرير الطبي:</label>
 //                     <textarea
@@ -428,7 +467,7 @@ export default DoctorPage;
 //               >
 //                 إغلاق
 //               </button>
-              
+
 //               {selectedAppointment?.status !== "completed" && (
 //                 <button
 //                   type="button"
@@ -449,4 +488,3 @@ export default DoctorPage;
 //     </div>
 //   );
 // };
-

@@ -81,6 +81,16 @@ function UserNavbar() {
     }
   };
 
+    const IsPatientProfileVisibility = () => {
+    var role = sessionStorage.getItem("role");
+    if (role == "VOL") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+
   const user = useSelector((state) => state.auth.user);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
@@ -139,7 +149,18 @@ function UserNavbar() {
             ) : (
               <></>
             )}
-            
+            {IsPatientProfileVisibility() ? (
+              <li className="nav-item">
+                <button
+                  className="nav-link btn btn-link"
+                  onClick={() => navigate('/volunteer-patient-page')}
+                >
+                  ملف المريض
+                </button>
+              </li>
+            ) : (
+              <></>
+            )}
             {IsDonationVisibility() && (
               <li className="nav-item">
                 <button

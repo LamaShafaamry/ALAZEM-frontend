@@ -7,7 +7,7 @@ import { Button, Modal, Input } from "antd";
 import React, { useState, useEffect } from "react";
 import UserNavbar from "../PaseLayOut/userNavbar";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPatientProfile } from "../store/patientProfileSlice";
+import { fetchVolunteerPatientProfile } from "../store/volunteerPatientProfileSlice";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -27,7 +27,7 @@ import {
   ContactPage,
 } from "@mui/icons-material";
 
-const PatientProfile = () => {
+const VolunteerPatientProfile = () => {
   const [selectedVolunteer, setSelectedVolunteer] = useState(null);
   const [modal2Open, setModal2Open] = useState(false);
   const [withdrawReason, setWithdrawReason] = useState(""); // Step 1: State to hold input
@@ -40,13 +40,14 @@ const PatientProfile = () => {
     data: patientInfo,
     loading,
     error,
-  } = useSelector((state) => state.patientProfile);
+  } = useSelector((state) => state.volunteerpatientProfile);
 
   useEffect(() => {
-    dispatch(fetchPatientProfile());
+    dispatch(fetchVolunteerPatientProfile());
   }, [dispatch]);
 
-  if (loading) {
+
+    if (loading) {
     return (
       <div className="text-center mt-10 text-lg">
         جارٍ تحميل الملف الشخصي...
@@ -63,14 +64,13 @@ const PatientProfile = () => {
     return null;
   }
 
-  
   return (
     <div className="doctor-profile-container">
       <div className="doctor-profile-card">
         {/* Header Section */}
         <div className="doctor-header">
           <div className="doctor-avatar">
-            <img src="Photos/user-default.png" alt="صورة الكفيفة" />
+            <img src="Photos/user-default.png" alt="صورة الطبيب" />
           </div>
           <div className="doctor-title">
             <h1>
@@ -159,16 +159,13 @@ const PatientProfile = () => {
         <span style={{ fontWeight: "bold" }}>📋 التاريخ الطبي العائلي: </span>
         <span>{patientInfo.grand_history || "لا يوجد"}</span>
       </div>
-      <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>⚙️ حالة الحساب: </span>
-        <span>{patientInfo.status}</span>
-      </div>
+ 
     </div>
   </div>
 </div>
 
 
-            <Box textAlign="center">
+            {/* <Box textAlign="center">
               <Button
                 style={{
                   color: "white",
@@ -181,7 +178,7 @@ const PatientProfile = () => {
               >
                 تعديل الملف
               </Button>
-            </Box>
+            </Box> */}
           </div>
         </div>
 
@@ -206,4 +203,4 @@ const ProfileItem = ({ icon, label, value }) => (
   </div>
 );
 
-export default PatientProfile;
+export default VolunteerPatientProfile;

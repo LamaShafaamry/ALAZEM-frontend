@@ -48,6 +48,7 @@ export const getDoctorProfile = () => api.get("/services/doctor-profile/get/");
 export const getDoctorAppointments = () => api.get("/services/doctor/appointments/");
 export const addMedicalRepoer = (id ,data) => api.post(`services/appointments/${id}/medical-report/`, data);
 export const changeAppointmentStatus = (id ,data) => api.post(`services/appointments/${id}/status/`, data);
+export const  getVolunteerPatientProfile= () => api.get(`/users/get/volunteer/patient/profile/`);
 
 
 // Appointments
@@ -83,8 +84,8 @@ export const updateMedicalReport = (id, report) =>
 
   // دوال التبرعات
 export const createDonation = (data) => api.post("/donations/donation/create/", data);
+export const verifyPatientExist = (data) => api.post("/donations/varify-selected-patient/donation/", data);
 
-  
 
 export const getPendingDonations = () => api.get("/donations/get/donation/?status=pending");
 export const approveDonation = (donationId) => 

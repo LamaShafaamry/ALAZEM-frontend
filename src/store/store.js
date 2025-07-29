@@ -10,6 +10,7 @@ import addNoteSlice from './addNoteSlice';
 import  getVolunteerSlice from './getVolunteerNotesSlice';
 import updateNotesSlice from './updateNotesSlicer';
 import AddMedicalReportSlice from "./addMedicalReportSlice";
+import volunteerpatientProfileSlice from "./volunteerPatientProfileSlice"
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -23,6 +24,7 @@ export const store = configureStore({
     volunteernotes : getVolunteerSlice,
     updateNotes: updateNotesSlice,
     addMedicalReport :AddMedicalReportSlice,
+   volunteerpatientProfile : volunteerpatientProfileSlice,
   },
 })
 

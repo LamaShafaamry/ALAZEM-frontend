@@ -710,5 +710,7 @@ button:hover {
   color: orange;
 }
 
-
+.main-body{
+  width: 75%;
+}
 
