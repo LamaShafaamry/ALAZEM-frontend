@@ -1,173 +1,137 @@
-import React, { useState } from "react";
-import "./VolunteerProfile.css";
-import HomePage from "../App";
+import React from 'react';
+import './VolunteerProfile.css';
 
-const VolunteersSection = () => {
-  const [volunteers, setVolunteers] = useState([
-    {
-      id: 1,
-      name: "أحمد محمد علي",
-      email: "ahmed@example.com",
-      phone: "0501234567",
-      joinDate: "2023-05-10",
-      status: "قيد المراجعة"
-    }
-  ]);
-  const [currentView, setCurrentView] = useState("appointments");
-  const [selectedVolunteer, setSelectedVolunteer] = useState(null);
-
-  const handleApprove = (id) => {
-    setVolunteers(volunteers.map(volunteer => 
-      volunteer.id === id ? { ...volunteer, status: "مقبول" } : volunteer
-    ));
-  };
-
-  const handleReject = (id) => {
-    setVolunteers(volunteers.map(volunteer => 
-      volunteer.id === id ? { ...volunteer, status: "مرفوض" } : volunteer
-    ));
+const VolunteerProfile = () => {
+  const volunteerInfo = {
+    name: "هبة أحمد",
+    position: "متطوعة في الجمعية  ",
+    joinDate: "منذ سنة واحدة",
+    education: [
+      "بكالوريوس في التمريض ",
+      "دبلوم في الإسعافات الأولية"
+    ],
+    description: "متطوعة متحمسة لمساعدة المحتاجين، لديها خبرة في العمل الميداني وتقديم الرعاية الصحية الأساسية للمجتمعات المحتاجة.",
+    phone: "+966501122334",
+    email: "hiba.ahmed@example.com",
+   
+    workingHours: [
+      "السبت - الأربعاء: 5 مساءً - 9 مساءً",
+      "الخميس: 6 مساءً - 8 مساءً"
+    ],
+    skills: [
+      "الإسعافات الأولية",
+      "التوعية الصحية",
+      "تنظيم الفعاليات",
+      "الترجمة الطبية",
+      "الدعم النفسي"
+    ],
+    experiences: [
+      "متطوعة في حملة التطعيم ضد كوفيد-19",
+      "مشاركة في 3 حملات طبية للاجئين",
+      "متطوعة في مستشفى الميداني لمدة 6 أشهر"
+    ]
   };
 
   return (
-    <div className="manager-page">
-            <nav className="doctor-navbar">
-        <div className="navbar-brand">
-          <i className="fas fa-clinic-medical"></i>
-       
-        </div>
-        <div className="nav-links">
-        <button 
-  className={`nav-link ${currentView === 'home' ? 'active' : ''}`}
-  onClick={() => setCurrentView('home')}
->
-  الصفحة الرئيسية
-</button>
-          <button 
-            className={`nav-link ${currentView === 'appointments' ? 'active' : ''}`}
-            onClick={() => setCurrentView('appointments')}
-          >
-            المواعيد
-          </button>
-
-        </div>
-        <div className="nav-user">
-          <div className="user-info">
-          
+    <div className="volunteer-profile-container">
+        <br></br>
+      <div className="volunteer-profile-card">
+        {/* Header Section */}
+        <div className="volunteer-header">
+          <div className="volunteer-avatar">
+            <img src="https://via.placeholder.com/150" alt="صورة المتطوع" />
+          </div>
+          <div className="volunteer-title">
+            <h1>{volunteerInfo.name}</h1>
+            <h2>{volunteerInfo.position}</h2>
+            <div className="volunteer-meta">
+              <span className="join-date">{volunteerInfo.joinDate}</span>
+            
+            </div>
           </div>
         </div>
-      </nav>
-      {currentView === 'home' && <HomePage />}
-      {currentView === 'appointments' && (
-        <>
-      <div className="manager-header2">
-        <h2>
-          <i className="fas fa-hands-helping"></i>
-          مرحباً بك       </h2>
-      </div>
 
-      <div className="appointments-management">
-        <div className="appointments-list">
-          <table className="table">
-            <thead>
-              <tr>
-                <th className="text-center">اسم المريض</th>
-               
-                <th className="text-center">تاريخ الانضمام</th>
-                <th className="text-center"> كتابة التقرير</th>
-                
-                <th className="text-center">الانسحاب</th>
-              </tr>
-            </thead>
-            <tbody>
-              {volunteers.map(volunteer => (
-                <tr key={volunteer.id} onClick={() => setSelectedVolunteer(volunteer)}>
-                  <td className="text-center">{volunteer.name}</td>
-                  
-                  <td className="text-center">{volunteer.joinDate}</td>
-                  <td className="text-center">
-                  <div className="action-buttons">
-                  <button 
-                          className="btn btn-primary btn-sm "
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleReject(volunteer.id);
-                          }}
-                        >
-                          كتابة التقرير
-                        </button>
-                        </div>
-                  </td>
-                  
-                  <td className="text-center">
-                    {volunteer.status === "قيد المراجعة" && (
-                      <div className="action-buttons">
-                      
-                        <button 
-                          className="btn btn-danger btn-sm reject-btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleReject(volunteer.id);
-                          }}
-                        >
-                          انسحاب
-                        </button>
-                      </div>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      </>
-      )}
+        {/* Main Content */}
+        <div className="volunteer-content">
+          {/* Left Column - Main Info */}
+          <div className="volunteer-main-info">
+            <section className="info-section">
+              <h3 className="section-title">نبذة عن المتطوع</h3>
+              <p className="section-content">{volunteerInfo.description}</p>
+            </section>
 
-      {selectedVolunteer && (
-        <div className="donation-details-modal">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h3 className="modal-title">تفاصيل المتطوع</h3>
-              <button 
-                className="close-btn"
-                onClick={() => setSelectedVolunteer(null)}
-              >
-                <i className="fas fa-times"></i>
-              </button>
-            </div>
-            <div className="modal-body">
-              <div className="details-section">
-                <h4>المعلومات الشخصية</h4>
-                <p><strong>الاسم الكامل:</strong> {selectedVolunteer.name}</p>
-                <p><strong>البريد الإلكتروني:</strong> {selectedVolunteer.email}</p>
-                <p><strong>رقم الجوال:</strong> {selectedVolunteer.phone}</p>
-                
-                <h4>معلومات التطوع</h4>
-                <p><strong>تاريخ الانضمام:</strong> {selectedVolunteer.joinDate}</p>
-                <p><strong>الحالة:</strong> 
-                  <span className={`status-badge ${
-                    selectedVolunteer.status === "مقبول" ? "approved" :
-                    selectedVolunteer.status === "مرفوض" ? "rejected" : "pending"
-                  }`}>
-                    {selectedVolunteer.status}
-                  </span>
-                </p>
+            <section className="info-section">
+              <h3 className="section-title">المهارات</h3>
+              <ul className="skills-list">
+                {volunteerInfo.skills.map((skill, index) => (
+                  <li key={index}>
+                    <span className="skill-icon">✓</span>
+                    <span className="skill-text">{skill}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="info-section">
+              <h3 className="section-title">الخبرات التطوعية</h3>
+              <ul className="experiences-list">
+                {volunteerInfo.experiences.map((experience, index) => (
+                  <li key={index}>
+                    <span className="experience-icon">•</span>
+                    {experience}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
+
+          {/* Right Column - Sidebar */}
+          <div className="volunteer-sidebar">
+            <div className="sidebar-section contact-info">
+              <h3 className="sidebar-title">معلومات الاتصال</h3>
+              <div className="contact-item">
+                <span className="contact-icon">📞</span>
+                <span>{volunteerInfo.phone}</span>
               </div>
+              <div className="contact-item">
+                <span className="contact-icon">✉️</span>
+                <span>{volunteerInfo.email}</span>
+              </div>
+             
             </div>
-            <div className="modal-footer">
-              <button 
-                className="btn btn-secondary"
-                onClick={() => setSelectedVolunteer(null)}
-              >
-                إغلاق
-              </button>
+
+            <div className="sidebar-section working-hours">
+              <h3 className="sidebar-title">ساعات التطوع</h3>
+              <ul className="hours-list">
+                {volunteerInfo.workingHours.map((hour, index) => (
+                  <li key={index}>{hour}</li>
+                ))}
+              </ul>
             </div>
+
+            <div className="sidebar-section education">
+              <h3 className="sidebar-title">المؤهلات العلمية</h3>
+              <ul className="education-list">
+                {volunteerInfo.education.map((edu, index) => (
+                  <li key={index}>
+                    <span className="education-icon">🎓</span>
+                    {edu}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            
           </div>
         </div>
-      )}
+
+        {/* Footer */}
+        <div className="volunteer-footer">
+          <p>© {new Date().getFullYear()} جمعية الإغاثة الطبية. جميع الحقوق محفوظة.</p>
+        </div>
+      </div>
     </div>
-      
   );
 };
 
-export default VolunteersSection;
+export default VolunteerProfile;

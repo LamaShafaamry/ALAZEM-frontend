@@ -7,6 +7,7 @@ import WithdrawalRequests from "./WithdrawalRequests";
 import UsersManagement from './UsersManagement';
 import PatientsManagement from './PatientsManagement';
 import HomePage from "../App"
+import ManagerProfile from "./ManagerProfile";
 
 const ManagerPage = () => {
   const [doctors, setDoctors] = useState([]);

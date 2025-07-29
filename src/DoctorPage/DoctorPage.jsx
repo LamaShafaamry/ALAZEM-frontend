@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./DoctorPage.css";
 import HomePage from "../App";
 import DoctorReportPage from "./DoctorReportPage";
+import DoctorProfile from "./DoctorProfile";
 import { 
   getDoctorAppointments,
   updateAppointmentStatus,
@@ -150,6 +151,12 @@ const DoctorPage = () => {
             الصفحة الرئيسية
           </button>
           <button 
+            className={`nav-link ${currentView === 'Profile' ? 'active' : ''}`}
+            onClick={() => setCurrentView('Profile')}
+          >
+            البروفايل
+          </button>
+          <button 
             className={`nav-link ${currentView === 'appointments' ? 'active' : ''}`}
             onClick={() => setCurrentView('appointments')}
           >
@@ -172,6 +179,7 @@ const DoctorPage = () => {
 
       {currentView === 'home' && <HomePage />}
       {currentView === 'reports' && <DoctorReportPage />}
+      {currentView === 'Profile' && <DoctorProfile />}
       
       {currentView === 'appointments' && (
         <>

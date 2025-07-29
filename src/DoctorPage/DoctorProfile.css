@@ -1,5 +1,13 @@
 /* التنسيقات العامة */
-.volunteer-profile-container {
+* {
+    direction: rtl !important;
+    text-align: right !important;
+  }
+
+  html, body {
+    direction: rtl;
+  }
+.doctor-profile-container {
     min-height: 100vh;
     background: linear-gradient(to bottom, #f0f9ff, #ffffff);
     padding: 2rem 1rem;
@@ -7,7 +15,7 @@
     direction: rtl;
   }
   
-  .volunteer-profile-card {
+  .doctor-profile-card {
     max-width: 1200px;
     margin: 0 auto;
     background: white;
@@ -18,7 +26,7 @@
   }
   
   /* تنسيقات الهيدر */
-  .volunteer-header {
+  .doctor-header {
     display: flex;
     align-items: center;
     margin-bottom: 2rem;
@@ -27,42 +35,42 @@
     text-align: right;
   }
   
-  .volunteer-avatar {
+  .doctor-avatar {
     margin-left: 2rem;
   }
   
-  .volunteer-avatar img {
+  .doctor-avatar img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid #ffd28e; /* تغيير إلى اللون البيج */
+    border: 4px solid #ffd28e;
   }
   
-  .volunteer-title {
+  .doctor-title {
     flex: 1;
   }
   
-  .volunteer-title h1 {
+  .doctor-title h1 {
     font-size: 2rem;
     color: #333;
     margin-bottom: 0.5rem;
     font-weight: 700;
   }
   
-  .volunteer-title h2 {
+  .doctor-title h2 {
     font-size: 1.3rem;
     color: #4b5563;
     margin-bottom: 1rem;
     font-weight: 500;
   }
   
-  .volunteer-meta {
+  .doctor-meta {
     display: flex;
     gap: 1rem;
   }
   
-  .volunteer-meta span {
+  .doctor-meta span {
     background: #f3f4f6;
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
@@ -71,23 +79,23 @@
   }
   
   /* تنسيقات المحتوى الرئيسي */
-  .volunteer-content {
+  .doctor-content {
     display: flex;
     flex-direction: column;
     gap: 2rem;
   }
   
   @media (min-width: 992px) {
-    .volunteer-content {
+    .doctor-content {
       flex-direction: row;
     }
   }
   
-  .volunteer-main-info {
+  .doctor-main-info {
     flex: 2;
   }
   
-  .volunteer-sidebar {
+  .doctor-sidebar {
     flex: 1;
   }
   
@@ -98,24 +106,53 @@
   
   .section-title {
     font-size: 1.5rem;
-    color: #ffd28e; /* تغيير إلى اللون البيج */
+    color: #ffd28e;
     margin-bottom: 1rem;
     font-weight: 600;
     position: relative;
     padding-bottom: 0.5rem;
   }
   
-
+ 
   
   .section-content {
     color: #4b5563;
     line-height: 1.8;
     font-size: 1.05rem;
+  }/* استبدل قسم خدمات القائمة بالكود التالي */
+  .services-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: right;
+    direction: rtl;
   }
   
+  .services-list li {
+    display: block;
+    text-align: right;
+    padding: 0.8rem 0;
+    position: relative;
+    padding-right: 1.5rem;
+  }
+  
+  .service-icon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .service-text {
+    order: 2; /* جعل النص يظهر قبل الأيقونة */
+  }
+  /* تأكد من أن هذه الخاصية موجودة في أعلى الملف */
+  .doctor-profile-container {
+    direction: rtl;
+  }
   /* تنسيقات القوائم */
-  .skills-list,
-  .experiences-list,
+  .services-list,
+  .awards-list,
   .hours-list,
   .education-list {
     list-style: none;
@@ -123,10 +160,10 @@
     margin: 0;
   }
   
-  .skills-list li,
-  .experiences-list li,
+  .services-list li,
+  .awards-list li,
   .education-list li {
-    padding: 0.8rem 0;
+    padding: 0.5rem 0;
     border-bottom: 1px dashed #e5e7eb;
     display: flex;
     align-items: center;
@@ -134,19 +171,15 @@
   }
   
   .hours-list li {
-    padding: 0.8rem 0;
+    padding: 0.5rem 0;
     border-bottom: 1px dashed #e5e7eb;
   }
   
-  .skill-icon,
-  .experience-icon,
-  .education-icon {
-    color: #ffd28e; /* تغيير إلى اللون البيج */
-    font-weight: bold;
-  }
   
-  .skill-icon {
-    font-size: 1.2rem;
+  .award-icon,
+  .education-icon {
+    color: #ffd28e;
+    font-weight: bold;
   }
   
   /* تنسيقات السايدبار */
@@ -163,7 +196,7 @@
     color: #333;
     margin-bottom: 1rem;
     font-weight: 600;
-    border-bottom: 2px solid #ffd28e; /* تغيير إلى اللون البيج */
+    border-bottom: 2px solid #ffd28e;
     padding-bottom: 0.5rem;
   }
   
@@ -180,8 +213,8 @@
   }
   
   /* تنسيقات الأزرار */
-  .availability-btn,
-  .training-btn {
+  .appointment-btn,
+  .consultation-btn {
     display: block;
     width: 100%;
     padding: 0.8rem;
@@ -194,27 +227,27 @@
     transition: all 0.3s;
   }
   
-  .availability-btn {
-    background: #ffd28e; /* تغيير إلى اللون البيج */
+  .appointment-btn {
+    background: #ffd28e;
     color: white;
   }
   
-  .availability-btn:hover {
-    background: #e6c07d; /* لون أفتح عند hover */
+  .appointment-btn:hover {
+    background: #ffc56e;
   }
   
-  .training-btn {
+  .consultation-btn {
     background: white;
-    color: #ffd28e; /* تغيير إلى اللون البيج */
-    border: 2px solid #ffd28e; /* تغيير إلى اللون البيج */
+    color: #ffd28e;
+    border: 2px solid #ffd28e;
   }
   
-  .training-btn:hover {
+  .consultation-btn:hover {
     background: #fff9f0;
   }
   
   /* تذييل الصفحة */
-  .volunteer-footer {
+  .doctor-footer {
     text-align: center;
     margin-top: 2rem;
     padding-top: 2rem;
@@ -225,17 +258,17 @@
   
   /* التنسيق للجوال */
   @media (max-width: 768px) {
-    .volunteer-header {
+    .doctor-header {
       flex-direction: column;
       text-align: center;
     }
     
-    .volunteer-avatar {
+    .doctor-avatar {
       margin-left: 0;
       margin-bottom: 1rem;
     }
     
-    .volunteer-meta {
+    .doctor-meta {
       justify-content: center;
     }
   }
