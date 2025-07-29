@@ -72,6 +72,15 @@ function UserNavbar() {
     }
   };
 
+      const IsDonationVisibility = () => {
+    var role = sessionStorage.getItem("role");
+    if (role == "PAT") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const user = useSelector((state) => state.auth.user);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
@@ -131,7 +140,7 @@ function UserNavbar() {
               <></>
             )}
             
-            {user?.role === "patient" && (
+            {IsDonationVisibility() && (
               <li className="nav-item">
                 <button
                   className="nav-link btn btn-link"

@@ -28,6 +28,7 @@ export const getMyAppointments = () => api.get("services/get/patient/appointment
 export const createPatient = (data) => api.post("/patients/create/", data);
 export const updatePatient = (data) => api.post("/patients/update/", data);
 export const getMyDonations = () => api.get("services/my-donation/get");
+export const cancelMyAppointment = (id) => api.get(`/services/cancel/appointment/${id}/`);
 
 
 // volunteer
@@ -37,7 +38,7 @@ export const updateVolunteer = (data) => api.post("/users/volunteer/update/" , d
 export const withdrawalequest = (data) => api.post("/users/withdrawal/request/" , data);
 export const getNotes = () => api.get("/users/notes/get/");
 export const addNotes = (data) => api.post("/users/notes/add/", data);
-
+export const updateNotes = (id, data) => api.post(`/users/edit/notes/${id}`, data);
 
 // Doctors
 // export const getDoctors = () => api.get("/doctors/get/");
@@ -45,6 +46,8 @@ export const addNotes = (data) => api.post("/users/notes/add/", data);
 // export const updateDoctor = (data) => api.post("/doctor/update/", data);
 export const getDoctorProfile = () => api.get("/services/doctor-profile/get/");
 export const getDoctorAppointments = () => api.get("/services/doctor/appointments/");
+export const addMedicalRepoer = (id ,data) => api.post(`services/appointments/${id}/medical-report/`, data);
+export const changeAppointmentStatus = (id ,data) => api.post(`services/appointments/${id}/status/`, data);
 
 
 // Appointments

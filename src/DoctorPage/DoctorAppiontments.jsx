@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchDoctorAppointments } from "../store/doctorAppointmentsSlice";
 import { useNavigate } from "react-router-dom";
 import ConfirmModal from "../components/ConfirmModal";
-import { Button, Popconfirm } from "antd";
-
+import { Button, Popconfirm, Modal, Input, message } from "antd";
+import { addMedicalRepoer , changeAppointmentStatus} from "../api/api";
 const DoctorAppointments = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,6 +16,16 @@ const DoctorAppointments = () => {
     error,
   } = useSelector((state) => state.doctorAppointments);
 
+  const [isViewOnly, setIsViewOnly] = useState(false); // Add this
+  const [addReportModalOpen, setAddReportModalOpen] = useState(false);
+  const [viewReportModalOpen, setViewReportModalOpen] = useState(false);
+
+  const [showApproveModal, setShowApproveModal] = useState(false);
+  const [showRejectModal, setShowRejectModal] = useState(false);
+  const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
+
+  const [medicalReport, setMedicalReport] = useState("");
+  const [modal2Open, setModal2Open] = useState(false);
   const [appointment, setAppointment] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
@@ -49,22 +59,25 @@ const DoctorAppointments = () => {
     return null;
   }
 
-  const showPopconfirm = () => {
-    setOpen(true);
+  const openApproveModal = (id) => {
+    setSelectedAppointmentId(id);
+    setShowApproveModal(true);
   };
 
-  const handleOk = () => {
-    setConfirmLoading(true);
-
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
+  const openRejectModal = (id) => {
+    setSelectedAppointmentId(id);
+    setShowRejectModal(true);
   };
 
-  const handleCancel = () => {
-    console.log("Clicked cancel button");
-    setOpen(false);
+  const confirmApprove = () => {
+    handleApproveAppointment(selectedAppointmentId);
+    setShowApproveModal(false);
+
+  };
+
+  const confirmReject = () => {
+    handleCancelAppointment(selectedAppointmentId);
+    setShowRejectModal(false);
   };
 
   const statusMap = {
@@ -72,6 +85,8 @@ const DoctorAppointments = () => {
     REJ: { label: "مرفوض", bg: "bg-red-100 text-red-800" },
     PEN: { label: "قيد الانتظار", bg: "bg-yellow-100 text-yellow-800" },
     COM: { label: "مكتمل", bg: "bg-blue-100 text-blue-800" },
+    CAN: { label: "تم إالغاءه", bg: "bg-blue-100 text-blue-800" },
+
   };
 
   const filteredAppointments =
@@ -93,6 +108,53 @@ const DoctorAppointments = () => {
         )
       : doctorAppointments;
 
+  const handleAddMedicalReport = async () => {
+    if (!medicalReport.trim()) {
+      message.warning("يرجى كتابة التقرير الطبي");
+      return;
+    }
+
+    try {
+      await addMedicalRepoer(selectedAppointment.id, {
+        medical_report: medicalReport,
+      });
+
+      message.success("تم حفظ التقرير الطبي بنجاح");
+
+      // Close modal
+      setModal2Open(false);
+
+      // Open view modal directly with updated report
+          dispatch(fetchDoctorAppointments());
+
+    } catch (error) {
+      message.error("حدث خطأ أثناء حفظ التقرير الطبي");
+      console.error("Save Error:", error);
+    }
+  };
+
+
+  const handleApproveAppointment = async (id) => {
+  try {
+    await changeAppointmentStatus(id, { action: "approve" });
+    setShowApproveModal(false);
+     dispatch(fetchDoctorAppointments()); // refresh data
+  } catch (error) {
+    console.error("Error approving appointment:", error);
+  }
+};
+
+const handleCancelAppointment = async (id) => {
+  try {
+    await changeAppointmentStatus(id, { action: "reject" });
+    setShowRejectModal(false);
+     dispatch(fetchDoctorAppointments()); // refresh data
+  } catch (error) {
+    console.error("Error rejecting appointment:", error);
+  }
+};
+
+
   return (
     <div className="patient-page relative">
       {" "}
@@ -103,25 +165,25 @@ const DoctorAppointments = () => {
         </h2>
       </div>
       <br></br>
-      
       <div className="appointments-list">
         <div className="flex justify-end mb-4">
-<label className="appointment-filter">حالة الموعد</label>
-        <select
-          className="form-select appointment-select-filter border rounded"
-          value={selectedStatus}
-          onChange={(e) => setSelectedStatus(e.target.value)}
-        >
-          <option value="">عرض الكل</option>
-          <option value="APP">تمت الموافقة</option>
-          <option value="REJ">مرفوض</option>
-          <option value="PEN">قيد الانتظار</option>
-          <option value="COM">مكتمل</option>
-        </select>
-      </div>
+          <label className="appointment-filter">حالة الموعد</label>
+          <select
+            className="form-select appointment-select-filter rounded"
+            value={selectedStatus}
+            onChange={(e) => setSelectedStatus(e.target.value)}
+          >
+            <option value="">عرض الكل</option>
+            <option value="APP">تمت الموافقة</option>
+            <option value="REJ">مرفوض</option>
+            <option value="PEN">قيد الانتظار</option>
+            <option value="COM">مكتمل</option>
+            <option value="CAN">تم إالغاءه</option>
+
+          </select>
+        </div>
         <table className="table">
           <thead>
-
             <tr>
               <th className="text-center">الرقم الموعد</th>
               <th className="text-center">اسم المريض</th>
@@ -170,17 +232,13 @@ const DoctorAppointments = () => {
                         <div className="d-flex gap-2 justify-content-center">
                           <button
                             className="btn btn-danger btn-sm"
-                            onClick={() =>
-                              handleCancelAppointment(appointment.id)
-                            }
+                            onClick={() => openRejectModal(appointment.id)}
                           >
                             إلغاء الطلب
                           </button>
                           <button
                             className="btn btn-success btn-sm"
-                            onClick={() =>
-                              handleApproveAppointment(appointment.id)
-                            }
+                            onClick={() => openApproveModal(appointment.id)}
                           >
                             قبول
                           </button>
@@ -189,16 +247,51 @@ const DoctorAppointments = () => {
                     ) : (
                       <></>
                     )}
+                    {appointment.is_completed === false &&
+                    appointment.appointment_status === "APP" ? (
+                      <Button
+                        style={{
+                          backgroundColor: "white",
+                          borderColor: "#fbbf65ff",
+                          color: "#fbbf65ff",
+                          width: "70%",
+                          fontWeight: "bold",
+                        }}
+                        type="primary"
+                        onClick={() => setModal2Open(true)}
+                      >
+                        إضافة تقرير طبي
+                      </Button>
+                    ) : (
+                      <></>
+                    )}
+                    {(appointment.is_completed === false &&
+                    appointment.appointment_status === "REJ" ) || (appointment.is_completed === false &&
+                    appointment.appointment_status === "CAN")? (
+                      <div style={{ color: "gray" }}>
+                        لا يمكنك اتخاذ إجراءات
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                     {appointment.is_completed === true ? (
-                      <button
-                        className="btn btn-info btn-sm"
+                      <Button
+                        style={{
+                          backgroundColor: "white",
+                          borderColor: "#fbbf65ff",
+                          color: "#fbbf65ff",
+                          width: "70%",
+                          fontWeight: "bold",
+                        }}
+                        type="primary"
                         onClick={() => {
                           setSelectedAppointment(appointment);
-                          window.$("#reportModal").modal("show");
+                          setMedicalReport(appointment.medical_report || ""); // load existing report
+                          setViewReportModalOpen(true);
                         }}
                       >
-                        عرض التقرير
-                      </button>
+                        عرض تقرير طبي
+                      </Button>
                     ) : (
                       <></>
                     )}
@@ -213,14 +306,199 @@ const DoctorAppointments = () => {
               </tr>
             )}
           </tbody>
-          <Popconfirm
-            title="Title"
-            description="Open Popconfirm with async logic"
-            open={open}
-            onConfirm={handleOk}
-            okButtonProps={{ loading: confirmLoading }}
-            onCancel={handleCancel}
-          ></Popconfirm>
+
+          <Modal
+            title={
+              <div
+                style={{
+                  textAlign: "center",
+                  width: "100%",
+                  fontWeight: "bold",
+                  color: "black",
+                }}
+              >
+                إضافة تقرير طبي
+              </div>
+            }
+            centered
+            open={modal2Open}
+            onCancel={() => setModal2Open(false)}
+            footer={
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "20px",
+                }}
+              >
+                <Button
+                  onClick={() => setModal2Open(false)}
+                  style={{
+                    backgroundColor: "white",
+                    borderColor: "orange",
+                    color: "orange",
+                    width: "100px",
+                  }}
+                >
+                  إلغاء
+                </Button>
+                <Button
+                  onClick={handleAddMedicalReport}
+                  style={{
+                    backgroundColor: "orange",
+                    borderColor: "orange",
+                    color: "white",
+                    width: "100px",
+                  }}
+                >
+                  تأكيد
+                </Button>
+              </div>
+            }
+          >
+            <br></br>
+
+            <Input.TextArea
+              style={{ borderColor: "orange" }}
+              rows={4}
+              placeholder="اكتب التقرير الطبي هنا..."
+              value={medicalReport}
+              onChange={(e) => setMedicalReport(e.target.value)}
+            />
+          </Modal>
+
+          <Modal
+            title={
+              <div
+                style={{
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  color: "black",
+                }}
+              >
+                التقرير الطبي
+              </div>
+            }
+            centered
+            open={viewReportModalOpen}
+            onCancel={() => setViewReportModalOpen(false)}
+            footer={null}
+          >
+            <Input.TextArea
+              style={{ borderColor: "orange" }}
+              rows={4}
+              value={medicalReport}
+              readOnly
+            />
+          </Modal>
+
+          <Modal
+            title={
+              <div
+                style={{
+                  textAlign: "center",
+                  width: "100%",
+                  fontWeight: "bold",
+                }}
+              >
+                تأكيد قبول الموعد
+              </div>
+            }
+            centered
+            open={showApproveModal}
+            onCancel={() => setShowApproveModal(false)}
+            footer={
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "20px",
+                }}
+              >
+                <Button
+                  onClick={() => setShowApproveModal(false)}
+                  style={{
+                    backgroundColor: "white",
+                    borderColor: "orange",
+                    color: "orange",
+                    width: "100px",
+                  }}
+                >
+                  إلغاء
+                </Button>
+                <Button
+                  onClick={confirmApprove}
+                  style={{
+                    backgroundColor: "orange",
+                    borderColor: "orange",
+                    color: "white",
+                    width: "100px",
+                  }}
+                >
+                  تأكيد
+                </Button>
+              </div>
+            }
+          >
+            <br />
+            <p style={{ textAlign: "center" }}>
+              هل أنت متأكد من أنك تريد قبول الموعد؟
+            </p>
+          </Modal>
+
+          <Modal
+            title={
+              <div
+                style={{
+                  textAlign: "center",
+                  width: "100%",
+                  fontWeight: "bold",
+                }}
+              >
+                تأكيد رفض الموعد
+              </div>
+            }
+            centered
+            open={showRejectModal}
+            onCancel={() => setShowRejectModal(false)}
+            footer={
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "20px",
+                }}
+              >
+                <Button
+                  onClick={() => setShowRejectModal(false)}
+                  style={{
+                    backgroundColor: "white",
+                    borderColor: "orange",
+                    color: "orange",
+                    width: "100px",
+                  }}
+                >
+                  إلغاء
+                </Button>
+                <Button
+                  onClick={confirmReject}
+                  style={{
+                    backgroundColor: "orange",
+                    borderColor: "orange",
+                    color: "white",
+                    width: "100px",
+                  }}
+                >
+                  تأكيد
+                </Button>
+              </div>
+            }
+          >
+            <br />
+            <p style={{ textAlign: "center" }}>
+              هل أنت متأكد من أنك تريد رفض الموعد؟
+            </p>
+          </Modal>
         </table>
       </div>
     </div>

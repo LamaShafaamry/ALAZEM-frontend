@@ -8,7 +8,8 @@ import doctorAppointmentsSlice from './doctorAppointmentsSlice';
 import volunteerProfileSlice from './volunteerProfileSlice';
 import addNoteSlice from './addNoteSlice';
 import  getVolunteerSlice from './getVolunteerNotesSlice';
-
+import updateNotesSlice from './updateNotesSlicer';
+import AddMedicalReportSlice from "./addMedicalReportSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -18,8 +19,10 @@ export const store = configureStore({
     doctorProfile : doctorProfileSlice,
     doctorAppointments : doctorAppointmentsSlice,
     volunteerProfile : volunteerProfileSlice,
-    notes : addNoteSlice,
+    addnotes : addNoteSlice,
     volunteernotes : getVolunteerSlice,
+    updateNotes: updateNotesSlice,
+    addMedicalReport :AddMedicalReportSlice,
   },
 })
 

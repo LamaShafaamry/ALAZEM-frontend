@@ -32,6 +32,7 @@ const VolunteersSection = () => {
   const [selectedVolunteer, setSelectedVolunteer] = useState(null);
   const [modal2Open, setModal2Open] = useState(false);
   const [withdrawReason, setWithdrawReason] = useState(""); // Step 1: State to hold input
+  const { TextArea } = Input;
 
   // const handleApprove = (id) => {
   //   setVolunteers(volunteers.map(volunteer =>
@@ -121,23 +122,74 @@ const VolunteersSection = () => {
         طلب انسحاب
       </Button>
       <Modal
-        title="تأكيد طلب الانسحاب "
-        centered
-        open={modal2Open}
-        onOk={() => setModal2Open(false)}
-        onCancel={() => setModal2Open(false)}
-        okText ="تأكيد"
-        cancelText = "إلغاء"
+  title={
+    <div style={{ textAlign: "center", width: "100%", fontWeight: "bold" }}>
+      تأكيد طلب الانسحاب
+    </div>
+  }  centered
+  open={modal2Open}
+  onCancel={() => setModal2Open(false)}
+  footer={
+    <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
+      <Button
+        onClick={() => setModal2Open(false)}
+        style={{ backgroundColor: "white", borderColor: "orange", color: "orange", width: "100px" }}
       >
-        <p>هل انت متأكد من أنك تريد تقديم طلب انسحاب </p>
-        <p>الرجاء كتابة السبب.</p>
-        <Input.TextArea
-          rows={4}
-          placeholder="اكتب السبب هنا..."
-          value={withdrawReason}
-          onChange={(e) => setWithdrawReason(e.target.value)}
-        />
-      </Modal>
+        إلغاء
+      </Button>
+      <Button
+        onClick={() => {
+          // You can also trigger the withdraw action here if needed
+          setModal2Open(false);
+        }}
+        style={{ backgroundColor: "orange", borderColor: "orange", color: "white", width: "100px" }}
+      >
+        تأكيد
+      </Button>
+    </div>
+  }
+>
+  <br></br>
+  <p>هل أنت متأكد من أنك تريد تقديم طلب انسحاب؟</p>
+  <p>الرجاء كتابة السبب:</p>
+  <Input.TextArea
+    rows={4}
+    placeholder="اكتب السبب هنا..."
+    value={withdrawReason}
+    onChange={(e) => setWithdrawReason(e.target.value)}
+  />
+</Modal>
+
+
+
+          {/* <Modal
+  title="تأكيد طلب الانسحاب "
+  // visible={addModalVisible}
+  onCancel={() => setAddModalVisible(false)}
+  footer={
+    <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
+      <Button
+        onClick={() => setAddModalVisible(false)}
+        style={{ backgroundColor: "white", borderColor: "orange", color: "orange", width: "100px" }}
+      >
+        إلغاء
+      </Button>
+      <Button
+        // onClick={handleAddNote}
+        style={{ backgroundColor: "orange", borderColor: "orange", color: "white", width: "100px" }}
+      >
+        تأكيد
+      </Button>
+    </div>
+  }
+>
+  <TextArea
+    rows={4}
+    // value={newNoteContent}
+    onChange={(e) => setNewNoteContent(e.target.value)}
+    placeholder="اكتب السبب هنا..."
+  />
+</Modal> */}
 
           </Box>
         </Paper>

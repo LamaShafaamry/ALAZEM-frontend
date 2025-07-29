@@ -706,4 +706,9 @@ button:hover {
 .appointment-select-filter{
   width: 30%;
   margin-right:1.5rem ;
+  border-color: orange;
+  color: orange;
 }
+
+
+
