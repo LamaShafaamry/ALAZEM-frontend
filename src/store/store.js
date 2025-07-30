@@ -10,7 +10,11 @@ import addNoteSlice from './addNoteSlice';
 import  getVolunteerSlice from './getVolunteerNotesSlice';
 import updateNotesSlice from './updateNotesSlicer';
 import AddMedicalReportSlice from "./addMedicalReportSlice";
-import volunteerpatientProfileSlice from "./volunteerPatientProfileSlice"
+import volunteerpatientProfileSlice from "./volunteerPatientProfileSlice";
+import ManagerProfileSlice from "./managerProfileSlice";
+// import ManagerAppointmentsSlice from "./managerAppointmentsSlice";
+// import CreateAppointmentsSlice from "./createAppointmentSlice";
+// import GetDonationsSlice from "./getDonationsSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -25,6 +29,10 @@ export const store = configureStore({
     updateNotes: updateNotesSlice,
     addMedicalReport :AddMedicalReportSlice,
    volunteerpatientProfile : volunteerpatientProfileSlice,
+   managerProfile : ManagerProfileSlice,
+  //  managerAppointments: ManagerAppointmentsSlice,
+  //  createAppointments:CreateAppointmentsSlice,
+  // getDonationsSlice : GetDonationsSlice,
   },
 })
 

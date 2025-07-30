@@ -36,10 +36,10 @@ export const getVolunteerProfile = () => api.get("/users/volunteer-profile/get/"
 export const volunteerRegistration = (data) => api.post("/users/volunteer/create/" , data);
 export const updateVolunteer = (data) => api.post("/users/volunteer/update/" , data);
 export const withdrawalequest = (data) => api.post("/users/withdrawal/request/" , data);
-export const getNotes = () => api.get("/users/notes/get/");
+export const getNotes = (patient_id , volunteer_id) => api.get(`/users/notes/get/?patient_id=${patient_id}&volunteer_id=${volunteer_id}`);
 export const addNotes = (data) => api.post("/users/notes/add/", data);
 export const updateNotes = (id, data) => api.post(`/users/edit/notes/${id}`, data);
-
+export const assignVolunteer = ( data) => api.post(`/users/assign/`, data);
 // Doctors
 // export const getDoctors = () => api.get("/doctors/get/");
 // export const createDoctor = (data) => api.post("/doctor/create/", data);
@@ -49,6 +49,7 @@ export const getDoctorAppointments = () => api.get("/services/doctor/appointment
 export const addMedicalRepoer = (id ,data) => api.post(`services/appointments/${id}/medical-report/`, data);
 export const changeAppointmentStatus = (id ,data) => api.post(`services/appointments/${id}/status/`, data);
 export const  getVolunteerPatientProfile= () => api.get(`/users/get/volunteer/patient/profile/`);
+export const  getAllVolunteer= (status_filter) => api.get(`/users/volunteer/get/?status_filter=${status_filter}`);
 
 
 // Appointments
@@ -66,9 +67,11 @@ export const getUsers = () => api.get("/users/get/");
 //   axios.post("http://127.0.0.1:8000/users/login/", { username, password });
 
 // Custom for ManagerPage
+export const getManagerProfile = () => api.get("/users/manager-profile/get/");
 export const getDoctorsList = () => api.get("/services/doctors/get/");
 export const getPendingPatientsList = () => api.get("/services/patients/get/?status_filter=pending");
-
+export const getRegistrationPatientsList = () => api.get("/services/patients/get/?status_filter=registered");
+export const getAllAppointments = (patient_id, doctor_id) => api.get(`/services/appointment/get/?patient_id=${patient_id}&doctor_id=${doctor_id}`);
 // Service Appointments
  export const createServiceAppointment = (data) => api.post("/services/api/create/appointments/", data);
 
@@ -88,10 +91,11 @@ export const verifyPatientExist = (data) => api.post("/donations/varify-selected
 
 
 export const getPendingDonations = () => api.get("/donations/get/donation/?status=pending");
-export const approveDonation = (donationId) => 
-  api.patch(`/donations/change/donation/status/${donationId}`, { status: "approved" });
-export const rejectDonation = (donationId) => 
-  api.patch(`/donations/change/donation/status/${donationId}`, { status: "rejected" });
-  export const getIndividualDonations = () => api.get("/donations/get/donation/?is_individual=true");
+export const changeDonationStatus = (donationId, donation_status) => api.post(`/donations/change/donation/status/${donationId}`, donation_status);
+export const getManagerDonations = (type_param) => api.get(`/donations/get/donation/?type_param=${type_param}`);
+
+export const getUsesrs = (name,role,email) => api.get(`/services/users/get/?name=${name}&role=${role}&email=${email}`);
+
+
 
 export default api;

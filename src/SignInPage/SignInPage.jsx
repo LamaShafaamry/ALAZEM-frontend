@@ -100,7 +100,7 @@ function SignInPage() {
       navigate("/volunteer-page");
     }
     if (role == "MAN") {
-      navigate("/manager-page");
+      navigate("/manager-profile");
     }
   };
 

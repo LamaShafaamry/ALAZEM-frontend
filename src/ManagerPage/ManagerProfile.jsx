@@ -1,137 +1,166 @@
-import React from 'react';
-import './ManagerProfile.css';
+import React, { useState, useEffect } from "react";
+import "./ManagerPage.css";
+// import HomePage from "../App";
+// import DoctorReportPage from "./DoctorReportPage";
+import UserNavbar from "../PaseLayOut/userNavbar";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchManagerProfile } from "../store/managerProfileSlice";
+import {
+  getDoctorAppointments,
+  updateAppointmentStatus,
+  updateMedicalReport,
+} from "../api/api";
+import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Typography,
+  Grid,
+  Paper,
+  Button,
+  CircularProgress,
+  Divider,
+} from "@mui/material";
+import {
+  AccountCircle,
+  Email,
+  Phone,
+  Cake,
+  Public,
+  Badge,
+  ContactPage,
+} from "@mui/icons-material";
 
 const ManagerProfile = () => {
-  const managerInfo = {
-    name: "محمد عبد الرحمن",
-    position: "مدير في الجمعية  ",
-    experience: "10 سنوات في الإدارة",
-    education: [
-      "ماجستير في الإدارة الصحية ",
-      "بكالوريوس إدارة الأعمال "
-    ],
-    description: "مدير محترف يتمتع بخبرة واسعة في إدارة المؤسسات الخيرية والطبية، حاصل على عدة شهادات في القيادة والإدارة من جامعات عالمية.",
-    phone: "+966501112233",
-    email: "manager@medical-relief.org",
-   
-    workingHours: [
-      "الأحد - الخميس: 8 صباحاً - 4 مساءً",
-      "الجمعة: 10 صباحاً - 2 ظهراً"
-    ],
-    responsibilities: [
-      "الإشراف على كافة أنشطة الجمعية",
-      "تطوير الخطط الاستراتيجية",
-      "إدارة الموارد المالية والبشرية",
-      "التواصل مع الجهات المانحة",
-      "متابعة المشاريع الطبية"
-    ],
-    achievements: [
-      "زيادة تمويل الجمعية بنسبة 40% خلال عامين",
-     
-      "الحصول على شهادة التميز في الإدارة"
-    ]
-  };
+  const [appointments, setAppointments] = useState([]);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [reportContent, setReportContent] = useState("");
+  const [message, setMessage] = useState({ text: "", type: "" });
+  const [activeTab, setActiveTab] = useState("pending");
+  const [currentView, setCurrentView] = useState("appointments");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const {
+    data: managerInfo,
+    loading,
+    error,
+  } = useSelector((state) => state.managerProfile);
+
+  useEffect(() => {
+    dispatch(fetchManagerProfile());
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+      <div className="text-center mt-10 text-lg">
+        جارٍ تحميل الملف الشخصي...
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="text-center mt-10 text-red-600">{error}</div>;
+  }
+  console.log(managerInfo);
+
+  if (!managerInfo) {
+    return null;
+  }
 
   return (
-    
-    <div className="manager-profile-container">
-        <br></br>
-      <div className="manager-profile-card">
+    <div className="doctor-profile-container">
+      <div className="doctor-profile-card">
         {/* Header Section */}
-        <div className="manager-header">
-          <div className="manager-avatar">
-            <img src="https://via.placeholder.com/150" alt="صورة المدير" />
+        <div className="doctor-header">
+          <div className="doctor-avatar">
+            <img src="Photos/user-default.png" alt="صورة المدير" />
           </div>
-          <div className="manager-title">
-            <h1>{managerInfo.name}</h1>
-            <h2>{managerInfo.position}</h2>
-            <div className="manager-meta">
-              <span className="experience">{managerInfo.experience}</span>
-             
-            </div>
+          <div className="doctor-title">
+            <h1>
+              {managerInfo.first_name} {managerInfo.last_name}
+            </h1>
+            <p>مدير</p>
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="manager-content">
+        <div className="doctor-content">
           {/* Left Column - Main Info */}
-          <div className="manager-main-info">
-            <section className="info-section">
-              <h3 className="section-title">نبذة عن المدير</h3>
-              <p className="section-content">{managerInfo.description}</p>
-            </section>
-
-            <section className="info-section">
-              <h3 className="section-title">المسؤوليات</h3>
-              <ul className="responsibilities-list">
-                {managerInfo.responsibilities.map((item, index) => (
-                  <li key={index}>
-                    
-                    <span className="responsibility-text">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            <section className="info-section">
-              <h3 className="section-title">الإنجازات</h3>
-              <ul className="achievements-list">
-                {managerInfo.achievements.map((achievement, index) => (
-                  <li key={index}>
-                    <span className="achievement-icon">🏆</span>
-                    {achievement}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          </div>
 
           {/* Right Column - Sidebar */}
-          <div className="manager-sidebar">
-            <div className="sidebar-section contact-info">
-              <h3 className="sidebar-title">معلومات الاتصال</h3>
-              <div className="contact-item">
-                <span className="contact-icon">📞</span>
-                <span>{managerInfo.phone}</span>
-              </div>
-              <div className="contact-item">
-                <span className="contact-icon">✉️</span>
-                <span>{managerInfo.email}</span>
-              </div>
-              
-            </div>
+          <div className="doctor-sidebar">
+            <div className="doctor-sidebar">
+  <div
+    className="sidebar-sections-container"
+    style={{
+      display: "flex",
+      gap: "20px",
+      flexWrap: "wrap", // for responsiveness
+    }}
+  >
+    {/* Personal Info Section */}
+    <div className="sidebar-section contact-info" style={{ flex: 1, minWidth: "300px" }}>
+      <h3 className="sidebar-title">معلوماتي الشخصية</h3>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>👤 الاسم الكامل: </span>
+        <span>
+          {managerInfo.first_name} {managerInfo.last_name}
+        </span>
+      </div>
+  
 
-            <div className="sidebar-section working-hours">
-              <h3 className="sidebar-title">ساعات العمل</h3>
-              <ul className="hours-list">
-                {managerInfo.workingHours.map((hour, index) => (
-                  <li key={index}>{hour}</li>
-                ))}
-              </ul>
-            </div>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>📞 رقم الهاتف: </span>
+        <span>{managerInfo.phone}</span>
+      </div>
+      <div className="contact-item">
+        <span style={{ fontWeight: "bold" }}>✉️ البريد الإلكتروني: </span>
+        <span>{managerInfo.email}</span>
+      </div>
+    </div>
 
-            <div className="sidebar-section education">
-              <h3 className="sidebar-title">المؤهلات العلمية</h3>
-              <ul className="education-list">
-                {managerInfo.education.map((edu, index) => (
-                  <li key={index}>
-                    <span className="education-icon">🎓</span>
-                    {edu}
-                  </li>
-                ))}
-              </ul>
-            </div>
+    {/* Additional Info Section */}
 
+  </div>
+</div>
+
+
+            <Box textAlign="center">
+              <Button
+                style={{
+                  color: "white",
+                  backgroundColor: "orange",
+                }}
+                variant="contained"
+                color="primary"
+                onClick={() => navigate("/edit-profile")}
+                size="large"
+              >
+                تعديل الملف
+              </Button>
+            </Box>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="manager-footer">
-          <p>© {new Date().getFullYear()} جمعية الإغاثة الطبية. جميع الحقوق محفوظة.</p>
+        <div className="doctor-footer">
+          <p>
+            © {new Date().getFullYear()} جمعية العزم للكفيفات المسنات , جميع
+            الحقوق محفوظة.
+          </p>
         </div>
       </div>
     </div>
   );
 };
-
+const ProfileItem = ({ icon, label, value }) => (
+  <div className="flex items-center justify-between border-b pb-2">
+    <div className="text-gray-600 flex items-center gap-2">
+      <span className="text-blue-600">{icon}</span>
+      <span className="font-semibold">{label}:</span>
+    </div>
+    <div className="text-gray-900">{value || "-"}</div>
+  </div>
+);
 export default ManagerProfile;

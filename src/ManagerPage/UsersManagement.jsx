@@ -1,68 +1,41 @@
 import React, { useState, useEffect } from 'react';
+import {getUsesrs} from "../api/api"
 import "./UsersManagement.css";
+import { Button, Popconfirm, Modal, Input, message } from "antd";
 
 const UsersManagement = () => {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      fullName: 'أحمد محمد',
-      email: 'ahmed@example.com',
-      role: 'متطوع',
-      status: 'active',
-      joinDate: '2023-01-15',
-      motherName: 'فاطمة'
-    },
-    {
-      id: 2,
-      fullName: 'سارة عبدالله',
-      email: 'sara@example.com',
-      role: 'مريض',
-      status: 'inactive',
-      joinDate: '2023-02-20',
-      motherName: 'نورة'
-    },
-    {
-      id: 3,
-      fullName: 'خالد حسن',
-      email: 'khaled@example.com',
-      role: 'طبيب',
-      status: 'active',
-      joinDate: '2023-03-10',
-      motherName: 'أمينة'
-    },
-    {
-      id: 4,
-      fullName: 'نورة سعد',
-      email: 'nora@example.com',
-      role: 'متطوع',
-      status: 'active',
-      joinDate: '2023-04-05',
-      motherName: 'لمياء'
-    },
-    {
-      id: 5,
-      fullName: 'فيصل عبدالرحمن',
-      email: 'faisal@example.com',
-      role: 'إداري',
-      status: 'inactive',
-      joinDate: '2023-05-12',
-      motherName: 'هناء'
-    }
-  ]);
-
+ 
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredUsers, setFilteredUsers] = useState(users);
   const [selectedUser, setSelectedUser] = useState(null);
-
+  const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState(users);
+  const [loading, setLoading] = useState(true);
+  const [showApproveModal, setShowApproveModal] = useState(false);
+  const [showRejectModal, setShowRejectModal] = useState(false);
   useEffect(() => {
-    const results = users.filter(user =>
-      user.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.role.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredUsers(results);
-  }, [searchTerm, users]);
+    // const results = users.filter(user =>
+    //   user.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    //   user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    //   user.role.toLowerCase().includes(searchTerm.toLowerCase())
+    // );
+    fetchUsers();
+  }, [ ]);
 
+   const fetchUsers = async () => {
+      try {
+        let response;
+  
+        response=await getUsesrs("","","")
+  
+        setUsers(
+          response.data
+          
+        );
+      } catch (error) {
+        showMessage("فشل في تحميل المستخدمين", "error");
+      } finally {
+      }
+    };
   const toggleUserStatus = (userId) => {
     setUsers(users.map(user =>
       user.id === userId
@@ -73,6 +46,51 @@ const UsersManagement = () => {
         : user
     ));
   };
+
+    const confirmApprove = () => {
+    handleApproveDonation(selectedDonationId);
+    setShowApproveModal(false);
+  };
+
+  const confirmReject = () => {
+    handleCancelDonation(selectedDonationId);
+    setShowRejectModal(false);
+  };
+
+    const handleApproveDonation = async (id) => {
+      try {
+        await changeDonationStatus(id, { donation_status: "APP" });
+        setShowApproveModal(false);
+        await fetchUsers();
+      } catch (error) {
+        console.error("Error approving appointment:", error);
+      }
+    };
+  
+    const handleCancelDonation = async (id) => {
+      try {
+        await changeDonationStatus(id, { donation_status: "REJ" });
+        setShowRejectModal(false);
+        await fetchDonations();
+      } catch (error) {
+        console.error("Error rejecting appointment:", error);
+      }
+    };
+
+  const getArabicRoleName = (roleCode) => {
+  switch (roleCode) {
+    case 'MAN':
+      return 'المدير';
+    case 'DOC':
+      return 'الطبيب';
+    case 'PAT':
+      return 'الكفيفة';
+    case 'VOL':
+      return 'متطوع';
+    default:
+      return 'غير معروف';
+  }
+};
 
   return (
     <div className="manager-page">
@@ -96,7 +114,7 @@ const UsersManagement = () => {
             <i className="fas fa-search search-icon"></i>
           </div>
         </div>
-
+    
         <div className="appointments-list">
           <table className="table">
             <thead>
@@ -110,42 +128,151 @@ const UsersManagement = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredUsers.map(user => (
+              {users.map(user => (
                 <tr key={user.id} onClick={() => setSelectedUser(user)}>
                   <td className="text-center">{user.id}</td>
                   <td className="text-center">
                     <div className="user-info-cell">
-                      <div><strong>الاسم:</strong> {user.fullName}</div>
+                      <div><strong>الاسم:</strong> {user.first_name} {user.last_name}</div>
                       <div><strong>البريد:</strong> {user.email}</div>
                     </div>
                   </td>
-                  <td className="text-center">{user.role}</td>
-                  <td className="text-center">{user.joinDate}</td>
+                  <td className="text-center">{getArabicRoleName(user.role)}</td>
+
+                  <td className="text-center">{user.date_joined}</td>
                   <td className="text-center">
                     <span className={`status-badge ${
-                      user.status === 'active' ? 'approved' : 'rejected'
+                      user.is_active === true ? 'approved' : 'rejected'
                     }`}>
-                      {user.status === 'active' ? 'مفعل' : 'معطل'}
+                      {user.is_active === true ? 'مفعل' : 'معطل'}
                     </span>
                   </td>
                   <td className="text-center">
                     <div className="action-buttons">
                       <button
                         className={`btn btn-sm ${
-                          user.status === 'active' ? 'btn-danger reject-btn' : 'btn-success'
+                          user.is_active === true ? 'btn-danger reject-btn' : 'btn-success'
                         }`}
                         onClick={(e) => {
                           e.stopPropagation();
-                          toggleUserStatus(user.id);
+                          openApproveModal(user.id);
                         }}
                       >
-                        {user.status === 'active' ? 'تعطيل' : 'تفعيل'}
+                        {user.is_active === true? 'تعطيل' : 'تفعيل'}
                       </button>
+                      
                     </div>
                   </td>
                 </tr>
               ))}
             </tbody>
+             <Modal
+              title={
+                <div
+                  style={{
+                    textAlign: "center",
+                    width: "100%",
+                    fontWeight: "bold",
+                  }}
+                >
+                  تفعيل الحستب
+                </div>
+              }
+              centered
+              open={showApproveModal}
+              onCancel={() => setShowApproveModal(false)}
+              footer={
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "20px",
+                  }}
+                >
+                  <Button
+                    onClick={() => setShowApproveModal(false)}
+                    style={{
+                      backgroundColor: "white",
+                      borderColor: "orange",
+                      color: "orange",
+                      width: "100px",
+                    }}
+                  >
+                    إلغاء
+                  </Button>
+                  <Button
+                    onClick={confirmApprove}
+                    style={{
+                      backgroundColor: "orange",
+                      borderColor: "orange",
+                      color: "white",
+                      width: "100px",
+                    }}
+                  >
+                    تأكيد
+                  </Button>
+                </div>
+              }
+            >
+              <br />
+              <p style={{ textAlign: "center" }}>
+                هل أنت متأكد من أنك تريد تفعيل الحساب؟
+              </p>
+            </Modal>
+
+            <Modal
+              title={
+                <div
+                  style={{
+                    textAlign: "center",
+                    width: "100%",
+                    fontWeight: "bold",
+                  }}
+                >
+                  تعطيل الحساب
+                </div>
+              }
+              centered
+              open={showRejectModal}
+              onCancel={() => setShowRejectModal(false)}
+              footer={
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "20px",
+                  }}
+                >
+                  <Button
+                    onClick={() => setShowRejectModal(false)}
+                    style={{
+                      backgroundColor: "white",
+                      borderColor: "orange",
+                      color: "orange",
+                      width: "100px",
+                    }}
+                  >
+                    إلغاء
+                  </Button>
+                  <Button
+                    onClick={confirmReject}
+                    style={{
+                      backgroundColor: "orange",
+                      borderColor: "orange",
+                      color: "white",
+                      width: "100px",
+                    }}
+                  >
+                    تأكيد
+                  </Button>
+                </div>
+              }
+            >
+              <br />
+              <p style={{ textAlign: "center" }}>
+                هل أنت متأكد من أنك تريد تعطيل الحساب؟
+              </p>
+            </Modal>
           </table>
         </div>
       </div>

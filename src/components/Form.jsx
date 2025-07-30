@@ -8,10 +8,10 @@ import "./Form.css";
 
 const Form = () => {
   const [value, setValue] = useState({
-    username: "emadsdvsd",
-    password: "1234!@#$",
-    email: "11@example.com",
-    phone: "1234567890",
+    username: "",
+    password: "",
+    email: "",
+    phone: "",
     first_name: "",
     last_name: "",
     father_name: "",
@@ -54,227 +54,273 @@ const Form = () => {
   };
 
   return (
-    <div className="donation-container">
+    <div className="donation-container" style={{ marginTop: "90px" }}>
+      {/* <br></br>
+      <br></br> */}
       <div className="donation-card">
         <div className="donation-header">
-        <div className="input-field">
-          <h1>استمارة تسجيل كفيفة</h1>
-          <p>الرجاء تعبئة جميع الحقول المطلوبة للتسجيل</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="donation-form">
-          {/* القسم الأول: المعلومات الشخصية - 4 حقول في صف واحد */}
-          <div className="form-section">
-            <h2>المعلومات الشخصية</h2>
-            <div className="form-row-4">
-              
-              <InputField
-              
-                label="الاسم الأول"
-                name="first_name"
-                value={value.first_name}
-                onChange={(e) =>
-                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-                }
-                placeholder="ادخل الاسم الأول"
-              />
-              <InputField
-                label="الاسم الأخير"
-                name="last_name"
-                value={value.last_name}
-                onChange={(e) =>
-                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-                }
-                placeholder="ادخل الاسم الأخير"
-              />
-              <InputField
-                label="اسم الأب"
-                name="father_name"
-                value={value.father_name}
-                onChange={(e) =>
-                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-                }
-                placeholder="ادخل اسم الأب"
-              />
-              <InputField
-                label="اسم الأم"
-                name="mother_name"
-                value={value.mother_name}
-                onChange={(e) =>
-                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-                }
-                placeholder="ادخل اسم الأم"
-              />
-                            <DateField
-                label="تاريخ الميلاد"
-                name="date_of_birth"
-                value={value.date_of_birth}
-                onChange={(e) =>
-                  setValue((prev) => ({
-                    ...prev,
-                    [e.target.name]: e.target.value,
-                  }))
-                }
-                placeholder="mm/dd/yy"
-              />
-              <InputField
-                label="مكان الولادة"
-                name="place_of_birth"
-                value={value.place_of_birth}
-                onChange={(e) =>
-                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-                }
-                placeholder="ادخل مكان الولادة"
-              />
-            </div>
+          <div className="regisration-header">
+            <h1>استمارة تسجيل كفيفة</h1>
+            <p>الرجاء تعبئة جميع الحقول المطلوبة للتسجيل</p>
           </div>
 
+          <form onSubmit={handleSubmit} className="donation-form">
+            {/* القسم الأول: المعلومات الشخصية - 4 حقول في صف واحد */}
+            <div className="form-section">
+              <h2>المعلومات الشخصية</h2>
+              <div className="form-row-4">
+                <InputField
+                  label="الاسم الأول"
+                  name="first_name"
+                  value={value.first_name}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="ادخل الاسم الأول"
+                />
+                <InputField
+                  label="الاسم الأخير"
+                  name="last_name"
+                  value={value.last_name}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="ادخل الاسم الأخير"
+                />
+                <InputField
+                  label="اسم الأب"
+                  name="father_name"
+                  value={value.father_name}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="ادخل اسم الأب"
+                />
+                <InputField
+                  label="اسم الأم"
+                  name="mother_name"
+                  value={value.mother_name}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="ادخل اسم الأم"
+                />
 
-          {/* القسم الثالث: المعلومات الوثائقية - 4 حقول في صف واحد */}
-          <div className="form-section">
-            <h2>المعلومات الوثائقية</h2>
-            <div className="form-row-2">
-              <InputField
-              
-                label="الجنسية"
-                name="nationality"
-                value={value.nationality}
-                onChange={(e) =>
-                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-                }
-                placeholder="ادخل الجنسية"
-              />
-              <InputField
-                label="رقم الهوية الوطنية"
-                name="nationality_ID"
-                value={value.nationality_ID}
-                onChange={(e) =>
-                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-                }
-                placeholder="ادخل الرقم الوطني"
-              />
-              <InputField
-                label="دفتر العائلة"
-                name="family_book_number"
-                value={value.family_book_number}
-                onChange={(e) =>
-                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-                }
-                placeholder="ادخل رقم دفتر العائلة"
-              />
-              <InputField
-                label="رقم بطاقة الإعاقة"
-                name="disability_card_number"
-                value={value.disability_card_number}
-                onChange={(e) =>
-                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-                }
-                placeholder="ادخل رقم البطاقة"
-              />
+                <DateField
+                  label="تاريخ الميلاد"
+                  name="date_of_birth"
+                  value={value.date_of_birth}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="mm/dd/yy"
+                />
+                <InputField
+                  label="مكان الولادة"
+                  name="place_of_birth"
+                  value={value.place_of_birth}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="ادخل مكان الولادة"
+                />
+                <InputField
+                  label="الهاتف"
+                  name="phone"
+                  value={value.phone}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="ادخل رقم الهاتف"
+                />
+              </div>
             </div>
-          </div>
 
-          {/* القسم الرابع: المعلومات الطبية - 4 حقول في صف واحد */}
-          <div className="form-section">
-            <h2>المعلومات الطبية</h2>
-            <div className="form-row-2">
-              <InputField
-                label="الشهادة الطبية"
-                name="certificate"
-                value={value.certificate}
-                onChange={(e) =>
-                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-                }
-                placeholder="الشهادة الطبية"
-              />
-              <InputField
-                label="إعاقات أخرى"
-                name="other_disability"
-                value={value.other_disability}
-                onChange={(e) =>
-                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-                }
-                placeholder="إعاقات أخرى"
-              />
-              <InputField
-                label="سبب الإعاقة"
-                name="cause"
-                value={value.cause}
-                onChange={(e) =>
-                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-                }
-                placeholder="سبب الإعاقة"
-              />
-              <InputField
-                label="أمراض مزمنة"
-                name="chronic_illness"
-                value={value.chronic_illness}
-                onChange={(e) =>
-                  setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-                }
-                placeholder="أمراض مزمنة"
-              />
+            {/* القسم الثالث: المعلومات الوثائقية - 4 حقول في صف واحد */}
+            <div className="form-section">
+              <h2>المعلومات الوثائقية</h2>
+              <div className="form-row-2">
+                <InputField
+                  label="الجنسية"
+                  name="nationality"
+                  value={value.nationality}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="ادخل الجنسية"
+                />
+                <InputField
+                  label="رقم الهوية الوطنية"
+                  name="nationality_ID"
+                  value={value.nationality_ID}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="ادخل الرقم الوطني"
+                />
+                <InputField
+                  label="دفتر العائلة"
+                  name="family_book_number"
+                  value={value.family_book_number}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="ادخل رقم دفتر العائلة"
+                />
+                <InputField
+                  label="رقم بطاقة الإعاقة"
+                  name="disability_card_number"
+                  value={value.disability_card_number}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="ادخل رقم البطاقة"
+                />
+              </div>
             </div>
-          </div>
 
-          {/* القسم الخامس: معلومات إضافية - 4 حقول في صف واحد */}
-          <div className="form-section">
-            <h2>معلومات إضافية</h2>
-            <div className="form-row-3">
-              <SelectField
-                label="هل تحتاج إلى أدوية مستمرة؟"
-                name="requirement_of_ongoing_medication"
-                value={value.requirement_of_ongoing_medication}
-                onChange={(e) =>
-                  setValue((prev) => ({
-                    ...prev,
-                    [e.target.name]: e.target.value,
-                  }))
-                }
-                options={statusOptions}
-              />
-              <SelectField
-                label="هل تحتاج إلى عناية خاصة؟"
-                name="requirement_of_special_care"
-                value={value.requirement_of_special_care}
-                onChange={(e) =>
-                  setValue((prev) => ({
-                    ...prev,
-                    [e.target.name]: e.target.value,
-                  }))
-                }
-                options={statusOptions}
-              />
-              <DateField
-                label="تاريخ فقدان البصر"
-                name="history_of_blindness"
-                value={value.history_of_blindness}
-                onChange={(e) =>
-                  setValue((prev) => ({
-                    ...prev,
-                    [e.target.name]: e.target.value,
-                  }))
-                }
-                placeholder="تاريخ كف البصر"
-              />
+            {/* القسم الرابع: المعلومات الطبية - 4 حقول في صف واحد */}
+            <div className="form-section">
+              <h2>المعلومات الطبية</h2>
+              <div className="form-row-2">
+                <InputField
+                  label="الشهادة الطبية"
+                  name="certificate"
+                  value={value.certificate}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="الشهادة الطبية"
+                />
+                <InputField
+                  label="إعاقات أخرى"
+                  name="other_disability"
+                  value={value.other_disability}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="إعاقات أخرى"
+                />
+                <InputField
+                  label="سبب الإعاقة"
+                  name="cause"
+                  value={value.cause}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="سبب الإعاقة"
+                />
+                <InputField
+                  label="أمراض مزمنة"
+                  name="chronic_illness"
+                  value={value.chronic_illness}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="أمراض مزمنة"
+                />
+              </div>
             </div>
+
+            {/* القسم الخامس: معلومات إضافية - 4 حقول في صف واحد */}
+            <div className="form-section">
+              <h2>معلومات إضافية</h2>
+              <div className="form-row-3">
+                <SelectField
+                  label="هل تحتاج إلى أدوية مستمرة؟"
+                  name="requirement_of_ongoing_medication"
+                  value={value.requirement_of_ongoing_medication}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  options={statusOptions}
+                />
+                <SelectField
+                  label="هل تحتاج إلى عناية خاصة؟"
+                  name="requirement_of_special_care"
+                  value={value.requirement_of_special_care}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  options={statusOptions}
+                />
+                <DateField
+                  label="تاريخ فقدان البصر"
+                  name="history_of_blindness"
+                  value={value.history_of_blindness}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="تاريخ كف البصر"
+                />
+              </div>
+            </div>
+
+            <button className="submit-btn" type="submit" disabled={isLoading}>
+              {isLoading ? "جاري الإرسال..." : "تسجيل البيانات"}
+            </button>
+          </form>
+
+          <div className="donation-footer">
+            <p>جميع المعلومات المقدمة محمية وسرية وفق سياسة الخصوصية</p>
+            <p>شكراً لثقتكم بنا</p>
           </div>
-
-          <button
-            className="submit-btn"
-            type="submit"
-            disabled={isLoading}
-          >
-            {isLoading ? "جاري الإرسال..." : "تسجيل البيانات"}
-          </button>
-        </form>
-
-        <div className="donation-footer">
-          <p>جميع المعلومات المقدمة محمية وسرية وفق سياسة الخصوصية</p>
-          <p>شكراً لثقتكم بنا</p>
         </div>
       </div>
-    </div>
     </div>
   );
 };

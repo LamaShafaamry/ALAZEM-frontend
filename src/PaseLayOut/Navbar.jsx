@@ -34,9 +34,9 @@ function Navbar() {
     if (role == "VOL") {
       navigate("/volunteer-page")
     }
-    // if (role == "MAN") {
-    //   navigate("/manager-page")
-    // }
+    if (role == "MAN") {
+      navigate("/manager-profile")
+    }
   }
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
@@ -63,16 +63,16 @@ function Navbar() {
                   )
                 }
             <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() => scrollToSection("goals-section")}>الخدمات</button>
+              <button className="nav-link btn btn-link" onClick={() => navigate("/goals-section")}>الخدمات</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() => scrollToSection("services")}>النشاطات</button>
+              <button className="nav-link btn btn-link" onClick={() => navigate("services")}>النشاطات</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() => scrollToSection("donations-section")}>تبرع</button>
+              <button className="nav-link btn btn-link" onClick={() => navigate("donations-section")}>تبرع</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() => scrollToSection("contact")}>تواصل معنا</button>
+              <button className="nav-link btn btn-link" onClick={() => navigate("contact")}>تواصل معنا</button>
     
             </li>
             <li className="nav-item">

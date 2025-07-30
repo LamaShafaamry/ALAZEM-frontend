@@ -10,7 +10,7 @@ const InputField = ({
 }) => {
   return (
     <div className="flex flex-col gap-4">
-      <label className="w-full border border-gray-400 rounded-lg p-2">
+      <label className="w-full   rounded-lg p-2">
         {label}
       </label>
       <input

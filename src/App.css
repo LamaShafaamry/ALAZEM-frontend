@@ -714,3 +714,15 @@ button:hover {
   width: 75%;
 }
 
+.patient-item label {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Optional: spacing between items */
+}
+
+
+.appointment-date{
+  display: flex;
+    justify-content: right;
+    direction: ltr !important;
+}

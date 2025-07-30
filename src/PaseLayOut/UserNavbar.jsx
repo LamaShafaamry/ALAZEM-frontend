@@ -50,20 +50,32 @@ function UserNavbar() {
     if (role == "VOL") {
       navigate("/volunteer-page");
     }
-    // if (role == "MAN") {
-    //   navigate("/manager-page")
-    // }
+    if (role == "MAN") {
+      navigate("/manager-profile");
+    }
   };
+
+  const IsManagerAppointmentVisibility = () => {
+    var role = sessionStorage.getItem("role");
+    if (role == "MAN") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const IsAppointmentVisibility = () => {
     var role = sessionStorage.getItem("role");
-    if (role == "VOL") {
+    if (role == "PAT") {
+      return true;
+    } else if (role == "DOC") {
       return true;
     } else {
       return false;
     }
   };
 
-    const IsNotesVisibility = () => {
+  const IsNotesVisibility = () => {
     var role = sessionStorage.getItem("role");
     if (role == "VOL") {
       return true;
@@ -72,7 +84,7 @@ function UserNavbar() {
     }
   };
 
-      const IsDonationVisibility = () => {
+  const IsDonationVisibility = () => {
     var role = sessionStorage.getItem("role");
     if (role == "PAT") {
       return true;
@@ -81,7 +93,7 @@ function UserNavbar() {
     }
   };
 
-    const IsPatientProfileVisibility = () => {
+  const IsPatientProfileVisibility = () => {
     var role = sessionStorage.getItem("role");
     if (role == "VOL") {
       return true;
@@ -90,6 +102,23 @@ function UserNavbar() {
     }
   };
 
+  const IsManagerDonationVisibility = () => {
+    var role = sessionStorage.getItem("role");
+    if (role == "MAN") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const IsAssignVisibility = () => {
+    var role = sessionStorage.getItem("role");
+    if (role == "MAN") {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const user = useSelector((state) => state.auth.user);
   return (
@@ -124,7 +153,15 @@ function UserNavbar() {
                 الملف الشخصي
               </button>
             </li>
-            {!IsAppointmentVisibility() ? (
+            {/* <li className="nav-item">
+              <button
+                className="nav-link btn btn-link"
+                onClick={() => AppointmentNavigation()}
+              >
+                المواعيد
+              </button>
+            </li> */}
+            {IsAppointmentVisibility() ? (
               <li className="nav-item">
                 <button
                   className="nav-link btn btn-link"
@@ -141,7 +178,7 @@ function UserNavbar() {
               <li className="nav-item">
                 <button
                   className="nav-link btn btn-link"
-                  onClick={() => navigate('/volunteer-notes-page')}
+                  onClick={() => navigate("/volunteer-notes-page")}
                 >
                   ملاحظات المريض
                 </button>
@@ -153,7 +190,7 @@ function UserNavbar() {
               <li className="nav-item">
                 <button
                   className="nav-link btn btn-link"
-                  onClick={() => navigate('/volunteer-patient-page')}
+                  onClick={() => navigate("/volunteer-patient-page")}
                 >
                   ملف المريض
                 </button>
@@ -168,6 +205,36 @@ function UserNavbar() {
                   onClick={() => navigate("/donations")}
                 >
                   التبرعات
+                </button>
+              </li>
+            )}
+            {IsManagerAppointmentVisibility() && (
+              <li className="nav-item">
+                <button
+                  className="nav-link btn btn-link"
+                  onClick={() => navigate("/manager-page")}
+                >
+                  إدارة المواعيد
+                </button>
+              </li>
+            )}
+            {IsAssignVisibility() && (
+              <li className="nav-item">
+                <button
+                  className="nav-link btn btn-link"
+                  onClick={() => navigate("/assign")}
+                >
+                  إدارة المتطوعين
+                </button>
+              </li>
+            )}
+            {IsManagerDonationVisibility() && (
+              <li className="nav-item">
+                <button
+                  className="nav-link btn btn-link"
+                  onClick={() => navigate("/manager-donations")}
+                >
+                  إدارة التبرعات
                 </button>
               </li>
             )}

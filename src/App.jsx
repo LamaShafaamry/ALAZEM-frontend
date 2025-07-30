@@ -29,7 +29,11 @@ import MyAppointments from "./PatientPage/myAppointments.jsx";
 import DoctorAppointments from "./DoctorPage/DoctorAppiontments";
 import VolunteerNotesPage from "./VolunteerProfile/VolunteerNotesPage.jsx";
 import VolunteerPatientProfile from "./VolunteerProfile/VolunteerpatientProfile.jsx";
-
+import DonationPage from "./HomaPage/DonationPage.jsx"
+import ManagerProfile  from "./ManagerPage/ManagerProfile.jsx";
+import VolunteersSection from "./ManagerPage/VolunteersSection.jsx";
+import DonationsSection from "./ManagerPage/DonationsSection.jsx";
+import UsersManagement from "./ManagerPage/UsersManagement.jsx"
 function HomePage() {
 
     return (
@@ -230,7 +234,7 @@ function LayoutWrapper() {
   const location = useLocation();
 
   // Define routes that should use UserNavbar
-  const userNavbarRoutes = ["/volunteer-notes-page","/patient-page", "/donations", "/doctor-page", "/volunteer-page" , "/appointments","/doctor-appointments" ,"/volunteer-patient-page"];
+  const userNavbarRoutes = ["/manager-donations","/volunteer-notes-page","/patient-page", "/donations", "/doctor-page", "/volunteer-page" , "/appointments","/doctor-appointments" ,"/volunteer-patient-page" , "/manager-profile" ,"/manager-page" , "/assign"];
   const showUserNavbar = userNavbarRoutes.includes(location.pathname);
 
 //   return (
@@ -310,6 +314,13 @@ function App() {
         <Route path="/doctor-appointments" element={<DoctorAppointments />} />
         <Route path="/volunteer-notes-page" element={<VolunteerNotesPage />} />
         <Route path="/volunteer-patient-page" element={<VolunteerPatientProfile />} />
+        {/* <Route path="/donation-page" element={<DonationPage />} /> */}
+        <Route path="/manager-profile" element={<ManagerProfile />} />
+        <Route path="/assign" element={<VolunteersSection />} />
+        <Route path="/manager-donations" element={<DonationsSection />} />
+        <Route path="/manager-users" element={<UsersManagement />} />
+
+        
       </Route>
     </Routes>
         </Router>

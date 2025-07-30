@@ -13,6 +13,7 @@
   font-size: 1.3rem;
   border-bottom: 2px solid #ffd28e; 
   padding-bottom: 0.5rem;
+  /* text-align: center; */
 }
 
 .form-row {
@@ -59,6 +60,18 @@
   flex-direction: column !important;
   gap: 0.5rem !important;
 }
+
+
+.regisration-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* horizontal center */
+  justify-content: center; /* vertical center (if parent has height) */
+  text-align: center;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 
 .input-field label, .select-field label, .date-field label {
   display: block !important;
