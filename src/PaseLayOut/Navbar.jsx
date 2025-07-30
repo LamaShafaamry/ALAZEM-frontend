@@ -44,6 +44,15 @@ function Navbar() {
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span className="navbar-toggler-icon"></span>
         </button>
+        <div className="navbar-logo">
+  {/* استبدال النص بالصورة */}
+  <img 
+    src="Photos/logo.jpg" // مسار الصورة
+    alt="VASTUSPAZE Logo"
+    className="logo-image"
+    style={{ height: "40px" }} // يمكن تعديل الارتفاع حسب الحاجة
+  />
+</div>
         <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">

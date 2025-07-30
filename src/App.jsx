@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Route, Routes, Link, useLocation ,Outlet} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Navbar from "./PaseLayOut/NavBar";
 import UserNavbar from "./PaseLayOut/userNavbar";
 // import Header from "./PaseLayOut/Header";
@@ -26,44 +29,59 @@ import VolunteerProfile from './VolunteerProfile/VolunteerProfile';
 import PaymentSuccess from './payment/PaymentSuccess';
 import DonationHistory from "./PatientPage/DonationHistory.jsx";
 import MyAppointments from "./PatientPage/myAppointments.jsx";
-
-
-
+import { useState, useEffect } from 'react';
+import VerificationPage from './VerificationPage/VerificationPage';
 
 function HomePage() {
 
-    return (
-    <div className="home-background">
-      <div id="home" className="text-center mb-4">
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <div className="App blk-design">
-          {/* الخلفية بالمربعات */}
-          <div className="background-squares">
-            <div className="square square-1"></div>
-            <div className="square square-2"></div>
-            <div className="square square-3"></div>
-            <div className="square square-4"></div>
-            <div className="square square-5"></div>
-          </div>
-
-          {/* المحتوى الرئيسي */}
-          <Container className="main-content">
-            <Row>
-              <Col md="12" className="text-center">
-                <h1 className="title text-dark">
-                  جمعية العزم للكفيفات المسنات
-                </h1>
-                <h4 className="description text-dark">
-                  نمنح النور بالأمل، ونرعى بحب
-                </h4>
-               
-              </Col>
-            </Row>
-          </Container>
-        </div>
+  return (
+    <div className="home-page" style={{ direction: 'rtl' }}>
+      <br></br>
+      <br></br>
+          <br></br>
+          <br></br>
+    
+          <div className="hero-container" style={{position: 'relative'}}>
+  {/* الصورة الخلفية */}
+  <img 
+    src="Photos/main.jpg"
+    alt="جمعية العزم للكفيفات المسنات"
+    className="full-screen-image"
+    style={{width: '198vh', height: '100vh', objectFit: 'cover'}}
+  />
+  
+  {/* الزر فوق الصورة */}
+  <Link to="/request">
+  <button 
+    style={{
+      position: 'absolute',
+       top: '430px',
+      left: '51%',
+      transform: 'translate(-50%, -50%)',
+      color: 'black',
+      backgroundColor: 'white',
+      border: 'none',
+      padding: '8px 16px',
+      fontSize: '22px',
+      borderRadius: '4px',
+      cursor: 'pointer',
+      width: '120px',
+      whiteSpace: 'nowrap',
+      boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+      zIndex: 10,
+      transition: 'all 0.3s',
+      
+    }}
+  >
+    انضم إلينا
+  </button>
+ </Link>
+</div>
+      
+        <div className="page-sections">
+          <br></br>
+          <br></br>
+          <br></br>
         <div id="goals-section" className="goals-container mt-5">
           <div className="goal-header">
             <h2 className="text-center text-dark ">الخدمات </h2>
@@ -108,43 +126,42 @@ function HomePage() {
         <br></br>
         <br></br>
         <br></br>
-        <section id="services" className="services-container">
-          <h2 className="text-center"> النشاطات</h2>
+        <section id="services" className="activities-container">
+  <div className="activity-header">
+    <h2 className="text-center">النشاطات</h2>
+  </div>
+  <div className="activities-content">
+    <Link to="/activities/chanting" className="activity-item">
+      <img
+        src="Photos/نشاط.jpg"
+        alt="التراتيل الدينية"
+        className="activity-icon"
+      />
+      
+      <p>من فعاليات احتفالنا السنوي المقام في دار العزم للكفيفات المسنات</p>
+    </Link>
 
-          <div className="services-content">
-            <Link to="/activities/chanting" className="service-item">
-              <img
-                src="Photos/نشاط.jpg"
-                alt="التراتيل الدينية"
-                className="service-icon"
-              />
-              
-              <p>
-                من فعاليات احتفالنا السنوي المقام في دار العزم للكفيفات المسنات
-              </p>
-            </Link>
+    <Link to="/activities/sports" className="activity-item">
+      <img
+        src="Photos/health3.png"
+        alt="الأنشطة الرياضية"
+        className="activity-icon"
+      />
+      
+      <p>تمارين رياضية خاصة بالمكفوفات المسنات</p>
+    </Link>
 
-            <Link to="/activities/sports" className="service-item">
-              <img
-                src="Photos/health3.png"
-                alt="الأنشطة الرياضية"
-                className="service-icon"
-              />
-              
-              <p>تمارين رياضية خاصة بالمكفوفات المسنات</p>
-            </Link>
-
-            <Link to="/activities/cultural" className="service-item">
-              <img
-                src="Photos/activites1.png"
-                alt="الأنشطة الثقافية"
-                className="service-icon"
-              />
-              
-              <p>تهدف لتنشيط الذاكرة وتحسين الحالة النفسية</p>
-            </Link>
-          </div>
-        </section>
+    <Link to="/activities/cultural" className="activity-item">
+      <img
+        src="Photos/activites1.png"
+        alt="الأنشطة الثقافية"
+        className="activity-icon"
+      />
+      
+      <p>تهدف لتنشيط الذاكرة وتحسين الحالة النفسية</p>
+    </Link>
+  </div>
+</section>
         <br></br>
         <br></br>
         <br></br>
@@ -153,6 +170,7 @@ function HomePage() {
         <br></br>
         <br></br>
         <br></br>
+        
 
         <div id="donations-section" className="donations-container mt-5">
           <h2 className="text-center text-dark"> دعم الجمعية بالتبرعات</h2>
@@ -220,6 +238,7 @@ function HomePage() {
               </form>
             </div>
           </div>
+       
         </div>
       </div>
     </div>
@@ -307,6 +326,7 @@ function App() {
         <Route path="/activities/cultural" element={<CulturalPage />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/appointments" element={<MyAppointments />} />
+        <Route path="/verification-container" element={<VerificationPage />} />
       </Route>
     </Routes>
         </Router>

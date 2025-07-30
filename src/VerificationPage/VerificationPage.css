@@ -1,0 +1,111 @@
+.verification-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #f0f9ff, #ffffff);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .verification-box {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+  }
+  
+  .verification-header {
+    margin-bottom: 2rem;
+  }
+  
+  .verification-header h2 {
+    font-size: 1.8rem;
+    color: #000000;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  
+  .verification-header p {
+    color: #4b5563;
+    font-size: 1.1rem;
+  }
+  
+  .code-inputs-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .code-inputs {
+    display: flex;
+    gap: 0.8rem;
+  }
+  
+  .code-input {
+    width: 50px;
+    height: 60px;
+    text-align: center;
+    font-size: 24px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    transition: all 0.3s;
+  }
+  
+  .code-input:focus {
+    border-color: #ff9f1c;
+    box-shadow: 0 0 0 3px rgba(255, 159, 28, 0.2);
+    outline: none;
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+  
+  .verify-button {
+    width: 100%;
+    padding: 1rem;
+    background: #ffd28e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 1rem;
+  }
+  
+  .verify-button:hover {
+    background: #ffad49;
+  }
+  
+  .verify-button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .resend-section {
+    margin-top: 1.5rem;
+    color: #4b5563;
+  }
+  
+  .resend-button {
+    background: none;
+    border: none;
+    color: #ff9f1c;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: underline;
+    padding: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .resend-button:hover {
+    color: #ff8c00;
+  }

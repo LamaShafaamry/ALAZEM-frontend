@@ -1,8 +1,5 @@
 /* التنسيقات العامة */
-* {
-    direction: rtl !important;
-    text-align: right !important;
-  }
+
 
   html, body {
     direction: rtl;
