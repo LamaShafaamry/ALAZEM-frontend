@@ -12,6 +12,7 @@ import updateNotesSlice from './updateNotesSlicer';
 import AddMedicalReportSlice from "./addMedicalReportSlice";
 import volunteerpatientProfileSlice from "./volunteerPatientProfileSlice";
 import ManagerProfileSlice from "./managerProfileSlice";
+import MyNotesSlice from "./myNoteSlice";
 // import ManagerAppointmentsSlice from "./managerAppointmentsSlice";
 // import CreateAppointmentsSlice from "./createAppointmentSlice";
 // import GetDonationsSlice from "./getDonationsSlice";
@@ -30,6 +31,7 @@ export const store = configureStore({
     addMedicalReport :AddMedicalReportSlice,
    volunteerpatientProfile : volunteerpatientProfileSlice,
    managerProfile : ManagerProfileSlice,
+   myNotes :MyNotesSlice,
   //  managerAppointments: ManagerAppointmentsSlice,
   //  createAppointments:CreateAppointmentsSlice,
   // getDonationsSlice : GetDonationsSlice,

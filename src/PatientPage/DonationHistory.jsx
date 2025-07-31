@@ -33,6 +33,8 @@ console.log(myDonation);
 
   return (
     <div className="patient-page" >
+              <br></br>
+        <br></br>
       <div className="patient-header text-center mb-6">
       <h2 className="text-3xl font-bold flex items-center justify-center gap-2 text-gray-800">
         التبرعات

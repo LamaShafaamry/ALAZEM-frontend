@@ -5,10 +5,11 @@ import DateField from "./DateField";
 import { baseUrl } from "../config";
 import axios from "axios";
 import "./Form.css";
+import VerifyAccountPage from "../SignInPage/VerifyAccountPage"
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
   const [value, setValue] = useState({
-    username: "",
     password: "",
     email: "",
     phone: "",
@@ -35,23 +36,49 @@ const Form = () => {
     { value: "yes", label: "نعم" },
     { value: "No", label: "لا" },
   ];
+const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    axios
-      .post(`${baseUrl}services/patients/create/`, value)
-      .then((res) => {
-        console.log("first");
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log("first");
-        setIsLoading(false);
-      });
-  };
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+
+  axios
+    .post(`${baseUrl}services/patients/create/`, value)
+    .then((res) => {
+      console.log("Patient created");
+      
+      // Navigate to verification page and pass email in state
+      
+      navigate('/verify-account', { state: { email: value.email } });
+
+      setIsLoading(false);
+    })
+    .catch((error) => {
+      console.log("Error creating patient");
+      setIsLoading(false);
+    });
+};
+
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   axios
+  //     .post(`${baseUrl}services/patients/create/`, value)
+  //     .then((res) => {
+  //       console.log("first");
+  //               VerifyAccountPage(email = value.email);
+              
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.log("first");
+  //       setIsLoading(false);
+  //     });
+  // };
 
   return (
     <div className="donation-container" style={{ marginTop: "90px" }}>
@@ -65,6 +92,51 @@ const Form = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="donation-form">
+            <div className="form-section">
+              <h2>المعلومات الشخصية</h2>
+              <div className="form-row-4">
+                <InputField
+                  label="البريد الإلكتروني"
+                  name="email"
+                  value={value.email}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="ادخل البريد الإالكتروني"
+                />
+                <InputField
+                  label="كلمة المرور "
+                  name="password"
+                  value={value.password}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="ادخل كلمة المرور "
+                />
+                <InputField
+                  label=" رقم الهاتف"
+                  name="phone"
+                  value={value.phone}
+                  onChange={(e) =>
+                    setValue((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
+                  placeholder="ادخل رقم الهاتف"
+                />
+
+
+    
+              
+              </div>
+            </div>
             {/* القسم الأول: المعلومات الشخصية - 4 حقول في صف واحد */}
             <div className="form-section">
               <h2>المعلومات الشخصية</h2>

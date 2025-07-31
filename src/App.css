@@ -1,4 +1,4 @@
-/* أنماط أساسية محسنة */
+أنماط أساسية محسنة
 :root {
   --primary: #ffd28e;
   --secondary: #ffd28e;
@@ -249,9 +249,10 @@ body {
   background: rgba(255, 255, 255, 0.9); /* بدلاً من white */
   backdrop-filter: blur(5px); 
   border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 12px 8px rgba(246, 163, 89, 0.5);
   transition: all 0.3s ease;
-  border-top: 4px solid var(--primary);
+  /* border-top: 3px solid var(--primary);
+  border-left:  3px solid var(--primary); */
   text-align: center;
   margin: 0 auto;
   position: relative;
@@ -711,7 +712,7 @@ button:hover {
 }
 
 .main-body{
-  width: 75%;
+  width: 85%;
 }
 
 .patient-item label {

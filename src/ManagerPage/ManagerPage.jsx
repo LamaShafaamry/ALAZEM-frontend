@@ -8,7 +8,7 @@ import {
 import "./ManagerPage.css";
 import VolunteersSection from "./VolunteersSection";
 import DonationsSection from "./DonationsSection";
-import WithdrawalRequests from "./WithdrawalRequests";
+import WithdrawalRequests from "./RegistrationRequests";
 import UsersManagement from "./UsersManagement";
 import PatientsManagement from "./PatientsManagement";
 import HomePage from "../App";

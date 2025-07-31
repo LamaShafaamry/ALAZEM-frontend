@@ -1,6 +1,14 @@
-import { BrowserRouter as Router, Route, Routes, Link, useLocation ,Outlet} from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useLocation,
+  Outlet,
+} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+
 import Navbar from "./PaseLayOut/NavBar";
 import UserNavbar from "./PaseLayOut/userNavbar";
 // import Header from "./PaseLayOut/Header";
@@ -22,29 +30,31 @@ import ProtectedRoute from "./provider/ProtectedRoute.jsx";
 import ChantingPage from "./Activities/ChantingPage";
 import SportsPage from "./Activities/SportsPage";
 import CulturalPage from "./Activities/ReadingPage";
-import VolunteerProfile from './VolunteerProfile/VolunteerProfile';
-import PaymentSuccess from './payment/PaymentSuccess';
+import VolunteerProfile from "./VolunteerProfile/VolunteerProfile";
+import PaymentSuccess from "./payment/PaymentSuccess";
 import DonationHistory from "./PatientPage/DonationHistory.jsx";
 import MyAppointments from "./PatientPage/myAppointments.jsx";
 import DoctorAppointments from "./DoctorPage/DoctorAppiontments";
 import VolunteerNotesPage from "./VolunteerProfile/VolunteerNotesPage.jsx";
 import VolunteerPatientProfile from "./VolunteerProfile/VolunteerpatientProfile.jsx";
-import DonationPage from "./HomaPage/DonationPage.jsx"
-import ManagerProfile  from "./ManagerPage/ManagerProfile.jsx";
+import DonationPage from "./HomaPage/DonationPage.jsx";
+import ManagerProfile from "./ManagerPage/ManagerProfile.jsx";
 import VolunteersSection from "./ManagerPage/VolunteersSection.jsx";
 import DonationsSection from "./ManagerPage/DonationsSection.jsx";
-import UsersManagement from "./ManagerPage/UsersManagement.jsx"
+import UsersManagement from "./ManagerPage/UsersManagement.jsx";
+import RegistrationRequests from "./ManagerPage/RegistrationRequests.jsx";
+import MyNotes from "./PatientPage/MyNotes.jsx";
+import VerifyAccountPage from "./SignInPage/VerifyAccountPage.jsx";
 function HomePage() {
-
-    return (
+  return (
     <div className="home-background">
       <div id="home" className="text-center mb-4">
         <br></br>
         <br></br>
         <br></br>
         <br></br>
-        <div className="App blk-design">
-          {/* الخلفية بالمربعات */}
+        <br></br>
+        {/* <div className="App blk-design">
           <div className="background-squares">
             <div className="square square-1"></div>
             <div className="square square-2"></div>
@@ -53,7 +63,6 @@ function HomePage() {
             <div className="square square-5"></div>
           </div>
 
-          {/* المحتوى الرئيسي */}
           <Container className="main-content">
             <Row>
               <Col md="12" className="text-center">
@@ -67,13 +76,60 @@ function HomePage() {
               </Col>
             </Row>
           </Container>
+        </div> */}
+        <div>
+          <div className="hero-container" style={{ position: "relative" }}>
+            ,{/* الصورة الخلفية */}
+            <img
+              src="Photos/main.jpg"
+              alt="جمعية العزم للكفيفات المسنات"
+              className="full-screen-image"
+              style={{
+                width: "90%",
+                height: "100vh",
+                objectFit: "cover",
+                borderRadius: "15px",
+              }}
+            />
+            {/* الزر فوق الصورة */}
+            <Link to="/request">
+              <button
+                style={{
+                  position: "absolute",
+                  top: "530px",
+                  left: "51%",
+                  transform: "translate(-50%, -50%)",
+                  color: "#ffd28e",
+                  backgroundColor: "white",
+                  color: "orange",
+                  border: "1px solid #ffd28e",
+                  padding: "8px 16px",
+                  fontSize: "22px",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  width: "120px",
+                  whiteSpace: "nowrap",
+                  boxShadow: " 0 4px 15px rgba(0, 0, 0, 0.3)",
+                  zIndex: 10,
+                  transition: "all 0.3s",
+                }}
+              >
+                انضم إلينا
+              </button>
+            </Link>
+          </div>
         </div>
+
         <div id="goals-section" className="goals-container mt-5">
           <div className="goal-header">
-            <h2 className="text-center text-dark ">الخدمات </h2>
+            <h2 className="text-center text-dark " style={{fontSize : "85px" , fontWeight: "bold"}}>الخدمات </h2>
           </div>
           <div className="goals-content">
-            <Link to="/comprehensive-care" className="goal-item">
+            <Link
+              to="/comprehensive-care"
+              className="goal-item"
+              style={{ textDecoration: "none", color: "inherit" }} // إزالة الخط والمحافظة على اللون
+            >
               <img
                 src="Photos/care.png"
                 height={40}
@@ -81,10 +137,14 @@ function HomePage() {
                 alt="الرعاية الشاملة"
                 className="goal-icon"
               />
-
               <p>توفير الرعاية الشاملة والدعم النفسي والاجتماعي</p>
             </Link>
-            <Link to="/health-services" className="goal-item">
+
+            <Link
+              to="/health-services"
+              className="goal-item"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               <img
                 src="Photos/health.png"
                 alt="الخدمات الصحية"
@@ -93,7 +153,11 @@ function HomePage() {
 
               <p>تقديم الخدمات الصحية والمساعدات العينية</p>
             </Link>
-            <Link to="/life-skills" className="goal-item">
+            <Link
+              to="/life-skills"
+              className="goal-item"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               <img
                 src="Photos/training.png"
                 alt="التأهيل والتدريب"
@@ -113,7 +177,7 @@ function HomePage() {
         <br></br>
         <br></br>
         <section id="services" className="services-container">
-          <h2 className="text-center"> النشاطات</h2>
+          <h2 className="text-center"  style={{fontSize : "85px" , fontWeight: "bold"}}> النشاطات</h2>
 
           <div className="services-content">
             <Link to="/activities/chanting" className="service-item">
@@ -122,7 +186,7 @@ function HomePage() {
                 alt="التراتيل الدينية"
                 className="service-icon"
               />
-              
+
               <p>
                 من فعاليات احتفالنا السنوي المقام في دار العزم للكفيفات المسنات
               </p>
@@ -134,7 +198,7 @@ function HomePage() {
                 alt="الأنشطة الرياضية"
                 className="service-icon"
               />
-              
+
               <p>تمارين رياضية خاصة بالمكفوفات المسنات</p>
             </Link>
 
@@ -144,7 +208,7 @@ function HomePage() {
                 alt="الأنشطة الثقافية"
                 className="service-icon"
               />
-              
+
               <p>تهدف لتنشيط الذاكرة وتحسين الحالة النفسية</p>
             </Link>
           </div>
@@ -195,8 +259,8 @@ function HomePage() {
               <h2 className="bold-text">ماذا سيحدث بعد ذلك؟</h2>
               <div className="steps4 bold-text">
                 <p>
-                  <span className="blue-circle "></span>عند استلامنا رسالتك سنجهز
-                  طلبك وندرسه
+                  <span className="blue-circle "></span>عند استلامنا رسالتك
+                  سنجهز طلبك وندرسه
                 </p>
                 <p>
                   <span className="blue-circle"></span>ثم نرسل لك بريداً
@@ -218,9 +282,14 @@ function HomePage() {
                 <h3 className="bold-text">أرسل لنا رسالة</h3>
                 <input type="text" placeholder="الاسم" />
                 <input type="email" placeholder="البريد الإلكتروني" />
-                <input type="tel" placeholder="                                                                 رقم الهاتف" />
+                <input
+                  type="tel"
+                  placeholder="                                                                 رقم الهاتف"
+                />
                 <textarea placeholder="الملاحظات"></textarea>
-                <button className="99" type="submit">إرسال الرسالة</button>
+                <button className="99" type="submit">
+                  إرسال الرسالة
+                </button>
               </form>
             </div>
           </div>
@@ -234,43 +303,28 @@ function LayoutWrapper() {
   const location = useLocation();
 
   // Define routes that should use UserNavbar
-  const userNavbarRoutes = ["/manager-donations","/volunteer-notes-page","/patient-page", "/donations", "/doctor-page", "/volunteer-page" , "/appointments","/doctor-appointments" ,"/volunteer-patient-page" , "/manager-profile" ,"/manager-page" , "/assign"];
+  const userNavbarRoutes = [
+    "/my-notes",
+    "/registration-request",
+    "/manager-donations",
+    "/volunteer-notes-page",
+    "/patient-page",
+    "/donations",
+    "/doctor-page",
+    "/volunteer-page",
+    "/appointments",
+    "/doctor-appointments",
+    "/volunteer-patient-page",
+    "/manager-profile",
+    "/manager-page",
+    "/assign",
+  ];
   const showUserNavbar = userNavbarRoutes.includes(location.pathname);
 
-//   return (
-//     <>
-//       {showUserNavbar ? <UserNavbar /> : <Navbar />}
-
-//       <Routes>
-//         <Route path="/" element={<HomePage />} />
-//         <Route path="/signin" element={<SignInPage />} />
-//         <Route path="/life-skills" element={<LifeSkills />} />
-//         <Route path="/health-services" element={<HealthServices />} />
-//         <Route path="/activities" element={<Activities />} />
-//         <Route path="/comprehensive-care" element={<ComprehensiveCare />} />
-//         <Route path="/request" element={<RequestPage />} />
-//         <Route path="/volunteer-request" element={<VolunteerRequestPage />} />
-//         <Route path="/patient-request" element={<Form />} />
-//         <Route path="/payment-page" element={<IndividualDonation />} />
-//         <Route path="/payment-page2" element={<FullAssociationDonation />} />
-//         <Route path="/manager-page" element={<ManagerPage />} />
-//         <Route path="/patient-page" element={<PatientPage />} />
-//         <Route path="/donation" element={<DonationHistory />} />
-//         <Route path="/doctor-page" element={<DoctorPage />} />
-//         <Route path="/volunteer-page" element={<VolunteerProfile />} />
-//         <Route path="/activities/chanting" element={<ChantingPage />} />
-//         <Route path="/activities/sports" element={<SportsPage />} />
-//         <Route path="/activities/cultural" element={<CulturalPage />} />
-//         <Route path="/payment-success" element={<PaymentSuccess />} />
-//       </Routes>
-//     </>
-//   );
-// }
-
- return (
+  return (
     <>
       {showUserNavbar ? <UserNavbar /> : <Navbar />}
-      <div className="page-content"> 
+      <div className="page-content">
         <Outlet />
       </div>
     </>
@@ -287,47 +341,53 @@ function LayoutWrapper() {
 function App() {
   return (
     <Router>
-
-    <Routes>
-      <Route element={<LayoutWrapper />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/signin" element={<SignInPage />} />
-        <Route path="/life-skills" element={<LifeSkills />} />
-        <Route path="/health-services" element={<HealthServices />} />
-        <Route path="/activities" element={<Activities />} />
-        <Route path="/comprehensive-care" element={<ComprehensiveCare />} />
-        <Route path="/request" element={<RequestPage />} />
-        <Route path="/volunteer-request" element={<VolunteerRequestPage />} />
-        <Route path="/patient-request" element={<Form />} />
-        <Route path="/payment-page" element={<IndividualDonation />} />
-        <Route path="/payment-page2" element={<FullAssociationDonation />} />
-        <Route path="/manager-page" element={<ManagerPage />} />
-        <Route path="/patient-page" element={<PatientPage />} />
-        <Route path="/donations" element={<DonationHistory />} />
-        <Route path="/doctor-page" element={<DoctorPage />} />
-        <Route path="/volunteer-page" element={<VolunteerProfile />} />
-        <Route path="/activities/chanting" element={<ChantingPage />} />
-        <Route path="/activities/sports" element={<SportsPage />} />
-        <Route path="/activities/cultural" element={<CulturalPage />} />
-        <Route path="/payment-success" element={<PaymentSuccess />} />
-        <Route path="/appointments" element={<MyAppointments />} />
-        <Route path="/doctor-appointments" element={<DoctorAppointments />} />
-        <Route path="/volunteer-notes-page" element={<VolunteerNotesPage />} />
-        <Route path="/volunteer-patient-page" element={<VolunteerPatientProfile />} />
-        {/* <Route path="/donation-page" element={<DonationPage />} /> */}
-        <Route path="/manager-profile" element={<ManagerProfile />} />
-        <Route path="/assign" element={<VolunteersSection />} />
-        <Route path="/manager-donations" element={<DonationsSection />} />
-        <Route path="/manager-users" element={<UsersManagement />} />
-
-        
-      </Route>
-    </Routes>
-        </Router>
-
+      <Routes>
+        <Route element={<LayoutWrapper />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/life-skills" element={<LifeSkills />} />
+          <Route path="/health-services" element={<HealthServices />} />
+          <Route path="/activities" element={<Activities />} />
+          <Route path="/comprehensive-care" element={<ComprehensiveCare />} />
+          <Route path="/request" element={<RequestPage />} />
+          <Route path="/volunteer-request" element={<VolunteerRequestPage />} />
+          <Route path="/patient-request" element={<Form />} />
+          <Route path="/payment-page" element={<IndividualDonation />} />
+          <Route path="/payment-page2" element={<FullAssociationDonation />} />
+          <Route path="/manager-page" element={<ManagerPage />} />
+          <Route path="/patient-page" element={<PatientPage />} />
+          <Route path="/donations" element={<DonationHistory />} />
+          <Route path="/doctor-page" element={<DoctorPage />} />
+          <Route path="/volunteer-page" element={<VolunteerProfile />} />
+          <Route path="/activities/chanting" element={<ChantingPage />} />
+          <Route path="/activities/sports" element={<SportsPage />} />
+          <Route path="/activities/cultural" element={<CulturalPage />} />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
+          <Route path="/appointments" element={<MyAppointments />} />
+          <Route path="/doctor-appointments" element={<DoctorAppointments />} />
+          <Route
+            path="/volunteer-notes-page"
+            element={<VolunteerNotesPage />}
+          />
+          <Route
+            path="/volunteer-patient-page"
+            element={<VolunteerPatientProfile />}
+          />
+          {/* <Route path="/donation-page" element={<DonationPage />} /> */}
+          <Route path="/manager-profile" element={<ManagerProfile />} />
+          <Route path="/assign" element={<VolunteersSection />} />
+          <Route path="/manager-donations" element={<DonationsSection />} />
+          <Route path="/manager-users" element={<UsersManagement />} />
+          <Route
+            path="/registration-request"
+            element={<RegistrationRequests />}
+          />
+          <Route path="/my-notes" element={<MyNotes />} />
+          <Route path="/verify-account" element={<VerifyAccountPage />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
-
-

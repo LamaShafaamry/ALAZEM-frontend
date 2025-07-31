@@ -119,7 +119,23 @@ function UserNavbar() {
       return false;
     }
   };
+  const IsRegistrationRequestVisibility = () => {
+    var role = sessionStorage.getItem("role");
+    if (role == "MAN") {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
+    const IsMyNotestVisibility = () => {
+    var role = sessionStorage.getItem("role");
+    if (role == "PAT") {
+      return true;
+    } else {
+      return false;
+    }
+  };
   const user = useSelector((state) => state.auth.user);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
@@ -238,6 +254,26 @@ function UserNavbar() {
                 </button>
               </li>
             )}
+             {IsRegistrationRequestVisibility() && (
+              <li className="nav-item">
+                <button
+                  className="nav-link btn btn-link"
+                  onClick={() => navigate("/registration-request")}
+                >
+                  إدارة طلبات الانضمام 
+                </button>
+              </li>
+            )}
+            {IsMyNotestVisibility() && (
+              <li className="nav-item">
+                <button
+                  className="nav-link btn btn-link"
+                  onClick={() => navigate("/my-notes")}
+                >
+                  ملاحظاتي
+                </button>
+              </li>
+            )}
             <li className="nav-item">
               <button
                 className="nav-link btn btn-link"
@@ -245,6 +281,7 @@ function UserNavbar() {
               >
                 تسجيل الخروج
               </button>
+              
             </li>
           </ul>
         </div>
