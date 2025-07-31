@@ -22,7 +22,7 @@ import VolunteerRequestPage from "./components/VolunteerRequestPage";
 import Form from "./components/Form";
 import IndividualDonation from "./payment/indivisual";
 import FullAssociationDonation from "./payment/Full";
-import { Button, Container, Row, Col } from "reactstrap";
+// import { Button, Container, Row, Col } from "reactstrap";
 import ManagerPage from "./ManagerPage/ManagerPage";
 import PatientPage from "./PatientPage/PatientPage";
 import DoctorPage from "./DoctorPage/DoctorPage";
@@ -45,6 +45,7 @@ import UsersManagement from "./ManagerPage/UsersManagement.jsx";
 import RegistrationRequests from "./ManagerPage/RegistrationRequests.jsx";
 import MyNotes from "./PatientPage/MyNotes.jsx";
 import VerifyAccountPage from "./SignInPage/VerifyAccountPage.jsx";
+import { Button, Card, Col, Row } from "antd";
 function HomePage() {
   return (
     <div className="home-background">
@@ -122,50 +123,154 @@ function HomePage() {
 
         <div id="goals-section" className="goals-container mt-5">
           <div className="goal-header">
-            <h2 className="text-center text-dark " style={{fontSize : "85px" , fontWeight: "bold"}}>الخدمات </h2>
+            <h2
+              className="text-center text-dark "
+              style={{ fontSize: "85px", fontWeight: "bold" }}
+            >
+              الخدمات{" "}
+            </h2>
           </div>
           <div className="goals-content">
-            <Link
-              to="/comprehensive-care"
-              className="goal-item"
-              style={{ textDecoration: "none", color: "inherit" }} // إزالة الخط والمحافظة على اللون
-            >
-              <img
-                src="Photos/care.png"
-                height={40}
-                width={60}
-                alt="الرعاية الشاملة"
-                className="goal-icon"
-              />
-              <p>توفير الرعاية الشاملة والدعم النفسي والاجتماعي</p>
+            <Link to="/comprehensive-care" style={{ textDecoration: "none" }}>
+              <Card
+                hoverable
+                style={{
+                  width: 300,
+                  borderRadius: 16,
+                  textAlign: "center",
+                  margin: "20px auto",
+                  boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
+                  overflow: "hidden",
+                }}
+                cover={
+                  <img
+                    alt="الرعاية الشاملة"
+                    src="Photos/care.png"
+                    style={{
+                      width: "100%",
+                      height: "200px",
+                      objectFit: "cover",
+                      borderTopLeftRadius: 16,
+                      borderTopRightRadius: 16,
+                    }}
+                  />
+                }
+              >
+                <Card.Meta
+                  title={
+                    <span style={{ fontSize: "20px", fontWeight: "bold" }}>
+                      الرعاية الشاملة
+                    </span>
+                  }
+                  description={
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        color: "#444",
+                        direction: "rtl",
+                        marginTop: "10px",
+                      }}
+                    >
+                      توفير الرعاية الشاملة والدعم النفسي والاجتماعي
+                    </p>
+                  }
+                />
+              </Card>
+            </Link>
+            <Link to="/health-services" style={{ textDecoration: "none" }}>
+              <Card
+                hoverable
+                style={{
+                  width: 300,
+                  borderRadius: 16,
+                  textAlign: "center",
+                  margin: "20px auto",
+                  boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
+                  overflow: "hidden",
+                }}
+                cover={
+                  <img
+                    alt="الخدمات الصحية"
+                    src="Photos/health.png"
+                    style={{
+                      width: "100%",
+                      height: "200px",
+                      objectFit: "cover",
+                      borderTopLeftRadius: 16,
+                      borderTopRightRadius: 16,
+                    }}
+                  />
+                }
+              >
+                <Card.Meta
+                  title={
+                    <span style={{ fontSize: "20px", fontWeight: "bold" }}>
+                      الخدمات الصحية{" "}
+                    </span>
+                  }
+                  description={
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        color: "#444",
+                        direction: "rtl",
+                        marginTop: "10px",
+                      }}
+                    >
+                      تقديم الخدمات الصحية والمساعدات العينية
+                    </p>
+                  }
+                />
+              </Card>
+            </Link>
+            <Link to="/life-skills" style={{ textDecoration: "none" }}>
+              <Card
+                hoverable
+                style={{
+                  width: 300,
+                  borderRadius: 16,
+                  textAlign: "center",
+                  margin: "20px auto",
+                  boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
+                  overflow: "hidden",
+                }}
+                cover={
+                  <img
+                    alt="المهارات الحياتية"
+                    src="Photos/training.png"
+                    style={{
+                      width: "100%",
+                      height: "200px",
+                      objectFit: "cover",
+                      borderTopLeftRadius: 16,
+                      borderTopRightRadius: 16,
+                    }}
+                  />
+                }
+              >
+                <Card.Meta
+                  title={
+                    <span style={{ fontSize: "20px", fontWeight: "bold" }}>
+                      المهارات الحياتية
+                    </span>
+                  }
+                  description={
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        color: "#444",
+                        direction: "rtl",
+                        marginTop: "10px",
+                      }}
+                    >
+                      تأهيل الكفيفات المسنات على المهارات الحياتية{" "}
+                    </p>
+                  }
+                />
+              </Card>
             </Link>
 
-            <Link
-              to="/health-services"
-              className="goal-item"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <img
-                src="Photos/health.png"
-                alt="الخدمات الصحية"
-                className="goal-icon"
-              />
-
-              <p>تقديم الخدمات الصحية والمساعدات العينية</p>
-            </Link>
-            <Link
-              to="/life-skills"
-              className="goal-item"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <img
-                src="Photos/training.png"
-                alt="التأهيل والتدريب"
-                className="goal-icon"
-              />
-
-              <p>تأهيل الكفيفات المسنات على المهارات الحياتية</p>
-            </Link>
+           
           </div>
         </div>
         <br></br>
@@ -176,53 +281,129 @@ function HomePage() {
         <br></br>
         <br></br>
         <br></br>
-        <section id="services" className="services-container">
-          <h2 className="text-center"  style={{fontSize : "85px" , fontWeight: "bold"}}> النشاطات</h2>
+        <div id="activity-section" className="goals-container mt-5">
+          <section>
+          <h2
+            className="text-center"
+            style={{
+              fontSize: "85px",
+              fontWeight: "bold",
+              marginBottom: "40px",
+            }}
+          >
+            النشاطات
+          </h2>
 
-          <div className="services-content">
-            <Link to="/activities/chanting" className="service-item">
-              <img
-                src="Photos/نشاط.jpg"
-                alt="التراتيل الدينية"
-                className="service-icon"
-              />
+          <Row gutter={[24, 24]} justify="center">
+            {[
+              {
+                title: "التراتيل الدينية",
+                image: "Photos/نشاط.jpg",
+                description:
+                  "من فعاليات احتفالنا السنوي المقام في دار العزم للكفيفات المسنات",
+                to: "/activities/chanting",
+              },
+              {
+                title: "الأنشطة الرياضية",
+                image: "Photos/health3.png",
+                description: "تمارين رياضية خاصة بالمكفوفات المسنات",
+                to: "/activities/sports",
+              },
+              {
+                title: "الأنشطة الثقافية",
+                image: "Photos/activites1.png",
+                description: "تهدف لتنشيط الذاكرة وتحسين الحالة النفسية",
+                to: "/activities/cultural",
+              },
+            ].map((activity, index) => (
+              <Col key={index} xs={24} sm={12} md={8}>
+                <Card
+                  hoverable
+                  style={{
+                    width: "100%",
+                    borderRadius: 16,
+                    textAlign: "center",
+                    boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
+                    overflow: "hidden",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    minHeight: "420px",
+                  }}
+                  cover={
+                    <img
+                      alt={activity.title}
+                      src={activity.image}
+                      style={{
+                        width: "100%",
+                        height: "200px",
+                        objectFit: "cover",
+                        borderTopLeftRadius: 16,
+                        borderTopRightRadius: 16,
+                      }}
+                    />
+                  }
+                >
+                  <Card.Meta
+                    title={
+                      <span style={{ fontSize: "20px", fontWeight: "bold" }}>
+                        {activity.title}
+                      </span>
+                    }
+                    description={
+                      <div
+                        style={{
+                          fontSize: "16px",
+                          color: "#444",
+                          direction: "rtl",
+                          marginTop: "10px",
+                          overflow: "hidden",
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                          lineHeight: "1.5em",
+                          height: "3em", 
+                        }}
+                      >
+                        {activity.description}
+                      </div>
+                    }
+                  />
 
-              <p>
-                من فعاليات احتفالنا السنوي المقام في دار العزم للكفيفات المسنات
-              </p>
-            </Link>
-
-            <Link to="/activities/sports" className="service-item">
-              <img
-                src="Photos/health3.png"
-                alt="الأنشطة الرياضية"
-                className="service-icon"
-              />
-
-              <p>تمارين رياضية خاصة بالمكفوفات المسنات</p>
-            </Link>
-
-            <Link to="/activities/cultural" className="service-item">
-              <img
-                src="Photos/activites1.png"
-                alt="الأنشطة الثقافية"
-                className="service-icon"
-              />
-
-              <p>تهدف لتنشيط الذاكرة وتحسين الحالة النفسية</p>
-            </Link>
-          </div>
+                  <Link to={activity.to}>
+                    <Button
+                      type="default"
+                      size="large"
+                      style={{
+                        marginTop: "20px",
+                        backgroundColor: "white",
+                        color: "#000",
+                        border: "2px solid #ffd28e",
+                        borderRadius: "8px",
+                        width: "100%",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      مشاهدة التفاصيل
+                    </Button>
+                  </Link>
+                </Card>
+              </Col>
+            ))}
+          </Row>
         </section>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
 
-        <div id="donations-section" className="donations-container mt-5">
+        <br></br>
+      
+</div>
+  <br></br>
+        <br id="donations-section"></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br ></br>
+        <div   className="goals-container mt-5">
           <h2 className="text-center text-dark"> دعم الجمعية بالتبرعات</h2>
           <p className="text-center lead text-dark">
             اختر طريقة التبرع وساهم في تحسين حياة الكفيفات المسنات
@@ -249,9 +430,8 @@ function HomePage() {
         <br></br>
         <br></br>
         <br></br>
-
-        {/* أضف هذا الكود بعد قسم التبرعات مباشرة */}
-        <div id="contact" className="contact-container4">
+<div  id="contact" className="goals-container mt-5">
+ <div className="contact-container4">
           <h1 className="main-title4 bold-text">تواصل معنا</h1>
 
           <div className="content-wrapper4">
@@ -294,8 +474,10 @@ function HomePage() {
             </div>
           </div>
         </div>
+</div>
+       
       </div>
-    </div>
+      </div> 
   );
 }
 

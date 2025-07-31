@@ -81,7 +81,7 @@ const handleSubmit = (e) => {
   // };
 
   return (
-    <div className="donation-container" style={{ marginTop: "90px" }}>
+    <div className="donation-container" style={{ marginTop: "90px"  }}>
       {/* <br></br>
       <br></br> */}
       <div className="donation-card">
@@ -92,142 +92,179 @@ const handleSubmit = (e) => {
           </div>
 
           <form onSubmit={handleSubmit} className="donation-form">
-            <div className="form-section">
-              <h2>المعلومات الشخصية</h2>
-              <div className="form-row-4">
-                <InputField
-                  label="البريد الإلكتروني"
-                  name="email"
-                  value={value.email}
-                  onChange={(e) =>
-                    setValue((prev) => ({
-                      ...prev,
-                      [e.target.name]: e.target.value,
-                    }))
-                  }
-                  placeholder="ادخل البريد الإالكتروني"
-                />
-                <InputField
-                  label="كلمة المرور "
-                  name="password"
-                  value={value.password}
-                  onChange={(e) =>
-                    setValue((prev) => ({
-                      ...prev,
-                      [e.target.name]: e.target.value,
-                    }))
-                  }
-                  placeholder="ادخل كلمة المرور "
-                />
-                <InputField
-                  label=" رقم الهاتف"
-                  name="phone"
-                  value={value.phone}
-                  onChange={(e) =>
-                    setValue((prev) => ({
-                      ...prev,
-                      [e.target.name]: e.target.value,
-                    }))
-                  }
-                  placeholder="ادخل رقم الهاتف"
-                />
+         <div className="form-section">
+  <h2>المعلومات الشخصية</h2>
+  <div className="form-row" style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
+    {/* Email */}
+    <div style={{ display: 'flex', width: '100%' }}>
+      <label style={{ marginTop : "6px" }}>البريد الإلكتروني</label>
+      <InputField
+        name="email"
+        value={value.email}
+        onChange={(e) =>
+          setValue((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+          }))
+        }
+        placeholder="ادخل البريد الإالكتروني"
+        style={{ width: '75%' }}
+      />
+    </div>
+
+    {/* Password */}
+    <div style={{ display: 'flex', width: '100%' }}>
+      <label style={{ marginTop : "6px" }}>كلمة المرور</label>
+      <InputField
+        name="password"
+        value={value.password}
+        onChange={(e) =>
+          setValue((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+          }))
+        }
+        placeholder="ادخل كلمة المرور"
+        style={{ width: '75%' }}
+      />
+    </div>
 
 
-    
-              
-              </div>
-            </div>
-            {/* القسم الأول: المعلومات الشخصية - 4 حقول في صف واحد */}
-            <div className="form-section">
-              <h2>المعلومات الشخصية</h2>
-              <div className="form-row-4">
-                <InputField
-                  label="الاسم الأول"
-                  name="first_name"
-                  value={value.first_name}
-                  onChange={(e) =>
-                    setValue((prev) => ({
-                      ...prev,
-                      [e.target.name]: e.target.value,
-                    }))
-                  }
-                  placeholder="ادخل الاسم الأول"
-                />
-                <InputField
-                  label="الاسم الأخير"
-                  name="last_name"
-                  value={value.last_name}
-                  onChange={(e) =>
-                    setValue((prev) => ({
-                      ...prev,
-                      [e.target.name]: e.target.value,
-                    }))
-                  }
-                  placeholder="ادخل الاسم الأخير"
-                />
-                <InputField
-                  label="اسم الأب"
-                  name="father_name"
-                  value={value.father_name}
-                  onChange={(e) =>
-                    setValue((prev) => ({
-                      ...prev,
-                      [e.target.name]: e.target.value,
-                    }))
-                  }
-                  placeholder="ادخل اسم الأب"
-                />
-                <InputField
-                  label="اسم الأم"
-                  name="mother_name"
-                  value={value.mother_name}
-                  onChange={(e) =>
-                    setValue((prev) => ({
-                      ...prev,
-                      [e.target.name]: e.target.value,
-                    }))
-                  }
-                  placeholder="ادخل اسم الأم"
-                />
+  </div>
+</div>
 
-                <DateField
-                  label="تاريخ الميلاد"
-                  name="date_of_birth"
-                  value={value.date_of_birth}
-                  onChange={(e) =>
-                    setValue((prev) => ({
-                      ...prev,
-                      [e.target.name]: e.target.value,
-                    }))
-                  }
-                  placeholder="mm/dd/yy"
-                />
-                <InputField
-                  label="مكان الولادة"
-                  name="place_of_birth"
-                  value={value.place_of_birth}
-                  onChange={(e) =>
-                    setValue((prev) => ({
-                      ...prev,
-                      [e.target.name]: e.target.value,
-                    }))
-                  }
-                  placeholder="ادخل مكان الولادة"
-                />
-                <InputField
-                  label="الهاتف"
-                  name="phone"
-                  value={value.phone}
-                  onChange={(e) =>
-                    setValue((prev) => ({
-                      ...prev,
-                      [e.target.name]: e.target.value,
-                    }))
-                  }
-                  placeholder="ادخل رقم الهاتف"
-                />
-              </div>
-            </div>
+
+<div className="form-section">
+  <h2>المعلومات الشخصية</h2>
+
+  <div className="form-row" style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
+    {/* First Name */}
+    <div style={{ display: 'flex', width: '100%' }}>
+      <label style={{ marginTop: "6px" }}>الاسم الأول</label>
+      <InputField
+        name="first_name"
+        value={value.first_name}
+        onChange={(e) =>
+          setValue((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+          }))
+        }
+        placeholder="ادخل الاسم الأول"
+        style={{ width: '75%' }}
+      />
+    </div>
+
+    {/* Last Name */}
+    <div style={{ display: 'flex', width: '100%' }}>
+      <label style={{ marginTop: "6px" }}>الاسم الأخير</label>
+      <InputField
+        name="last_name"
+        value={value.last_name}
+        onChange={(e) =>
+          setValue((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+          }))
+        }
+        placeholder="ادخل الاسم الأخير"
+        style={{ width: '75%' }}
+      />
+    </div>
+  </div>
+
+  <div className="form-row" style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
+    {/* Father Name */}
+    <div style={{ display: 'flex', width: '100%' }}>
+      <label style={{ marginTop: "6px" }}>اسم الأب</label>
+      <InputField
+        name="father_name"
+        value={value.father_name}
+        onChange={(e) =>
+          setValue((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+          }))
+        }
+        placeholder="ادخل اسم الأب"
+        style={{ width: '75%' }}
+      />
+    </div>
+
+    {/* Mother Name */}
+    <div style={{ display: 'flex', width: '100%' }}>
+      <label style={{ marginTop: "6px" }}>اسم الأم</label>
+      <InputField
+        name="mother_name"
+        value={value.mother_name}
+        onChange={(e) =>
+          setValue((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+          }))
+        }
+        placeholder="ادخل اسم الأم"
+        style={{ width: '75%' }}
+      />
+    </div>
+  </div>
+
+  <div className="form-row" style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
+    {/* Date of Birth */}
+    <div style={{ display: 'flex', width: '100%' }}>
+      <label style={{marginTop: '31px', marginLeft: '10px'}}>تاريخ الميلاد</label>
+      <DateField
+        name="date_of_birth"
+        value={value.date_of_birth}
+        onChange={(e) =>
+          setValue((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+          }))
+        }
+        placeholder="mm/dd/yy"
+        style={{ width: '75%' }}
+      />
+    </div>
+
+    {/* Place of Birth */}
+    <div style={{ display: 'flex', width: '100%' }}>
+      <label style={{ marginTop: "6px" }}>مكان الولادة</label>
+      <InputField
+        name="place_of_birth"
+        value={value.place_of_birth}
+        onChange={(e) =>
+          setValue((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+          }))
+        }
+        placeholder="ادخل مكان الولادة"
+        style={{ width: '75%' }}
+      />
+    </div>
+  </div>
+
+  <div className="form-row" style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
+    {/* Phone */}
+    <div style={{ display: 'flex', width: '100%' }}>
+      <label style={{ marginTop: "6px" }}>الهاتف</label>
+      <InputField
+        name="phone"
+        value={value.phone}
+        onChange={(e) =>
+          setValue((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+          }))
+        }
+        placeholder="ادخل رقم الهاتف"
+        style={{ width: '75%' }}
+      />
+    </div>
+  </div>
+</div>
+
 
             {/* القسم الثالث: المعلومات الوثائقية - 4 حقول في صف واحد */}
             <div className="form-section">

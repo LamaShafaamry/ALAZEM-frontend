@@ -63,16 +63,16 @@ function Navbar() {
                   )
                 }
             <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() => navigate("/goals-section")}>الخدمات</button>
+              <button className="nav-link btn btn-link" onClick={() => document.getElementById('goals-section')?.scrollIntoView({ behavior: 'smooth' })}>الخدمات</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() => navigate("services")}>النشاطات</button>
+              <button className="nav-link btn btn-link" onClick={() => document.getElementById('activity-section')?.scrollIntoView({ behavior: 'smooth' })}>النشاطات</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() => navigate("donations-section")}>تبرع</button>
+              <button className="nav-link btn btn-link" onClick={() => document.getElementById('donations-section')?.scrollIntoView({ behavior: 'smooth' })}>تبرع</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link btn btn-link" onClick={() => navigate("contact")}>تواصل معنا</button>
+              <button className="nav-link btn btn-link" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>تواصل معنا</button>
     
             </li>
             <li className="nav-item">
