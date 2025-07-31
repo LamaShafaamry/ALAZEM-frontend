@@ -31,6 +31,7 @@ import DonationHistory from "./PatientPage/DonationHistory.jsx";
 import MyAppointments from "./PatientPage/myAppointments.jsx";
 import { useState, useEffect } from 'react';
 import VerificationPage from './VerificationPage/VerificationPage';
+import DoctorRegistrationForm from "./components/DoctorRegistrationForm";
 
 function HomePage() {
 
@@ -47,7 +48,8 @@ function HomePage() {
     src="Photos/main.jpg"
     alt="جمعية العزم للكفيفات المسنات"
     className="full-screen-image"
-    style={{width: '198vh', height: '100vh', objectFit: 'cover'}}
+    style={{width: '198vh', height: '100vh', objectFit: 'cover', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.9)', 
+    borderRadius: '7px'}}
   />
   
   {/* الزر فوق الصورة */}
@@ -327,6 +329,7 @@ function App() {
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/appointments" element={<MyAppointments />} />
         <Route path="/verification-container" element={<VerificationPage />} />
+        <Route path="/form-section" element={<DoctorRegistrationForm />} />
       </Route>
     </Routes>
         </Router>

@@ -57,6 +57,8 @@ const Form = () => {
     <div className="donation-container">
       <div className="donation-card">
         <div className="donation-header">
+        <br></br>
+          <br></br>
         <div className="input-field">
           <h1>استمارة تسجيل كفيفة</h1>
           <p>الرجاء تعبئة جميع الحقول المطلوبة للتسجيل</p>

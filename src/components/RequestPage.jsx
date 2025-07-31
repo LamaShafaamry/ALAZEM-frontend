@@ -17,6 +17,9 @@ function RequestPage() {
           <Link to="/volunteer-request" className="w-100">
             <button className="volunteer-btn">طلب تطوع</button>
           </Link>
+          <Link to="/form-section" className="w-100">
+            <button className="volunteer-btn"> تسجيل طبيب</button>
+          </Link>
         </div>
       </div>
     </div>
