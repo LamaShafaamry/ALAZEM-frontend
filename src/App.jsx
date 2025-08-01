@@ -175,6 +175,21 @@ function HomePage() {
                     </p>
                   }
                 />
+                <Button
+                      type="default"
+                      size="large"
+                      style={{
+                        marginTop: "20px",
+                        backgroundColor: "white",
+                        color: "#000",
+                        border: "2px solid #ffd28e",
+                        borderRadius: "8px",
+                        width: "100%",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      مشاهدة التفاصيل
+                    </Button>
               </Card>
             </Link>
             <Link to="/health-services" style={{ textDecoration: "none" }}>
@@ -221,6 +236,21 @@ function HomePage() {
                     </p>
                   }
                 />
+                <Button
+                      type="default"
+                      size="large"
+                      style={{
+                        marginTop: "20px",
+                        backgroundColor: "white",
+                        color: "#000",
+                        border: "2px solid #ffd28e",
+                        borderRadius: "8px",
+                        width: "100%",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      مشاهدة التفاصيل
+                    </Button>
               </Card>
             </Link>
             <Link to="/life-skills" style={{ textDecoration: "none" }}>
@@ -267,6 +297,21 @@ function HomePage() {
                     </p>
                   }
                 />
+                <Button
+                      type="default"
+                      size="large"
+                      style={{
+                        marginTop: "20px",
+                        backgroundColor: "white",
+                        color: "#000",
+                        border: "2px solid #ffd28e",
+                        borderRadius: "8px",
+                        width: "100%",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      مشاهدة التفاصيل
+                    </Button>
               </Card>
             </Link>
 
@@ -500,6 +545,7 @@ function LayoutWrapper() {
     "/manager-profile",
     "/manager-page",
     "/assign",
+    "/manager-users",
   ];
   const showUserNavbar = userNavbarRoutes.includes(location.pathname);
 

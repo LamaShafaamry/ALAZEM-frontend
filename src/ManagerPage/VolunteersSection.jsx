@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {
   assignVolunteer,
-getRegistrationPatientsList,
+  getRegistrationPatientsList,
   getPendingPatientsList,
   getAllVolunteer,
-getNotes
+  getNotes,
 } from "../api/api";
 import "./ManagerPage.css";
 // import VolunteersSection from "./VolunteersSection";
@@ -38,7 +38,7 @@ const VolunteersSection = () => {
   useEffect(() => {
     const fetchVolunteer = async () => {
       try {
-        const response = await getAllVolunteer("Registered");
+        const response = await getAllVolunteer("Registered", "");
         setVolunteer(response.data);
       } catch (error) {
         showMessage("فشل في جلب قائمة المتطوعين", "error");
@@ -59,18 +59,15 @@ const VolunteersSection = () => {
     handleGetNotes();
   }, []);
 
-   const handleGetNotes = async () => {
-      try {
-        const allNotes = await getNotes(
-          selectedPatient,
-          selectedVolunteer
-        );
-        setVolunteerNotes(allNotes.data);
-        // setActiveTab("view");
-      } catch (error) {
-        showMessage("فشل في جلب مواعيد الطبيب", "error");
-      }
-    };
+  const handleGetNotes = async () => {
+    try {
+      const allNotes = await getNotes(selectedPatient, selectedVolunteer);
+      setVolunteerNotes(allNotes.data);
+      // setActiveTab("view");
+    } catch (error) {
+      showMessage("فشل في جلب مواعيد الطبيب", "error");
+    }
+  };
 
   const showMessage = (text, type) => {
     setMessage({ text, type });
@@ -81,7 +78,7 @@ const VolunteersSection = () => {
     e.preventDefault();
 
     if (!selectedVolunteer || !selectedPatient) {
-      console.log("فشل في إسناد الكفيفة")
+      console.log("فشل في إسناد الكفيفة");
       showMessage("الرجاء تعبئة جميع الحقول المطلوبة", "error");
       return;
     }
@@ -95,13 +92,11 @@ const VolunteersSection = () => {
       setSelectedVolunteer("");
       setSelectedPatient("");
     } catch (error) {
-            console.log(error)
+      console.log(error);
 
       showMessage("فشل في إسناد الكفيفة", "error");
     }
   };
-
- 
 
   return (
     <div className="manager-page">
@@ -110,7 +105,6 @@ const VolunteersSection = () => {
           <i className="fas fa-clinic-medical"></i>
         </div>
         <div className="nav-links">
-
           <button
             className={`nav-link ${
               currentView === "withdrawals" ? "active" : ""
@@ -163,7 +157,7 @@ const VolunteersSection = () => {
           <div className="manager-header2">
             <h2>
               <i className="fas fa-clinic-medical"></i>
-             إدارة خدمات المتطوعين
+              إدارة خدمات المتطوعين
             </h2>
           </div>
 
@@ -190,7 +184,6 @@ const VolunteersSection = () => {
 
           {activeTab === "create" ? (
             <div className="appointment-form">
-
               <form onSubmit={handleAssignVolunteer}>
                 <div className="form-row">
                   <div className="form-group">
@@ -203,7 +196,7 @@ const VolunteersSection = () => {
                       <option value="">اختر المتطوع</option>
                       {volunteer.map((volunteer) => (
                         <option key={volunteer.id} value={volunteer.id}>
-                          {volunteer.first_name} 
+                         {volunteer.id} - {volunteer.first_name} {volunteer.last_name}
                         </option>
                       ))}
                     </select>
@@ -219,14 +212,11 @@ const VolunteersSection = () => {
                       <option value=""> اختر كفيفة </option>
                       {patients.map((patient) => (
                         <option key={patient.id} value={patient.id}>
-                          {patient.first_name} - رقم الملف:{" "}
-                          {patient.disability_card_number}
+                          {patient.id} - {patient.first_name} {patient.last_name}
                         </option>
                       ))}
                     </select>
                   </div>
-
-                  
                 </div>
                 <div className="submit-row">
                   <button type="submit" className="btn-submit">
@@ -254,7 +244,7 @@ const VolunteersSection = () => {
                     <option value="">اختر متطوع</option>
                     {volunteer.map((volunteer) => (
                       <option key={volunteer.id} value={volunteer.id}>
-                        {volunteer.first_name} - {volunteer.speciality}
+                      {volunteer.id} - {volunteer.first_name} {volunteer.last_name}
                       </option>
                     ))}
                   </select>
@@ -268,7 +258,7 @@ const VolunteersSection = () => {
                     <option value="">اختر كفيفة</option>
                     {patients.map((patient) => (
                       <option key={patient.id} value={patient.id}>
-                        {patient.first_name}
+                       {patient.id} - {patient.first_name} {patient.last_name}
                       </option>
                     ))}
                   </select>
@@ -304,39 +294,33 @@ const VolunteersSection = () => {
                           <th>رقم الملاحظة</th>
                           <th>التاريخ والوقت</th>
                           <th> الملاحظة</th>
-                
                         </tr>
                       </thead>
                       <tbody>
                         {volunteerNotes.map((notes) => (
                           <tr key={notes.id}>
-                            <td>
-                              {notes.patient_name}
-                            </td>
-                            <td>
-                              {notes.volunteer_name}
-                            </td>
+                            <td>{notes.patient_name}</td>
+                            <td>{notes.volunteer_name}</td>
                             {/* <td>{new Date(appointment.appointment_date).toLocaleString()}</td> */}
                             <td>{notes.id}</td>
-                            <td className={"appointment-date"}>
+                            <td>
                               {notes.creation_date}
-                            
                             </td>
                             <td className="text-center" dir="ltr">
-                    <div
-                      style={{
-                        maxWidth: "450px",
-                        maxHeight: "150px",
-                        overflow: "auto",
-                        whiteSpace: "pre-wrap", // allows line breaks in the content
-                        wordWrap: "break-word", // breaks long words if needed
-                        margin: "0 auto", // center the content in the cell
-                        textAlign: "left",
-                      }}
-                    >
-                      {notes.content}
-                    </div>
-                  </td>
+                              <div
+                                style={{
+                                  maxWidth: "450px",
+                                  maxHeight: "150px",
+                                  overflow: "auto",
+                                  whiteSpace: "pre-wrap", // allows line breaks in the content
+                                  wordWrap: "break-word", // breaks long words if needed
+                                  margin: "0 auto", // center the content in the cell
+                                  textAlign: "left",
+                                }}
+                              >
+                                {notes.content}
+                              </div>
+                            </td>
                           </tr>
                         ))}
                       </tbody>

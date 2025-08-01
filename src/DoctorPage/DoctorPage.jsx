@@ -94,18 +94,18 @@ const DoctorPage = () => {
             <div className="sidebar-section contact-info">
               <h3 className="sidebar-title">معلومات الطبيب</h3>
               <div className="contact-item">
-                <span className="contact-icon">🩺</span>
+                <span style={{ fontWeight: "bold" }}>الاختصاص:</span>
 
                 <span>{doctorInfo.speciality}</span>
               </div>
               <div className="contact-item">
-                <span className="contact-icon">📞</span>
+                <span style={{ fontWeight: "bold" }}>رقم الهاتف: </span>
 
                 <span>{doctorInfo.phone}</span>
               </div>
 
               <div className="contact-item">
-                <span className="contact-icon">✉️</span>
+                <span style={{ fontWeight: "bold" }}>االبريد الإالكتروني:</span>
                 <span>{doctorInfo.email}</span>
               </div>
             </div>

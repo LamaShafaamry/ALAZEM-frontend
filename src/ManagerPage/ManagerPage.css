@@ -393,7 +393,7 @@
 /* تنسيق الرسائل التوضيحية */
 .alert {
   position: fixed;
-  top: 20px;
+  top: 50px;
   right: 20px; /* تغيير من left إلى right */
   z-index: 1000;
   padding: 15px;

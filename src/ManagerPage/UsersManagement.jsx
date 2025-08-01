@@ -7,34 +7,31 @@ const UsersManagement = () => {
  
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedUser, setSelectedUser] = useState(null);
+    const [activeTab, setActiveTab] = useState("patient");
+  
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState(users);
   const [loading, setLoading] = useState(true);
   const [showApproveModal, setShowApproveModal] = useState(false);
   const [showRejectModal, setShowRejectModal] = useState(false);
   useEffect(() => {
-    // const results = users.filter(user =>
-    //   user.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    //   user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    //   user.role.toLowerCase().includes(searchTerm.toLowerCase())
-    // );
-    fetchUsers();
-  }, [ ]);
 
-   const fetchUsers = async () => {
-      try {
-        let response;
-  
-        response=await getUsesrs("","","")
-  
-        setUsers(
-          response.data
-          
-        );
-      } catch (error) {
-        showMessage("فشل في تحميل المستخدمين", "error");
-      } finally {
-      }
+    fetchUsers(activeTab);
+  }, [ activeTab]);
+
+   const fetchUsers = async (tab) => {
+  let roleCode = "";
+  if (tab === "patient") roleCode = "PAT";
+  else if (tab === "doctors") roleCode = "DOC";
+  else if (tab === "volunteers") roleCode = "VOL";
+
+  try {
+    const response = await getUsesrs("", roleCode, "");
+    setUsers(response.data);
+  } catch (error) {
+    console.error("فشل في تحميل المستخدمين", error);
+  }
+
     };
   const toggleUserStatus = (userId) => {
     setUsers(users.map(user =>
@@ -102,7 +99,7 @@ const UsersManagement = () => {
       </div>
 
       <div className="appointments-management">
-        <div className="search-container">
+        {/* <div className="search-container">
           <div className="search-box">
             <input
               type="text"
@@ -113,14 +110,37 @@ const UsersManagement = () => {
             />
             <i className="fas fa-search search-icon"></i>
           </div>
-        </div>
-    
+        </div> */}
+     <div className="manager-tabs">
+   <button
+  className={`tab-btn ${activeTab === "patient" ? "active" : ""}`}
+  onClick={() => setActiveTab("patient")}
+>
+  الكفيفات
+</button>
+
+        <button
+          className={`tab-btn ${activeTab === "volunteers" ? "active" : ""}`}
+          onClick={() => setActiveTab("volunteers")}
+        >
+          طلبات المتطوعون
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === "doctors" ? "active" : ""}`}
+          onClick={() => setActiveTab("doctors")}
+        >
+          طلبات الأطباء
+        </button>
+      </div>
+      
         <div className="appointments-list">
           <table className="table">
             <thead>
               <tr>
                 <th className="text-center">#</th>
-                <th className="text-center">المعلومات</th>
+                <th className="text-center">الاسم</th>
+                <th className="text-center">البريد الإلكتروني</th>
                 <th className="text-center">الدور</th>
                 <th className="text-center">تاريخ الانضمام</th>
                 <th className="text-center">الحالة</th>
@@ -133,10 +153,11 @@ const UsersManagement = () => {
                   <td className="text-center">{user.id}</td>
                   <td className="text-center">
                     <div className="user-info-cell">
-                      <div><strong>الاسم:</strong> {user.first_name} {user.last_name}</div>
-                      <div><strong>البريد:</strong> {user.email}</div>
+                      <div>{user.first_name} {user.last_name}</div>
+                      
                     </div>
                   </td>
+                  <td><div>{user.email}</div></td>
                   <td className="text-center">{getArabicRoleName(user.role)}</td>
 
                   <td className="text-center">{user.date_joined}</td>

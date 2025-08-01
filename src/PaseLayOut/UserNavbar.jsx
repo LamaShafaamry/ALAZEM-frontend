@@ -110,6 +110,15 @@ function UserNavbar() {
       return false;
     }
   };
+    const IsManagerUsersVisibility = () => {
+    var role = sessionStorage.getItem("role");
+    if (role == "MAN") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
 
   const IsAssignVisibility = () => {
     var role = sessionStorage.getItem("role");
@@ -136,6 +145,8 @@ function UserNavbar() {
       return false;
     }
   };
+
+  
   const user = useSelector((state) => state.auth.user);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
@@ -271,6 +282,16 @@ function UserNavbar() {
                   onClick={() => navigate("/my-notes")}
                 >
                   ملاحظاتي
+                </button>
+              </li>
+            )}
+             {IsManagerUsersVisibility() && (
+              <li className="nav-item">
+                <button
+                  className="nav-link btn btn-link"
+                  onClick={() => navigate("/manager-users")}
+                >
+                  إدارة المستخدمين
                 </button>
               </li>
             )}

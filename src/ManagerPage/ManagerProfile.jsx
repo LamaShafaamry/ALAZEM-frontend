@@ -103,7 +103,7 @@ const ManagerProfile = () => {
     <div className="sidebar-section contact-info" style={{ flex: 1, minWidth: "300px" }}>
       <h3 className="sidebar-title">معلوماتي الشخصية</h3>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>👤 الاسم الكامل: </span>
+        <span style={{ fontWeight: "bold" }}>الاسم الكامل: </span>
         <span>
           {managerInfo.first_name} {managerInfo.last_name}
         </span>
@@ -111,11 +111,11 @@ const ManagerProfile = () => {
   
 
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>📞 رقم الهاتف: </span>
+        <span style={{ fontWeight: "bold" }}>رقم الهاتف: </span>
         <span>{managerInfo.phone}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>✉️ البريد الإلكتروني: </span>
+        <span style={{ fontWeight: "bold" }}>البريد الإلكتروني: </span>
         <span>{managerInfo.email}</span>
       </div>
     </div>

@@ -174,35 +174,35 @@ const VolunteerProfile = () => {
     <div className="sidebar-section contact-info" style={{ flex: 1, minWidth: "300px" }}>
       <h3 className="sidebar-title">معلوماتي الشخصية</h3>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>👤 الاسم الكامل: </span>
+        <span style={{ fontWeight: "bold" }}> الاسم الكامل: </span>
         <span>
           {volunteerInfo.first_name} {volunteerInfo.last_name}
         </span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>🎓 الشهادة: </span>
+        <span style={{ fontWeight: "bold" }}>الشهادة: </span>
         <span>{volunteerInfo.certificate}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>📅 مكان وتاريخ الولادة: </span>
+        <span style={{ fontWeight: "bold" }}>مكان وتاريخ الولادة: </span>
         <span>
           {volunteerInfo.place_of_birth} - {volunteerInfo.date_of_birth}
         </span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>🌍 الجنسية: </span>
+        <span style={{ fontWeight: "bold" }}>الجنسية: </span>
         <span>{volunteerInfo.nationality}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>🏠 العنوان: </span>
+        <span style={{ fontWeight: "bold" }}>العنوان: </span>
         <span>{volunteerInfo.address || "غير محدد"}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>📞 رقم الهاتف: </span>
+        <span style={{ fontWeight: "bold" }}>رقم الهاتف: </span>
         <span>{volunteerInfo.phone}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>✉️ البريد الإلكتروني: </span>
+        <span style={{ fontWeight: "bold" }}>البريد الإلكتروني: </span>
         <span>{volunteerInfo.email}</span>
       </div>
     </div>
@@ -211,27 +211,27 @@ const VolunteerProfile = () => {
     <div className="sidebar-section contact-info" style={{ flex: 1, minWidth: "300px" }}>
       <h3 className="sidebar-title">المعلومات الإضافية</h3>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>👵 اسم الأب: </span>
+        <span style={{ fontWeight: "bold" }}> اسم الأب: </span>
         <span>{volunteerInfo.father_name}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>👵 اسم الأم: </span>
+        <span style={{ fontWeight: "bold" }}>اسم الأم: </span>
         <span>{volunteerInfo.mother_name}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>🧾 الرقم الوطني: </span>
+        <span style={{ fontWeight: "bold" }}>الرقم الوطني: </span>
         <span>{volunteerInfo.nationality_ID || "غير متوفر"}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>🏢 المهنة: </span>
+        <span style={{ fontWeight: "bold" }}>المهنة: </span>
         <span>{volunteerInfo.job || "غير محددة"}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>📚 الجمعيات السابقة: </span>
+        <span style={{ fontWeight: "bold" }}>الجمعيات السابقة: </span>
         <span>{volunteerInfo.previously_affiliated_associations || "لا يوجد"}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>📋 التاريخ الطبي العائلي: </span>
+        <span style={{ fontWeight: "bold" }}>التاريخ الطبي العائلي: </span>
         <span>{volunteerInfo.grand_history || "لا يوجد"}</span>
       </div>
       

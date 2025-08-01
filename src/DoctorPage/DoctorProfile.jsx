@@ -53,7 +53,7 @@ const DoctorProfile = () => {
                 <span>{doctorInfo.phone}</span>
               </div>
               <div className="contact-item">
-                <span className="contact-icon">✉️</span>
+                <span className="contact-icon"></span>
                 <span>{doctorInfo.email}</span>
               </div>
 
@@ -73,7 +73,7 @@ const DoctorProfile = () => {
               <ul className="education-list">
                 {doctorInfo.education.map((edu, index) => (
                   <li key={index}>
-                    <span className="education-icon">🎓</span>
+                    <span className="education-icon"></span>
                     {edu}
                   </li>
                 ))}

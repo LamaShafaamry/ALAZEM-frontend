@@ -16,7 +16,7 @@ const RegistrationRequests = () => {
   const [selectedUser, setSelectedUser] = useState(null);
 
   const [selectedRequest, setSelectedRequest] = useState(null);
-  const [activeTab, setActiveTab] = useState("create");
+  const [activeTab, setActiveTab] = useState("patient");
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [volunteers, setVolunteers] = useState([]);
@@ -27,34 +27,32 @@ const RegistrationRequests = () => {
   const [selectedPatientId, setSelectedPatientId] = useState(null);
   const [selectedVolunteerId, setSelectedVolunteerId] = useState(null);
   const [selectedDoctorId, setSelectedDoctorId] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
+  const fetchData = async () => {
+    try {
+      setLoading(true);
       let response;
-        if (activeTab === "patient") {
-          const response = await getPatients("pending", searchTerm);
-          setPatients(response.data);
-        } else if (activeTab === "volunteers") {
-          const response = await getAllVolunteer("PEN", searchTerm);
-          setVolunteers(response.data);
-        } else if (activeTab === "doctors") {
-          const response = await getDoctorsList("PEN", searchTerm);
-          setDoctors(response.data);
-        }else {
-          const [indResponse, assocResponse] = await Promise.all([
-           getPatients("pending",""),
-           getAllVolunteer("PEN", ""),
-           getDoctorsList("PEN", ""),
-          ]);
-          response = { data: [...indResponse.data, ...assocResponse.data] };
-        }
-      } catch (error) {
-        console.error("Error fetching registration requests:", error);
+      if (activeTab === "patient") {
+        const response = await getPatients("pending", searchTerm);
+        setPatients(response.data);
+      } else if (activeTab === "volunteers") {
+        const response = await getAllVolunteer("PEN", searchTerm);
+        setVolunteers(response.data);
+      } else if (activeTab === "doctors") {
+        const response = await getDoctorsList("PEN", searchTerm);
+        setDoctors(response.data);
+      } else {
+        const [indResponse, assocResponse] = await Promise.all([
+          getPatients("pending", ""),
+          getAllVolunteer("PEN", ""),
+          getDoctorsList("PEN", ""),
+        ]);
+        response = { data: [...indResponse.data, ...assocResponse.data] };
       }
-    };
-
+    } catch (error) {
+      console.error("Error fetching registration requests:", error);
+    }
+  };
+  useEffect(() => {
     fetchData();
   }, [activeTab, searchTerm]);
 
@@ -79,7 +77,7 @@ const RegistrationRequests = () => {
     setSelectedPatientId(id);
     setShowRejectModal(true);
   };
-    const openVolunteerApproveModal = (id) => {
+  const openVolunteerApproveModal = (id) => {
     setSelectedVolunteerId(id);
     setShowApproveModal(true);
   };
@@ -88,7 +86,7 @@ const RegistrationRequests = () => {
     setSelectedVolunteerId(id);
     setShowRejectModal(true);
   };
-    const openDoctorApproveModal = (id) => {
+  const openDoctorApproveModal = (id) => {
     setSelectedDoctorId(id);
     setShowApproveModal(true);
   };
@@ -106,7 +104,7 @@ const RegistrationRequests = () => {
     handleCancelVolunteerRequest(selectedVolunteerId);
     setShowRejectModal(false);
   };
-    const confirmVolunteerApprove = () => {
+  const confirmVolunteerApprove = () => {
     handleApproveVolunteerRequest(selectedVolunteerId);
     setShowApproveModal(false);
   };
@@ -115,7 +113,7 @@ const RegistrationRequests = () => {
     handleCancelDoctorRequest(selectedDoctorId);
     setShowRejectModal(false);
   };
-    const confirmDoctorApprove = () => {
+  const confirmDoctorApprove = () => {
     handleApproveDoctorRequest(selectedDoctorId);
     setShowApproveModal(false);
   };
@@ -129,7 +127,7 @@ const RegistrationRequests = () => {
   //     try {
   //       setLoading(true);
   //       let response;
-  
+
   //       if (activeTab === "patients") {
   //         response = await getPatients("pending");
   //       } else if (activeTab === "volunteers") {
@@ -145,7 +143,7 @@ const RegistrationRequests = () => {
   //       //   ]);
   //       //   response = { data: [...indResponse.data, ...assocResponse.data] };
   //       }
-  
+
   //       // setDonations(
   //       //   response.data.map((donation) => ({
   //       //     id: donation.id,
@@ -178,27 +176,27 @@ const RegistrationRequests = () => {
   //       setLoading(false);
   //     }
   //   };
-const handleApprovePatientRequest = async (id) => {
-  try {
-    await changePatientStatus(id, { action: "approve" });
-    setShowApproveModal(false);
-    await fetchData(); // refresh data after change
-  } catch (error) {
-    console.error("Error approving request:", error);
-  }
-};
+  const handleApprovePatientRequest = async (id) => {
+    try {
+      await changePatientStatus(id, { action: "approve" });
+      setShowApproveModal(false);
+      await fetchData(); // refresh data after change
+    } catch (error) {
+      console.error("Error approving request:", error);
+    }
+  };
 
-const handleCancelPatientRequest = async (id) => {
-  try {
-    await changePatientStatus(id, { action: "reject" });
-    setShowRejectModal(false);
-    await fetchData(); // refresh data after rejection
-  } catch (error) {
-    console.error("Error rejecting appointment:", error);
-  }
-};
+  const handleCancelPatientRequest = async (id) => {
+    try {
+      await changePatientStatus(id, { action: "reject" });
+      setShowRejectModal(false);
+      await fetchData(); // refresh data after rejection
+    } catch (error) {
+      console.error("Error rejecting appointment:", error);
+    }
+  };
 
-    const handleApproveVolunteerRequest = async (id) => {
+  const handleApproveVolunteerRequest = async (id) => {
     try {
       await changeVolunteertStatus(id, { status: "REG" });
       setShowApproveModal(false);
@@ -217,7 +215,7 @@ const handleCancelPatientRequest = async (id) => {
       console.error("Error rejecting appointment:", error);
     }
   };
-    const handleApproveDoctorRequest = async (id) => {
+  const handleApproveDoctorRequest = async (id) => {
     try {
       await changeDoctorStatus(id, { status: "APP" });
       setShowApproveModal(false);
@@ -231,7 +229,7 @@ const handleCancelPatientRequest = async (id) => {
     try {
       await changeDoctorStatus(id, { status: "REJ" });
       setShowRejectModal(false);
-      await fetchData() // refresh data
+      await fetchData(); // refresh data
     } catch (error) {
       console.error("Error rejecting appointment:", error);
     }
@@ -250,9 +248,9 @@ const handleCancelPatientRequest = async (id) => {
     }
   };
   return (
-    
     <div className="manager-page">
-      <br></br><br></br>
+      <br></br>
+      <br></br>
       <div className="manager-header2">
         <h2>
           <i className="fas fa-sign-out-alt"></i>
@@ -317,23 +315,35 @@ const handleCancelPatientRequest = async (id) => {
 
                     <td className="text-center">{getRoleName(patient.role)}</td>
 
-                    <td className="text-center">{patient.date_joined}</td>
+                    <td className="text-center">
+                      {(() => {
+                        const date = new Date(patient.date_joined);
+                        const yyyy = date.getFullYear();
+                        const dd = String(date.getDate()).padStart(2, "0");
+                        const mm = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+                        const hh = String(date.getHours()).padStart(2, "0");
+                        const min = String(date.getMinutes()).padStart(2, "0");
+                        return `${yyyy}/${dd}/${mm} ${hh}:${min}`;
+                      })()}
+                    </td>
                     <td className="text-center">
                       <div className="action-buttons">
-                       <div className="d-flex gap-2 justify-content-center">
-                      <button style={{color: "white"}}
-                        className="btn btn-danger btn-sm"
-                        onClick={() => openPatientApproveModal(patient.id)}
-                      >
-                        رفض
-                      </button>
-                      <button style={{color: "white"}}
-                        className="btn btn-success btn-sm"
-                        onClick={() => openPatientApproveModal(patient.id)}
-                      >
-                        قبول
-                      </button>
-                    </div>
+                        <div className="d-flex gap-2 justify-content-center">
+                          <button
+                            style={{ color: "white" }}
+                            className="btn btn-danger btn-sm"
+                            onClick={() => openPatientApproveModal(patient.id)}
+                          >
+                            رفض
+                          </button>
+                          <button
+                            style={{ color: "white" }}
+                            className="btn btn-success btn-sm"
+                            onClick={() => openPatientApproveModal(patient.id)}
+                          >
+                            قبول
+                          </button>
+                        </div>
                       </div>
                     </td>
                   </tr>
@@ -477,13 +487,15 @@ const handleCancelPatientRequest = async (id) => {
                   <td className="text-center">{volunteer.date_joined}</td>
                   <td className="text-center">
                     <div className="d-flex gap-2 justify-content-center">
-                      <button style={{color: "white"}}
+                      <button
+                        style={{ color: "white" }}
                         className="btn btn-danger btn-sm"
                         onClick={() => openVolunteerRejectModal(volunteer.id)}
                       >
                         رفض
                       </button>
-                      <button style={{color: "white"}}
+                      <button
+                        style={{ color: "white" }}
                         className="btn btn-success btn-sm"
                         onClick={() => openVolunteerApproveModal(volunteer.id)}
                       >
@@ -494,113 +506,113 @@ const handleCancelPatientRequest = async (id) => {
                 </tr>
               ))}
             </tbody>
-               <Modal
-                title={
-                  <div
+            <Modal
+              title={
+                <div
+                  style={{
+                    textAlign: "center",
+                    width: "100%",
+                    fontWeight: "bold",
+                  }}
+                >
+                  قبول طلب انضمام المتطوع
+                </div>
+              }
+              centered
+              open={showApproveModal}
+              onCancel={() => setShowApproveModal(false)}
+              footer={
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "20px",
+                  }}
+                >
+                  <Button
+                    onClick={() => setShowApproveModal(false)}
                     style={{
-                      textAlign: "center",
-                      width: "100%",
-                      fontWeight: "bold",
+                      backgroundColor: "white",
+                      borderColor: "orange",
+                      color: "orange",
+                      width: "100px",
                     }}
                   >
-                    قبول طلب انضمام المتطوع
-                  </div>
-                }
-                centered
-                open={showApproveModal}
-                onCancel={() => setShowApproveModal(false)}
-                footer={
-                  <div
+                    إلغاء
+                  </Button>
+                  <Button
+                    onClick={confirmVolunteerApprove}
                     style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: "20px",
+                      backgroundColor: "orange",
+                      borderColor: "orange",
+                      color: "white",
+                      width: "100px",
                     }}
                   >
-                    <Button
-                      onClick={() => setShowApproveModal(false)}
-                      style={{
-                        backgroundColor: "white",
-                        borderColor: "orange",
-                        color: "orange",
-                        width: "100px",
-                      }}
-                    >
-                      إلغاء
-                    </Button>
-                    <Button
-                      onClick={confirmVolunteerApprove}
-                      style={{
-                        backgroundColor: "orange",
-                        borderColor: "orange",
-                        color: "white",
-                        width: "100px",
-                      }}
-                    >
-                      تأكيد
-                    </Button>
-                  </div>
-                }
-              >
-                <br />
-                <p style={{ textAlign: "center" }}>
-                  هل أنت متأكد من أنك قبول طلب الانضمام
-                </p>
-              </Modal>
+                    تأكيد
+                  </Button>
+                </div>
+              }
+            >
+              <br />
+              <p style={{ textAlign: "center" }}>
+                هل أنت متأكد من أنك قبول طلب الانضمام
+              </p>
+            </Modal>
 
-              <Modal
-                title={
-                  <div
+            <Modal
+              title={
+                <div
+                  style={{
+                    textAlign: "center",
+                    width: "100%",
+                    fontWeight: "bold",
+                  }}
+                >
+                  رفض طلب انضمام المتطوع
+                </div>
+              }
+              centered
+              open={showRejectModal}
+              onCancel={() => setShowRejectModal(false)}
+              footer={
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "20px",
+                  }}
+                >
+                  <Button
+                    onClick={() => setShowRejectModal(false)}
                     style={{
-                      textAlign: "center",
-                      width: "100%",
-                      fontWeight: "bold",
+                      backgroundColor: "white",
+                      borderColor: "orange",
+                      color: "orange",
+                      width: "100px",
                     }}
                   >
-                    رفض طلب انضمام المتطوع
-                  </div>
-                }
-                centered
-                open={showRejectModal}
-                onCancel={() => setShowRejectModal(false)}
-                footer={
-                  <div
+                    إلغاء
+                  </Button>
+                  <Button
+                    onClick={confirmVolunteerReject}
                     style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: "20px",
+                      backgroundColor: "orange",
+                      borderColor: "orange",
+                      color: "white",
+                      width: "100px",
                     }}
                   >
-                    <Button
-                      onClick={() => setShowRejectModal(false)}
-                      style={{
-                        backgroundColor: "white",
-                        borderColor: "orange",
-                        color: "orange",
-                        width: "100px",
-                      }}
-                    >
-                      إلغاء
-                    </Button>
-                    <Button
-                      onClick={confirmVolunteerReject}
-                      style={{
-                        backgroundColor: "orange",
-                        borderColor: "orange",
-                        color: "white",
-                        width: "100px",
-                      }}
-                    >
-                      تأكيد
-                    </Button>
-                  </div>
-                }
-              >
-                <br />
-                <p style={{ textAlign: "center" }}>
-                  هل أنت متأكد من أنك تريد رفض طلب الانضمام؟
-                </p>
-              </Modal>
+                    تأكيد
+                  </Button>
+                </div>
+              }
+            >
+              <br />
+              <p style={{ textAlign: "center" }}>
+                هل أنت متأكد من أنك تريد رفض طلب الانضمام؟
+              </p>
+            </Modal>
           </table>
         </div>
       )}
@@ -629,13 +641,15 @@ const handleCancelPatientRequest = async (id) => {
                   <td className="text-center">{doctor.date_joined}</td>
                   <td className="text-center">
                     <div className="d-flex gap-2 justify-content-center">
-                      <button style={{color: "white"}}
+                      <button
+                        style={{ color: "white" }}
                         className="btn btn-danger btn-sm"
                         onClick={() => openDoctorRejectModal(doctor.id)}
                       >
                         رفض
                       </button>
-                      <button style={{color: "white"}}
+                      <button
+                        style={{ color: "white" }}
                         className="btn btn-success btn-sm"
                         onClick={() => openDoctorApproveModal(doctor.id)}
                       >
@@ -646,113 +660,113 @@ const handleCancelPatientRequest = async (id) => {
                 </tr>
               ))}
             </tbody>
-               <Modal
-                title={
-                  <div
+            <Modal
+              title={
+                <div
+                  style={{
+                    textAlign: "center",
+                    width: "100%",
+                    fontWeight: "bold",
+                  }}
+                >
+                  قبول طلب انضمام الطبيب
+                </div>
+              }
+              centered
+              open={showApproveModal}
+              onCancel={() => setShowApproveModal(false)}
+              footer={
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "20px",
+                  }}
+                >
+                  <Button
+                    onClick={() => setShowApproveModal(false)}
                     style={{
-                      textAlign: "center",
-                      width: "100%",
-                      fontWeight: "bold",
+                      backgroundColor: "white",
+                      borderColor: "orange",
+                      color: "orange",
+                      width: "100px",
                     }}
                   >
-                    قبول طلب انضمام الطبيب
-                  </div>
-                }
-                centered
-                open={showApproveModal}
-                onCancel={() => setShowApproveModal(false)}
-                footer={
-                  <div
+                    إلغاء
+                  </Button>
+                  <Button
+                    onClick={confirmDoctorApprove}
                     style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: "20px",
+                      backgroundColor: "orange",
+                      borderColor: "orange",
+                      color: "white",
+                      width: "100px",
                     }}
                   >
-                    <Button
-                      onClick={() => setShowApproveModal(false)}
-                      style={{
-                        backgroundColor: "white",
-                        borderColor: "orange",
-                        color: "orange",
-                        width: "100px",
-                      }}
-                    >
-                      إلغاء
-                    </Button>
-                    <Button
-                      onClick={confirmDoctorApprove}
-                      style={{
-                        backgroundColor: "orange",
-                        borderColor: "orange",
-                        color: "white",
-                        width: "100px",
-                      }}
-                    >
-                      تأكيد
-                    </Button>
-                  </div>
-                }
-              >
-                <br />
-                <p style={{ textAlign: "center" }}>
-                  هل أنت متأكد من أنك قبول طلب الانضمام
-                </p>
-              </Modal>
+                    تأكيد
+                  </Button>
+                </div>
+              }
+            >
+              <br />
+              <p style={{ textAlign: "center" }}>
+                هل أنت متأكد من أنك قبول طلب الانضمام
+              </p>
+            </Modal>
 
-              <Modal
-                title={
-                  <div
+            <Modal
+              title={
+                <div
+                  style={{
+                    textAlign: "center",
+                    width: "100%",
+                    fontWeight: "bold",
+                  }}
+                >
+                  رفض طلب انضمام الطبيب
+                </div>
+              }
+              centered
+              open={showRejectModal}
+              onCancel={() => setShowRejectModal(false)}
+              footer={
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "20px",
+                  }}
+                >
+                  <Button
+                    onClick={() => setShowRejectModal(false)}
                     style={{
-                      textAlign: "center",
-                      width: "100%",
-                      fontWeight: "bold",
+                      backgroundColor: "white",
+                      borderColor: "orange",
+                      color: "orange",
+                      width: "100px",
                     }}
                   >
-                    رفض طلب انضمام الطبيب
-                  </div>
-                }
-                centered
-                open={showRejectModal}
-                onCancel={() => setShowRejectModal(false)}
-                footer={
-                  <div
+                    إلغاء
+                  </Button>
+                  <Button
+                    onClick={confirmDoctorReject}
                     style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: "20px",
+                      backgroundColor: "orange",
+                      borderColor: "orange",
+                      color: "white",
+                      width: "100px",
                     }}
                   >
-                    <Button
-                      onClick={() => setShowRejectModal(false)}
-                      style={{
-                        backgroundColor: "white",
-                        borderColor: "orange",
-                        color: "orange",
-                        width: "100px",
-                      }}
-                    >
-                      إلغاء
-                    </Button>
-                    <Button
-                      onClick={confirmDoctorReject}
-                      style={{
-                        backgroundColor: "orange",
-                        borderColor: "orange",
-                        color: "white",
-                        width: "100px",
-                      }}
-                    >
-                      تأكيد
-                    </Button>
-                  </div>
-                }
-              >
-                <br />
-                <p style={{ textAlign: "center" }}>
-                  هل أنت متأكد من أنك تريد رفض طلب الانضمام؟
-                </p>
-              </Modal>
+                    تأكيد
+                  </Button>
+                </div>
+              }
+            >
+              <br />
+              <p style={{ textAlign: "center" }}>
+                هل أنت متأكد من أنك تريد رفض طلب الانضمام؟
+              </p>
+            </Modal>
           </table>
         </div>
       )}

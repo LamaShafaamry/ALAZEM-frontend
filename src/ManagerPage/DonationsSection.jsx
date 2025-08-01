@@ -115,7 +115,10 @@ const DonationsSection = () => {
   };
   return (
     <div className="manager-page">
-      <div className="manager-header2">
+    <div>
+      
+    </div>
+        <div className="manager-header2">
         <h2>
           <i className="fas fa-hand-holding-heart"></i>
           إدارة طلبات التبرعات
@@ -123,7 +126,7 @@ const DonationsSection = () => {
       </div>
 
       {/* أضف تبويبات للتصفية */}
-      <div className="donation-tabs">
+      <div className="manager-tabs">
         <button
           className={`tab-btn ${activeTab === "all" ? "active" : ""}`}
           onClick={() => setActiveTab("all")}
@@ -170,6 +173,7 @@ const DonationsSection = () => {
                 <tr>
                   <th className="text-center">رقم التبرع</th>
                   <th className="text-center">نوع التبرع</th>
+                  <th className="text-center"> المتبرع</th>                  
                   <th className="text-center">تاريخ التبرع</th>
                   <th className="text-center">حالة التبرع</th>
                   <th className="text-center">المبلغ</th>
@@ -187,6 +191,9 @@ const DonationsSection = () => {
                     </td>
                     <td className="text-center" dir="ltr">
                       {myDonation.donation_type}
+                    </td>
+                    <td className="text-center" dir="ltr">
+                      {myDonation.email}
                     </td>
                     <td className="text-center" dir="ltr">
                       {myDonation.creation_date}

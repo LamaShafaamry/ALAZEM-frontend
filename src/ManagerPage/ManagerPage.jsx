@@ -37,7 +37,7 @@ const ManagerPage = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await getDoctorsList();
+        const response = await getDoctorsList("REG", "");
         setDoctors(response.data);
       } catch (error) {
         showMessage("فشل في جلب قائمة الأطباء", "error");

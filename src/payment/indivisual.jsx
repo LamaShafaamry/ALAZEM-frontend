@@ -15,6 +15,8 @@ const IndividualDonation = () => {
     isRecurring: false,
     patients: [],
   });
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({ text: "", type: "" });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -34,7 +36,7 @@ const IndividualDonation = () => {
       alert("الرجاء إدخال جميع حقول الاسم");
       return;
     }
-
+    setLoading(true);
     const patientData = {
       first_name: firstName,
       last_name: lastName,
@@ -68,6 +70,7 @@ const IndividualDonation = () => {
       console.error("Error adding patient:", error);
       alert("الرجاء التأكد من الاسم");
     }
+   
   };
 
   const togglePatientSelection = (index) => {
@@ -103,7 +106,7 @@ const IndividualDonation = () => {
 
     try {
       const response = await createDonation(donationRequest);
-      alert("تم تقديم التبرع بنجاح");
+      // alert("تم تقديم التبرع بنجاح");
       console.log("Donation Response:", response.data);
 
       // إعادة تعيين النموذج
@@ -123,7 +126,39 @@ const IndividualDonation = () => {
       alert("حدث خطأ أثناء إرسال التبرع");
       console.error("Donation Error:", error);
     }
+     try {
+      const response = await createDonation(donationRequest);
+
+      if (response.status === 201) {
+        showMessage(" تم إرسال طلب تبرعك بنجاح سيتم مراجعة الطلب وإرسال الرد عبر البريد الإالكتروني.", "success");
+        setDonationData({
+          firstName: "",
+          lastName: "",
+          mothersName: "",
+          fatherName: "",
+          email: "",
+
+          amount: "",
+
+          isRecurring: false,
+          patients: [],
+        });
+      } else {
+        showMessage("حدث خطأ أثناء إرسال التبرع", "error");
+      }
+    } catch (error) {
+      showMessage("حدث خطأ في الاتصال بالخادم", "error");
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
+
+   const showMessage = (text, type) => {
+    setMessage({ text, type });
+    setTimeout(() => setMessage({ text: "", type: "" }), 7000);
+  };
+
 
   return (
     <div className="donation-container">
@@ -280,11 +315,26 @@ const IndividualDonation = () => {
                 type="submit"
                 className="submit-btn"
                 onClick={handleSubmit}
-                disabled={donationData.patients.length === 0}
+                disabled={
+                  donationData.patients.length === 0 || !donationData.email
+                }
               >
                 إرسال
               </button>
             </form>
+            {message.text && (
+              <div
+                style={{
+                  color: message.type === "error" ? "red" : "green",
+                  marginTop: "15px",
+                  fontWeight: "bold",
+                  textAlign: "center",
+                }}
+                // className={` alert-${message.type === 'error' ? 'danger' : 'success'}`}
+              >
+                {message.text}
+              </div>
+            )}
           </div>
         </div>
 

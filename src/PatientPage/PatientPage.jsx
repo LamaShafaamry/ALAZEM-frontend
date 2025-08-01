@@ -99,35 +99,35 @@ const PatientProfile = () => {
     <div className="sidebar-section contact-info" style={{ flex: 1, minWidth: "300px" }}>
       <h3 className="sidebar-title">معلوماتي الشخصية</h3>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>👤 الاسم الكامل: </span>
+        <span style={{ fontWeight: "bold" }}> الاسم الكامل: </span>
         <span>
           {patientInfo.first_name} {patientInfo.last_name}
         </span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>🎓 الشهادة: </span>
+        <span style={{ fontWeight: "bold" }}>الشهادة: </span>
         <span>{patientInfo.certificate}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>📅 مكان وتاريخ الولادة: </span>
+        <span style={{ fontWeight: "bold" }}>مكان وتاريخ الولادة: </span>
         <span>
           {patientInfo.place_of_birth} - {patientInfo.date_of_birth}
         </span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>🌍 الجنسية: </span>
+        <span style={{ fontWeight: "bold" }}>الجنسية: </span>
         <span>{patientInfo.nationality}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>🏠 العنوان: </span>
+        <span style={{ fontWeight: "bold" }}>العنوان: </span>
         <span>{patientInfo.address || "غير محدد"}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>📞 رقم الهاتف: </span>
+        <span style={{ fontWeight: "bold" }}> رقم الهاتف: </span>
         <span>{patientInfo.phone}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>✉️ البريد الإلكتروني: </span>
+        <span style={{ fontWeight: "bold" }}>البريد الإلكتروني: </span>
         <span>{patientInfo.email}</span>
       </div>
     </div>
@@ -136,31 +136,31 @@ const PatientProfile = () => {
     <div className="sidebar-section contact-info" style={{ flex: 1, minWidth: "300px" }}>
       <h3 className="sidebar-title">المعلومات الإضافية</h3>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>👵 اسم الأب: </span>
+        <span style={{ fontWeight: "bold" }}> اسم الأب: </span>
         <span>{patientInfo.father_name}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>👵 اسم الأم: </span>
+        <span style={{ fontWeight: "bold" }}>اسم الأم: </span>
         <span>{patientInfo.mother_name}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>🧾 الرقم الوطني: </span>
+        <span style={{ fontWeight: "bold" }}> الرقم الوطني: </span>
         <span>{patientInfo.nationality_ID || "غير متوفر"}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>🏢 المهنة: </span>
+        <span style={{ fontWeight: "bold" }}> المهنة: </span>
         <span>{patientInfo.job || "غير محددة"}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>📚 الجمعيات السابقة: </span>
+        <span style={{ fontWeight: "bold" }}> الجمعيات السابقة: </span>
         <span>{patientInfo.previously_affiliated_associations || "لا يوجد"}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>📋 التاريخ الطبي العائلي: </span>
+        <span style={{ fontWeight: "bold" }}> التاريخ الطبي العائلي: </span>
         <span>{patientInfo.grand_history || "لا يوجد"}</span>
       </div>
       <div className="contact-item">
-        <span style={{ fontWeight: "bold" }}>⚙️ حالة الحساب: </span>
+        <span style={{ fontWeight: "bold" }}> حالة الحساب: </span>
         <span>{patientInfo.status}</span>
       </div>
     </div>

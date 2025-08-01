@@ -3,7 +3,7 @@ import React from 'react';
 const SelectField = ({ label, name, value, onChange, options }) => {
   return (
     <div className="flex flex-col gap-4">
-      <label className="w-full border border-gray-400 rounded-lg p-2">
+      <label className="w-full  border-gray-400 rounded-lg p-2">
         {label}
       </label>
       <select

@@ -12,10 +12,13 @@ function RequestPage() {
         
         <div className="button-group">
           <Link to="/patient-request" className="w-100">
-            <button className="patient-btn">تسجيل مريض</button>
+            <button className="patient-btn">تسجيل كفيفة</button>
           </Link>
           <Link to="/volunteer-request" className="w-100">
-            <button className="volunteer-btn">طلب تطوع</button>
+            <button className="volunteer-btn">انضم كمتطوع</button>
+          </Link>
+          <Link to="/doctor-request" className="w-100">
+            <button className="volunteer-btn">انضم كطبيب</button>
           </Link>
         </div>
       </div>
