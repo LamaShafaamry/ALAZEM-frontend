@@ -4,6 +4,7 @@ import {
   getPendingPatientsList,
   createServiceAppointment,
   getAllAppointments,
+  getRegistrationPatientsList,
 } from "../api/api";
 import "./ManagerPage.css";
 import VolunteersSection from "./VolunteersSection";
@@ -46,7 +47,7 @@ const ManagerPage = () => {
 
     const fetchPatients = async () => {
       try {
-        const response = await getPendingPatientsList();
+        const response = await getRegistrationPatientsList();
         setPatients(response.data);
       } catch (error) {
         showMessage("فشل في جلب قائمة المرضى", "error");
@@ -298,7 +299,7 @@ const ManagerPage = () => {
                       onChange={(e) => setSelectedDoctor(e.target.value)}
                       required
                     >
-                      <option value="">-- اختر طبيب --</option>
+                      <option value="">اختر طبيب</option>
                       {doctors.map((doctor) => (
                         <option key={doctor.id} value={doctor.id}>
                           {doctor.first_name} - تخصص: {doctor.speciality}
@@ -315,11 +316,11 @@ const ManagerPage = () => {
                       onChange={(e) => setSelectedPatient(e.target.value)}
                       required
                     >
-                      <option value="">-- اختر مريض --</option>
+                      <option value=""> اختر مريض</option>
                       {patients.map((patient) => (
                         <option key={patient.id} value={patient.id}>
-                          {patient.first_name} - رقم الملف:{" "}
-                          {patient.disability_card_number}
+                        {patient.id} - {patient.first_name}
+                          
                         </option>
                       ))}
                     </select>

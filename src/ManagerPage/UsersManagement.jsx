@@ -123,14 +123,14 @@ const UsersManagement = () => {
           className={`tab-btn ${activeTab === "volunteers" ? "active" : ""}`}
           onClick={() => setActiveTab("volunteers")}
         >
-          طلبات المتطوعون
+           المتطوعون
         </button>
 
         <button
           className={`tab-btn ${activeTab === "doctors" ? "active" : ""}`}
           onClick={() => setActiveTab("doctors")}
         >
-          طلبات الأطباء
+           الأطباء
         </button>
       </div>
       

@@ -36,9 +36,7 @@ const Form = () => {
     history_of_blindness: "",
   });
 
-  const [showPassword, setShowPassword] = useState(false);
-const [error, setError] = useState("");
-
+  
   const statusOptions = [
     { value: "yes", label: "نعم" },
     { value: "No", label: "لا" },
@@ -67,18 +65,6 @@ const [error, setError] = useState("");
         setIsLoading(false);
       });
   };
-const validatePassword = (password) => {
-  if (password.length < 8) {
-    return "كلمة المرور يجب أن تحتوي على 8 أحرف على الأقل";
-  }
-  if (!/[A-Z]/.test(password)) {
-    return "كلمة المرور يجب أن تحتوي على حرف كبير واحد على الأقل";
-  }
-  if (commonPasswords.includes(password.toLowerCase())) {
-    return "كلمة المرور شائعة جدًا، يرجى اختيار كلمة مرور أقوى";
-  }
-  return "";
-};
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -133,7 +119,7 @@ const validatePassword = (password) => {
                 </div>
 
                 {/* Password */}
-                {/* <div style={{ display: "flex", width: "100%" }}>
+                <div style={{ display: "flex", width: "100%" }}>
                   <label style={{ marginTop: "6px" }}>كلمة المرور</label>
                   <InputField
                     name="password"
@@ -147,32 +133,7 @@ const validatePassword = (password) => {
                     placeholder="ادخل كلمة المرور"
                     style={{ width: "75%" }}
                   />
-                </div> */}
-                    <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      <label style={{ marginBottom: "6px" }}>كلمة المرور</label>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <InputField
-          name="password"
-          type={showPassword ? "text" : "password"}
-          value={value.password}
-          onChange={handleChange}
-          placeholder="ادخل كلمة المرور"
-          style={{ width: "75%" }}
-        />
-        <button
-          type="button"
-          onClick={() => setShowPassword((prev) => !prev)}
-          style={{
-            marginLeft: "10px",
-            padding: "6px 10px",
-            cursor: "pointer",
-          }}
-        >
-          {showPassword ? "إخفاء" : "إظهار"}
-        </button>
-      </div>
-      {error && <span style={{ color: "red", marginTop: "4px" }}>{error}</span>}
-    </div>
+                </div>
       
               </div>
             </div>
