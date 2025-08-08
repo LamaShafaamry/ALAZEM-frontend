@@ -96,8 +96,22 @@ function Navbar() {
                   }
                   </li>
           </ul>
+          
         </div>
+        
       </div>
+      <a className="navbar-brand" href="#" onClick={scrollToHome}>
+      
+          <img 
+            src="Photos/logo.jpg" 
+            alt="جمعية العزم" 
+            width="60" 
+            height="60" 
+            className="d-inline-block align-top me-2"
+          />
+         
+        </a>
+
     </nav>
   );
 }

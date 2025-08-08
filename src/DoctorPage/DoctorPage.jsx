@@ -75,7 +75,7 @@ const DoctorPage = () => {
         {/* Header Section */}
         <div className="doctor-header">
           <div className="doctor-avatar">
-            <img src="Photos/user-default.png" alt="صورة الكفيفة" />
+            <img src="Photos/doctor-profile3.jpg" alt="صورة الكفيفة" />
           </div>
           <div className="doctor-title">
             <h1>

@@ -9,7 +9,7 @@ const DoctorProfile = () => {
         {/* Header Section */}
         <div className="doctor-header">
           <div className="doctor-avatar">
-            <img src="Photos/user-default.png" alt="صورة الطبيب" />
+            <img src="Photos/doctor-profile.jpg" alt="صورة الطبيب" />
           </div>
           <div className="doctor-title">
             <h1>{doctorInfo.name}</h1>

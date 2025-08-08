@@ -74,7 +74,7 @@ const ManagerProfile = () => {
         {/* Header Section */}
         <div className="doctor-header">
           <div className="doctor-avatar">
-            <img src="Photos/user-default.png" alt="صورة المدير" />
+            <img src="Photos/manager-profile.jpg" alt="صورة المدير" />
           </div>
           <div className="doctor-title">
             <h1>
